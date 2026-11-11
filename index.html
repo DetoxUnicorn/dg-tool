@@ -4,124 +4,350 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="theme-color" content="#1e293b">
-  <title>DG Segregation Tool</title>
+  <meta name="theme-color" content="#0b1120">
+  <title>DG Pro Segregation Assistant</title>
   <style>
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 12px; background: #0f172a; color: #f8fafc; }
-    .card { background: #1e293b; border-radius: 12px; padding: 16px; margin-bottom: 14px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); }
-    h1 { font-size: 1.25rem; margin: 0 0 12px 0; color: #38bdf8; display: flex; align-items: center; gap: 8px; }
-    label { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; color: #94a3b8; display: block; margin-bottom: 6px; }
-    input, select, button { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 1rem; margin-bottom: 12px; }
-    button { background: #0284c7; border: none; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-    button:active { background: #0369a1; }
-    .badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: bold; }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { margin: 0; padding: 12px; background: #0b1120; color: #f1f5f9; }
+    .card { background: #1e293b; border-radius: 12px; padding: 16px; margin-bottom: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border: 1px solid #334155; }
+    h1 { font-size: 1.25rem; margin: 0 0 12px 0; color: #38bdf8; display: flex; align-items: center; justify-content: space-between; }
+    h2 { font-size: 1.05rem; margin: 0 0 10px 0; color: #f8fafc; }
+    label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #94a3b8; display: block; margin-bottom: 6px; letter-spacing: 0.5px; }
+    input, select, button { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 0.95rem; margin-bottom: 12px; outline: none; }
+    input:focus, select:focus { border-color: #38bdf8; ring: 2px solid #38bdf8; }
+    button { background: #0284c7; border: none; font-weight: 700; cursor: pointer; transition: background 0.15s ease; }
+    button:active { background: #0369a1; transform: scale(0.99); }
+    .btn-secondary { background: #334155; color: #e2e8f0; margin-bottom: 8px; }
+    .btn-secondary:active { background: #475569; }
+    .btn-danger { background: #dc2626; margin-top: 4px; padding: 8px; }
+    .badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
     .badge-class { background: #e11d48; color: #fff; }
     .badge-sub { background: #d97706; color: #fff; margin-left: 4px; }
-    .result-box { background: #0f172a; border-radius: 8px; padding: 12px; margin-top: 8px; border-left: 4px solid #38bdf8; }
-    .rule-item { padding: 10px 0; border-bottom: 1px solid #334155; font-size: 0.9rem; }
-    .rule-item:last-child { border-bottom: none; }
-    .tag-prohibited { color: #f87171; font-weight: bold; }
-    .tag-allowed { color: #4ade80; font-weight: bold; }
-    .tag-sep { color: #fbbf24; font-weight: bold; }
-    .quick-list { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 10px; }
-    .chip { background: #334155; padding: 6px 12px; border-radius: 16px; font-size: 0.8rem; white-space: nowrap; cursor: pointer; }
+    .badge-sgg { background: #8b5cf6; color: #fff; margin-left: 4px; }
+    .tab-bar { display: flex; gap: 8px; margin-bottom: 14px; }
+    .tab { flex: 1; padding: 10px; text-align: center; background: #1e293b; border-radius: 8px; font-size: 0.85rem; font-weight: 700; border: 1px solid #334155; color: #94a3b8; }
+    .tab.active { background: #0284c7; color: #fff; border-color: #38bdf8; }
+    .result-row { padding: 10px; border-bottom: 1px solid #334155; font-size: 0.85rem; display: flex; flex-direction: column; gap: 4px; }
+    .result-row:last-child { border-bottom: none; }
+    .tag { font-weight: 800; border-radius: 4px; padding: 2px 6px; font-size: 0.75rem; width: fit-content; }
+    .tag-p { background: #7f1d1d; color: #fca5a5; }
+    .tag-s { background: #78350f; color: #fde68a; }
+    .tag-a { background: #14532d; color: #86efac; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .manifest-item { background: #0f172a; border-radius: 8px; padding: 10px; margin-bottom: 8px; border-left: 4px solid #38bdf8; font-size: 0.85rem; }
+    .alert-banner { padding: 12px; border-radius: 8px; margin-bottom: 12px; font-size: 0.85rem; line-height: 1.4; }
+    .alert-error { background: #450a0a; border: 1px solid #ef4444; color: #fca5a5; }
+    .alert-success { background: #052e16; border: 1px solid #22c55e; color: #86efac; }
+    .alert-warn { background: #451a03; border: 1px solid #f59e0b; color: #fde68a; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>📦 DG Segregation Lookup</h1>
-    <label for="unInput">Search UN Number or Name</label>
-    <div class="quick-list">
-      <span class="chip" onclick="quickFill('1203')">UN 1203 (Petrol)</span>
-      <span class="chip" onclick="quickFill('1830')">UN 1830 (Sulphuric)</span>
-      <span class="chip" onclick="quickFill('1950')">UN 1950 (Aerosols)</span>
-      <span class="chip" onclick="quickFill('1005')">UN 1005 (Ammonia)</span>
-    </div>
-    <input type="text" id="unInput" placeholder="Enter UN number (e.g. 1830, 1203)..." inputmode="numeric">
-    <button onclick="lookupDG()">Check Segregation</button>
+
+  <div class="tab-bar">
+    <div class="tab active" id="tabBtn1" onclick="switchTab('lookup')">Single UN Lookup</div>
+    <div class="tab" id="tabBtn2" onclick="switchTab('manifest')">Load Manifest Audit</div>
   </div>
 
-  <div id="output" style="display:none;">
+  <!-- SINGLE LOOKUP VIEW -->
+  <div id="viewLookup">
     <div class="card">
-      <div id="substanceHeader"></div>
-      <div id="substanceDetails" class="result-box"></div>
+      <h1>Single Item Inspector</h1>
+      <label for="unInput">UN Number (Any 4 digits)</label>
+      <input type="text" id="unInput" placeholder="Enter UN Number (e.g. 1017, 1075, 1789, 1830)..." inputmode="numeric">
+      
+      <div class="grid-2">
+        <div>
+          <label for="primaryClass">Primary Hazard Class</label>
+          <select id="primaryClass">
+            <option value="1.1">1.1 - Explosives (Mass Detonation)</option>
+            <option value="1.2">1.2 - Explosives (Projection)</option>
+            <option value="1.3">1.3 - Explosives (Fire/Minor Blast)</option>
+            <option value="1.4">1.4 - Explosives (Minor Hazard)</option>
+            <option value="2.1">2.1 - Flammable Gas</option>
+            <option value="2.2">2.2 - Non-Flammable/Non-Toxic Gas</option>
+            <option value="2.3">2.3 - Toxic Gas</option>
+            <option value="3" selected>3 - Flammable Liquid</option>
+            <option value="4.1">4.1 - Flammable Solid</option>
+            <option value="4.2">4.2 - Spontaneously Combustible</option>
+            <option value="4.3">4.3 - Dangerous When Wet</option>
+            <option value="5.1">5.1 - Oxidizing Substances</option>
+            <option value="5.2">5.2 - Organic Peroxides</option>
+            <option value="6.1">6.1 - Toxic Substances</option>
+            <option value="6.2">6.2 - Infectious Substances</option>
+            <option value="7">7 - Radioactive Material</option>
+            <option value="8">8 - Corrosives</option>
+            <option value="9">9 - Miscellaneous DG</option>
+          </select>
+        </div>
+        <div>
+          <label for="subRisk">Subsidiary Hazard</label>
+          <select id="subRisk">
+            <option value="">None</option>
+            <option value="2.1">2.1</option>
+            <option value="3">3</option>
+            <option value="4.1">4.1</option>
+            <option value="4.2">4.2</option>
+            <option value="4.3">4.3</option>
+            <option value="5.1">5.1</option>
+            <option value="6.1">6.1</option>
+            <option value="8">8</option>
+          </select>
+        </div>
+      </div>
+
+      <label for="sggGroup">IMDG Segregation Group (SGG)</label>
+      <select id="sggGroup">
+        <option value="None">None / General</option>
+        <option value="SGG1">SGG1 - Acids (Strong Inorganic/Organic)</option>
+        <option value="SGG18">SGG18 - Alkalis / Caustic</option>
+        <option value="SGG6">SGG6 - Cyanides</option>
+        <option value="SGG2">SGG2 - Ammonium Compounds</option>
+        <option value="SGG16">SGG16 - Peroxides</option>
+      </select>
+
+      <button onclick="inspectSingle()">Evaluate Full Segregation Rules</button>
+      <button class="btn-secondary" onclick="addCurrentToManifest()">+ Add to Load Manifest</button>
     </div>
 
+    <div id="singleResults" style="display:none;">
+      <div class="card">
+        <div id="itemHeader"></div>
+      </div>
+
+      <div class="card">
+        <h2>🚛 Road Segregation (NZS 5433 Matrix)</h2>
+        <div id="roadAudit"></div>
+      </div>
+
+      <div class="card">
+        <h2>🌊 Maritime Segregation (IMDG Code 7.2)</h2>
+        <div id="seaAudit"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MANIFEST AUDIT VIEW -->
+  <div id="viewManifest" style="display:none;">
     <div class="card">
-      <label>🚛 Road Transport (NZS 5433)</label>
-      <div id="roadRules"></div>
+      <h1>Active Load / Container Manifest</h1>
+      <p style="font-size:0.8rem; color:#94a3b8; margin-top:-6px;">Audit cross-compatibility for your entire trailer or container load.</p>
+      <div id="manifestList"></div>
+      <button onclick="auditFullManifest()" style="background:#10b981;">Audit Vehicle / Container Compatibility</button>
+      <button class="btn-secondary btn-danger" onclick="clearManifest()">Clear Manifest</button>
     </div>
 
-    <div class="card">
-      <label>🌊 Sea Transport (IMDG Code 7.2)</label>
-      <div id="seaRules"></div>
+    <div id="manifestResults" style="display:none;">
+      <div class="card">
+        <h2>Collision Analysis & Directives</h2>
+        <div id="manifestBanners"></div>
+      </div>
     </div>
   </div>
 
   <script>
-    const db = {
-      "1203": { name: "MOTOR SPIRIT / GASOLINE / PETROL", class: "3", sub: "", pg: "II", sgg: "None", marine: "Segregation code 1 away from Class 1, 5.1, 5.2. Prohibited with Class 2.1 in same freight container without barrier." },
-      "1830": { name: "SULPHURIC ACID with >51% acid", class: "8", sub: "", pg: "II", sgg: "SGG1 (Acids)", marine: "Segregation code 2 (Separated from) Class 4.3, 5.1. Strictly segregated from SGG18 (Alkalis) and Class 7." },
-      "1950": { name: "AEROSOLS, flammable", class: "2.1", sub: "", pg: "N/A", sgg: "None", marine: "Code 1 (Away from) Class 1 (except 1.4S), Class 7. Segregate from heat sources." },
-      "1005": { name: "AMMONIA, ANHYDROUS", class: "2.3", sub: "8", pg: "N/A", sgg: "SGG18 (Alkalis)", marine: "Code 2 (Separated from) Class 3, 4, 5, and SGG1 (Acids). Must not be loaded with food cargo." },
-      "1719": { name: "CAUSTIC ALKALI LIQUID, N.O.S.", class: "8", sub: "", pg: "II", sgg: "SGG18 (Alkalis)", marine: "Code 2 (Separated from) SGG1 (Acids). Incompatible with aluminum and zinc." },
-      "1428": { name: "SODIUM", class: "4.3", sub: "", pg: "I", sgg: "None", marine: "Code 2/3 against water solutions, acids, and flammable liquids. Kept dry at all times." }
+    const UN_DATABASE = {
+      "1005": { name: "AMMONIA, ANHYDROUS", class: "2.3", sub: "8", sgg: "SGG18" },
+      "1017": { name: "CHLORINE", class: "2.3", sub: "5.1", sgg: "None" },
+      "1075": { name: "PETROLEUM GASES, LIQUEFIED (LPG)", class: "2.1", sub: "", sgg: "None" },
+      "1202": { name: "DIESEL FUEL / GAS OIL", class: "3", sub: "", sgg: "None" },
+      "1203": { name: "MOTOR SPIRIT / PETROL", class: "3", sub: "", sgg: "None" },
+      "1223": { name: "KEROSENE", class: "3", sub: "", sgg: "None" },
+      "1230": { name: "METHANOL", class: "3", sub: "6.1", sgg: "None" },
+      "1263": { name: "PAINT or PAINT RELATED MATERIAL", class: "3", sub: "", sgg: "None" },
+      "1428": { name: "SODIUM", class: "4.3", sub: "", sgg: "None" },
+      "1495": { name: "SODIUM CHLORATE", class: "5.1", sub: "", sgg: "None" },
+      "1588": { name: "CYANIDES, INORGANIC, SOLID, N.O.S.", class: "6.1", sub: "", sgg: "SGG6" },
+      "1719": { name: "CAUSTIC ALKALI LIQUID, N.O.S.", class: "8", sub: "", sgg: "SGG18" },
+      "1789": { name: "HYDROCHLORIC ACID", class: "8", sub: "", sgg: "SGG1" },
+      "1791": { name: "HYPOCHLORITE SOLUTION", class: "8", sub: "", sgg: "None" },
+      "1805": { name: "PHOSPHORIC ACID, SOLUTION", class: "8", sub: "", sgg: "SGG1" },
+      "1824": { name: "SODIUM HYDROXIDE SOLUTION", class: "8", sub: "", sgg: "SGG18" },
+      "1830": { name: "SULPHURIC ACID (>51%)", class: "8", sub: "", sgg: "SGG1" },
+      "1944": { name: "MATCHES, SAFETY", class: "4.1", sub: "", sgg: "None" },
+      "1950": { name: "AEROSOLS", class: "2.1", sub: "", sgg: "None" },
+      "1993": { name: "FLAMMABLE LIQUID, N.O.S.", class: "3", sub: "", sgg: "None" },
+      "2014": { name: "HYDROGEN PEROXIDE, AQUEOUS SOLUTION", class: "5.1", sub: "8", sgg: "SGG16" },
+      "3082": { name: "ENVIRONMENTALLY HAZARDOUS SUBSTANCE, LIQUID, N.O.S.", class: "9", sub: "", sgg: "None" },
+      "3101": { name: "ORGANIC PEROXIDE TYPE B, LIQUID", class: "5.2", sub: "1.1", sgg: "None" },
+      "3480": { name: "LITHIUM ION BATTERIES", class: "9", sub: "", sgg: "None" }
     };
 
-    function quickFill(un) {
-      document.getElementById('unInput').value = un;
-      lookupDG();
+    const ROAD_MATRIX = {
+      "1.1": { "1.1":"A", "2.1":"P", "2.2":"P", "2.3":"P", "3":"P", "4.1":"P", "4.2":"P", "4.3":"P", "5.1":"P", "5.2":"P", "6.1":"P", "8":"P", "9":"A" },
+      "2.1": { "1.1":"P", "2.1":"A", "2.2":"A", "2.3":"A", "3":"A", "4.1":"A", "4.2":"S", "4.3":"S", "5.1":"P", "5.2":"P", "6.1":"A", "8":"A", "9":"A" },
+      "2.2": { "1.1":"P", "2.1":"A", "2.2":"A", "2.3":"A", "3":"A", "4.1":"A", "4.2":"A", "4.3":"A", "5.1":"A", "5.2":"P", "6.1":"A", "8":"A", "9":"A" },
+      "2.3": { "1.1":"P", "2.1":"A", "2.2":"A", "2.3":"A", "3":"S", "4.1":"A", "4.2":"S", "4.3":"S", "5.1":"P", "5.2":"P", "6.1":"A", "8":"S", "9":"A" },
+      "3":   { "1.1":"P", "2.1":"A", "2.2":"A", "2.3":"S", "3":"A", "4.1":"A", "4.2":"S", "4.3":"S", "5.1":"P", "5.2":"P", "6.1":"A", "8":"S", "9":"A" },
+      "4.1": { "1.1":"P", "2.1":"A", "2.2":"A", "2.3":"A", "3":"A", "4.1":"A", "4.2":"A", "4.3":"S", "5.1":"S", "5.2":"P", "6.1":"A", "8":"A", "9":"A" },
+      "4.2": { "1.1":"P", "2.1":"S", "2.2":"A", "2.3":"S", "3":"S", "4.1":"A", "4.2":"A", "4.3":"S", "5.1":"S", "5.2":"P", "6.1":"A", "8":"S", "9":"A" },
+      "4.3": { "1.1":"P", "2.1":"S", "2.2":"A", "2.3":"S", "3":"S", "4.1":"S", "4.2":"S", "4.3":"A", "5.1":"S", "5.2":"P", "6.1":"A", "8":"S", "9":"A" },
+      "5.1": { "1.1":"P", "2.1":"P", "2.2":"A", "2.3":"P", "3":"P", "4.1":"S", "4.2":"S", "4.3":"S", "5.1":"A", "5.2":"S", "6.1":"S", "8":"S", "9":"A" },
+      "5.2": { "1.1":"P", "2.1":"P", "2.2":"P", "2.3":"P", "3":"P", "4.1":"P", "4.2":"P", "4.3":"P", "5.1":"S", "5.2":"A", "6.1":"S", "8":"P", "9":"A" },
+      "6.1": { "1.1":"P", "2.1":"A", "2.2":"A", "2.3":"A", "3":"A", "4.1":"A", "4.2":"A", "4.3":"A", "5.1":"S", "5.2":"S", "6.1":"A", "8":"A", "9":"A" },
+      "8":   { "1.1":"P", "2.1":"A", "2.2":"A", "2.3":"S", "3":"S", "4.1":"A", "4.2":"S", "4.3":"S", "5.1":"S", "5.2":"P", "6.1":"A", "8":"A", "9":"A" },
+      "9":   { "1.1":"A", "2.1":"A", "2.2":"A", "2.3":"A", "3":"A", "4.1":"A", "4.2":"A", "4.3":"A", "5.1":"A", "5.2":"A", "6.1":"A", "8":"A", "9":"A" }
+    };
+
+    const IMDG_MATRIX = {
+      "2.1": { "2.1":"X", "2.2":"X", "2.3":"X", "3":"2", "4.1":"2", "4.2":"2", "4.3":"X", "5.1":"2", "5.2":"2", "6.1":"X", "8":"1", "9":"X" },
+      "2.2": { "2.1":"X", "2.2":"X", "2.3":"X", "3":"1", "4.1":"X", "4.2":"1", "4.3":"X", "5.1":"X", "5.2":"1", "6.1":"X", "8":"X", "9":"X" },
+      "2.3": { "2.1":"X", "2.2":"X", "2.3":"X", "3":"2", "4.1":"X", "4.2":"2", "4.3":"X", "5.1":"X", "5.2":"2", "6.1":"X", "8":"X", "9":"X" },
+      "3":   { "2.1":"2", "2.2":"1", "2.3":"2", "3":"X", "4.1":"X", "4.2":"2", "4.3":"2", "5.1":"2", "5.2":"2", "6.1":"X", "8":"X", "9":"X" },
+      "4.1": { "2.1":"2", "2.2":"X", "2.3":"X", "3":"X", "4.1":"X", "4.2":"1", "4.3":"X", "5.1":"2", "5.2":"2", "6.1":"X", "8":"1", "9":"X" },
+      "4.2": { "2.1":"2", "2.2":"1", "2.3":"2", "3":"2", "4.1":"1", "4.2":"X", "4.3":"1", "5.1":"2", "5.2":"2", "6.1":"1", "8":"1", "9":"X" },
+      "4.3": { "2.1":"X", "2.2":"X", "2.3":"X", "3":"2", "4.1":"X", "4.2":"1", "4.3":"X", "5.1":"2", "5.2":"2", "6.1":"X", "8":"1", "9":"X" },
+      "5.1": { "2.1":"2", "2.2":"X", "2.3":"X", "3":"2", "4.1":"2", "4.2":"2", "4.3":"2", "5.1":"X", "5.2":"2", "6.1":"1", "8":"2", "9":"X" },
+      "5.2": { "2.1":"2", "2.2":"1", "2.3":"2", "3":"2", "4.1":"2", "4.2":"2", "4.3":"2", "5.1":"2", "5.2":"X", "6.1":"1", "8":"2", "9":"X" },
+      "6.1": { "2.1":"X", "2.2":"X", "2.3":"X", "3":"X", "4.1":"X", "4.2":"1", "4.3":"X", "5.1":"1", "5.2":"1", "6.1":"X", "8":"X", "9":"X" },
+      "8":   { "2.1":"1", "2.2":"X", "2.3":"X", "3":"X", "4.1":"1", "4.2":"1", "4.3":"1", "5.1":"2", "5.2":"2", "6.1":"X", "8":"X", "9":"X" },
+      "9":   { "2.1":"X", "2.2":"X", "2.3":"X", "3":"X", "4.1":"X", "4.2":"X", "4.3":"X", "5.1":"X", "5.2":"X", "6.1":"X", "8":"X", "9":"X" }
+    };
+
+    let manifest = [];
+
+    document.getElementById('unInput').addEventListener('input', function(e) {
+      const code = e.target.value.trim().replace(/^UN\s*/i, '');
+      if (UN_DATABASE[code]) {
+        const item = UN_DATABASE[code];
+        document.getElementById('primaryClass').value = item.class;
+        document.getElementById('subRisk').value = item.sub;
+        document.getElementById('sggGroup').value = item.sgg;
+      }
+    });
+
+    function switchTab(view) {
+      if (view === 'lookup') {
+        document.getElementById('viewLookup').style.display = 'block';
+        document.getElementById('viewManifest').style.display = 'none';
+        document.getElementById('tabBtn1').classList.add('active');
+        document.getElementById('tabBtn2').classList.remove('active');
+      } else {
+        document.getElementById('viewLookup').style.display = 'none';
+        document.getElementById('viewManifest').style.display = 'block';
+        document.getElementById('tabBtn1').classList.remove('active');
+        document.getElementById('tabBtn2').classList.add('active');
+        renderManifest();
+      }
     }
 
-    function lookupDG() {
-      const val = document.getElementById('unInput').value.trim();
-      const item = db[val];
-      const out = document.getElementById('output');
+    function getBaseClass(cls) {
+      return cls.startsWith("1.") ? "1.1" : cls;
+    }
 
-      if (!item) {
-        alert("UN " + val + " not in preloaded demo list. Try 1203, 1830, 1950, 1005, 1719, or 1428.");
-        return;
-      }
+    function inspectSingle() {
+      const inputVal = document.getElementById('unInput').value.trim();
+      const code = inputVal.replace(/^UN\s*/i, '');
+      const pClass = document.getElementById('primaryClass').value;
+      const sub = document.getElementById('subRisk').value;
+      const sgg = document.getElementById('sggGroup').value;
+      const title = UN_DATABASE[code] ? `UN ${code} - ${UN_DATABASE[code].name}` : (code ? `UN ${code}` : `DG Class ${pClass}`);
 
-      document.getElementById('substanceHeader').innerHTML = `
-        <h2 style="margin:0; font-size:1.1rem; color:#fff;">UN ${val} - ${item.name}</h2>
+      document.getElementById('itemHeader').innerHTML = `
+        <h2 style="margin:0; color:#38bdf8;">${title}</h2>
         <div style="margin-top:6px;">
-          <span class="badge badge-class">Class ${item.class}</span>
-          ${item.sub ? `<span class="badge badge-sub">Sub-Risk ${item.sub}</span>` : ''}
-          <span style="font-size:0.8rem; color:#94a3b8; margin-left:8px;">PG: ${item.pg} | SGG: ${item.sgg}</span>
+          <span class="badge badge-class">Class ${pClass}</span>
+          ${sub ? `<span class="badge badge-sub">Sub-Risk ${sub}</span>` : ''}
+          <span class="badge badge-sgg">${sgg}</span>
         </div>
       `;
 
-      let roadTxt = "";
-      if (item.class === "3") {
-        roadTxt = `
-          <div class="rule-item"><span class="tag-prohibited">PROHIBITED:</span> Do not load with Class 1 (Explosives) or Class 5.1/5.2 (Oxidizers/Peroxides).</div>
-          <div class="rule-item"><span class="tag-sep">SEPARATION:</span> Maintain minimum 3m separation or use an approved Segregation Device (SD) against Class 2.3 and Class 8 liquids.</div>
-          <div class="rule-item"><span class="tag-allowed">ALLOWED:</span> Compatible with general freight, Class 9, and non-DG dry goods.</div>
-        `;
-      } else if (item.class === "8") {
-        roadTxt = `
-          <div class="rule-item"><span class="tag-prohibited">CRITICAL:</span> Do not co-load SGG1 Acids with SGG18 Alkalis or Cyanides in the same load compartment without containment.</div>
-          <div class="rule-item"><span class="tag-sep">SEPARATION:</span> Maintain 3m separation from Class 4.3 (Dangerous When Wet) and Class 5.1.</div>
-          <div class="rule-item"><span class="tag-allowed">FOOD SAFETY:</span> Must not be loaded above or adjacent to food packaging.</div>
-        `;
-      } else {
-        roadTxt = `<div class="rule-item"><span class="tag-sep">STANDARD:</span> Segregate by 3m or approved segregation partition from incompatible hazard classes per NZS 5433 Table 6.</div>`;
-      }
+      let roadHTML = "";
+      const baseP = getBaseClass(pClass);
+      const targets = ["1.1", "2.1", "2.2", "2.3", "3", "4.1", "4.2", "4.3", "5.1", "5.2", "6.1", "8", "9"];
+      
+      targets.forEach(tgt => {
+        let rule = (ROAD_MATRIX[baseP] && ROAD_MATRIX[baseP][tgt]) ? ROAD_MATRIX[baseP][tgt] : "A";
+        let note = "";
+        if (sgg === "SGG1" && tgt === "8") {
+          note = " (CRITICAL: Prohibited with SGG18 Alkalis & SGG6 Cyanides)";
+        }
+        if (tgt === "6.1" || tgt === "8") {
+          note += " [Must isolate from foodstuffs]";
+        }
 
-      document.getElementById('substanceDetails').innerHTML = `<strong>Segregation Group:</strong> ${item.sgg}<br><strong>Primary Hazards:</strong> Class ${item.class} ${item.sub ? '(Subsidiary ' + item.sub + ')' : ''}`;
-      document.getElementById('roadRules').innerHTML = roadTxt;
-      document.getElementById('seaRules').innerHTML = `
-        <div class="rule-item"><span class="tag-sep">IMDG 7.2 RULE:</span> ${item.marine}</div>
-        <div class="rule-item"><span class="tag-allowed">CONTAINER STOWAGE:</span> Must verify Bay/Row/Tier slot clearance before closing container manifest.</div>
-      `;
+        let tagClass = rule === 'P' ? 'tag-p' : (rule === 'S' ? 'tag-s' : 'tag-a');
+        let text = rule === 'P' ? 'PROHIBITED (Same Vehicle)' : (rule === 'S' ? 'SEPARATE 3 METRES / Partition' : 'COMPATIBLE');
 
-      out.style.display = 'block';
-      out.scrollIntoView({ behavior: 'smooth' });
+        roadHTML += `
+          <div class="result-row">
+            <div><strong>Against Class ${tgt}</strong>: <span class="tag ${tagClass}">${text}</span></div>
+            <div style="font-size:0.75rem; color:#94a3b8;">${note}</div>
+          </div>
+        `;
+      });
+      document.getElementById('roadAudit').innerHTML = roadHTML;
+
+      let seaHTML = "";
+      targets.filter(t => t !== "1.1").forEach(tgt => {
+        let code = (IMDG_MATRIX[pClass] && IMDG_MATRIX[pClass][tgt]) ? IMDG_MATRIX[pClass][tgt] : "X";
+        let desc = "Check Dangerous Goods List (DGL)";
+        let tagClass = "tag-s";
+        if (code === "1") { desc = "1 - Away from (Minimum 3m in cargo space)"; }
+        if (code === "2") { desc = "2 - Separated from (Different hold/bulkhead or on-deck spacing)"; tagClass = "tag-p"; }
+        if (code === "X") { desc = "X - Permitted in same container unless DGL/SGG specifies"; tagClass = "tag-a"; }
+
+        if (sgg === "SGG1" && tgt === "8") {
+          desc += " [IMDG 7.2.6: SGG1 Acids must be SEPARATED FROM (2) SGG18 Alkalis]";
+          tagClass = "tag-p";
+        }
+
+        seaHTML += `
+          <div class="result-row">
+            <div><strong>Against Class ${tgt}</strong>: <span class="tag ${tagClass}">${code}</span></div>
+            <div style="font-size:0.75rem; color:#94a3b8;">${desc}</div>
+          </div>
+        `;
+      });
+      document.getElementById('seaAudit').innerHTML = seaHTML;
+
+      document.getElementById('singleResults').style.display = 'block';
+      document.getElementById('singleResults').scrollIntoView({ behavior: 'smooth' });
     }
-  </script>
-</body>
-</html>
+
+    function addCurrentToManifest() {
+      const inputVal = document.getElementById('unInput').value.trim();
+      const code = inputVal.replace(/^UN\s*/i, '');
+      const pClass = document.getElementById('primaryClass').value;
+      const sub = document.getElementById('subRisk').value;
+      const sgg = document.getElementById('sggGroup').value;
+      const label = code ? `UN ${code}` : `Class ${pClass}`;
+
+      manifest.push({ label, pClass, sub, sgg });
+      alert(`Added ${label} to Load Manifest (${manifest.length} item(s) total)`);
+    }
+
+    function renderManifest() {
+      const container = document.getElementById('manifestList');
+      if (manifest.length === 0) {
+        container.innerHTML = `<div style="color:#64748b; font-size:0.85rem; padding:12px 0;">No items loaded. Use Single UN Lookup to add goods to this shipment.</div>`;
+        return;
+      }
+      container.innerHTML = manifest.map((item, i) => `
+        <div class="manifest-item">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong>${item.label}</strong>
+            <span style="color:#ef4444; cursor:pointer;" onclick="removeItem(${i})">✕ Remove</span>
+          </div>
+          <div style="margin-top:4px;">
+            <span class="badge badge-class">Class ${item.pClass}</span>
+            ${item.sub ? `<span class="badge badge-sub">Sub ${item.sub}</span>` : ''}
+            <span class="badge badge-sgg">${item.sgg}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function removeItem(index) {
+      manifest.splice(index, 1);
+      renderManifest();
+    }
+
+    function clearManifest() {
+      manifest = [];
+      renderManifest();
+      document.getElementById('manifestResults').style.display = 'none';
+    }
+
+    function auditFullManifest() {
+      if (manifest.
