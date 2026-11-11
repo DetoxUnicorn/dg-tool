@@ -434,7 +434,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       if ('serviceWorker' in navigator) {
-        const swScript = "const CACHE_NAME='dg-pro-v8';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
+        const swScript = "const CACHE_NAME='dg-pro-v9';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
         navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(swScript)).catch(()=>{});
       }
 
@@ -532,7 +532,7 @@
         }
 
         UN_DATABASE = fullDB;
-        try { localStorage.setItem("dg_unified_un_registry_v8", JSON.stringify(fullDB)); } catch (e) {}
+        try { localStorage.setItem("dg_unified_un_registry_v9", JSON.stringify(fullDB)); } catch (e) {}
         activateDatabaseStatus(Object.keys(UN_DATABASE).length);
       }
 
@@ -657,7 +657,7 @@
         renderLogbook();
       }
 
-      // Navigation Sync (Updated to 3 main tabs: Inspector, Manifest, Placards)
+      // Navigation Sync (3 main tabs)
       const views = [document.getElementById('view1'), document.getElementById('view2'), document.getElementById('view3')];
       const mTabs = [document.getElementById('mTab1'), document.getElementById('mTab2'), document.getElementById('mTab3')];
       const dTabs = [document.getElementById('dTab1'), document.getElementById('dTab2'), document.getElementById('dTab3')];
@@ -1085,7 +1085,7 @@
           const slotId = document.getElementById('assignSelect').value;
           const target = document.getElementById(slotId);
           if(target) target.innerHTML = `<b>${manifest[0].label}</b><br><span class="g-chip chip-class" style="margin-top:4px;">Cl ${manifest[0].pClass}</span>`;
-          alert(`Assigned ${manifest[0].label} to ${document.getElementById('assignSelect').options[document.getElementById('assignSelect'].selectedIndex].text}`);
+          alert(`Assigned ${manifest[0].label} to ${document.getElementById('assignSelect').options[document.getElementById('assignSelect').selectedIndex].text}`);
         });
       }
     });
