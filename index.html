@@ -491,20 +491,20 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       if ('serviceWorker' in navigator) {
-        const swScript = "const CACHE_NAME='dg-pro-v5';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
+        const swScript = "const CACHE_NAME='dg-pro-v6';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
         navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(swScript)).catch(()=>{});
       }
 
-      // Theme
+      // Theme toggle functionality
       const themeBtn = document.getElementById('themeToggleBtn');
       function setTheme(isDark) {
         if (isDark) {
           document.body.classList.add('dark-mode');
-          document.getElementById('themeIcon').innerText = '☀️';
+          if(document.getElementById('themeIcon')) document.getElementById('themeIcon').innerText = '☀️';
           localStorage.setItem('dg_workspace_theme', 'dark');
         } else {
           document.body.classList.remove('dark-mode');
-          document.getElementById('themeIcon').innerText = '🌙';
+          if(document.getElementById('themeIcon')) document.getElementById('themeIcon').innerText = '🌙';
           localStorage.setItem('dg_workspace_theme', 'light');
         }
       }
@@ -512,7 +512,10 @@
       if (savedTheme === 'dark') setTheme(true);
       else if (savedTheme === 'light') setTheme(false);
       else setTheme(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
-      themeBtn.addEventListener('click', () => setTheme(!document.body.classList.contains('dark-mode')));
+      
+      if(themeBtn) {
+        themeBtn.addEventListener('click', () => setTheme(!document.body.classList.contains('dark-mode')));
+      }
 
       // Load Dispatch Number safely
       const custDispatch = document.getElementById('customDispatch');
@@ -526,7 +529,7 @@
         });
       }
 
-      // Master Curated High-Consequence Freight (Explicitly includes UN 3252 Refrigerant Gas R 32)
+      // Master Curated High-Consequence Freight
       const MASTER_CURATED = {
         "0004": { name: "AMMONIUM PICRATE, dry or wetted <10% water", class: "1.1D", sub: "", sgg: "None", stow: "D", haz: "1E", pg: "N/A", tunnel: "BANNED (Lyttelton Daytime)", spill: "EXPLOSIVE. Evacuate 800m. Avoid friction/heat.", fire: "Evacuate 800m. Do not fight fire." },
         "0027": { name: "BLACK POWDER (GUNPOWDER), granular or meal", class: "1.1D", sub: "", sgg: "None", stow: "D", haz: "1E", pg: "N/A", tunnel: "BANNED (Lyttelton Daytime)", spill: "Blast hazard. Ground equipment.", fire: "Evacuate 800m." },
@@ -546,7 +549,6 @@
 
       let UN_DATABASE = {};
 
-      // Smart Algorithmic Generator with Correct Gas Block Allocations (Class 2.1 / 2.2)
       function buildFullRegistry() {
         const fullDB = {};
 
@@ -599,7 +601,7 @@
         }
 
         UN_DATABASE = fullDB;
-        try { localStorage.setItem("dg_unified_un_registry_v5", JSON.stringify(fullDB)); } catch (e) {}
+        try { localStorage.setItem("dg_unified_un_registry_v6", JSON.stringify(fullDB)); } catch (e) {}
         activateDatabaseStatus(Object.keys(UN_DATABASE).length);
       }
 
@@ -714,7 +716,8 @@
 
       function saveManifest() {
         try { localStorage.setItem("nz_dg_manifest", JSON.stringify(manifest)); } catch (e) {}
-        document.getElementById('manifestCount').innerText = manifest.length;
+        const mCountElem = document.getElementById('manifestCount');
+        if(mCountElem) mCountElem.innerText = manifest.length;
         updatePlacardMeter();
       }
 
@@ -723,114 +726,140 @@
         renderLogbook();
       }
 
-      function getBaseClass(cls) { 
-        if(!cls) return "9";
-        if(cls.startsWith("1.4")) return "1.4";
-        if(cls.startsWith("1.")) return "1.1";
-        return cls;
-      }
-
       // Navigation Sync
       const views = [document.getElementById('view1'), document.getElementById('view2'), document.getElementById('view3'), document.getElementById('view4'), document.getElementById('view5')];
       const mTabs = [document.getElementById('mTab1'), document.getElementById('mTab2'), document.getElementById('mTab3'), document.getElementById('mTab4'), document.getElementById('mTab5')];
       const dTabs = [document.getElementById('dTab1'), document.getElementById('dTab2'), document.getElementById('dTab3'), document.getElementById('dTab4'), document.getElementById('dTab5')];
 
       function selectTab(index) {
-        views.forEach((v, i) => v.style.display = i === index ? 'block' : 'none');
-        mTabs.forEach((t, i) => t.classList.toggle('active', i === index));
-        dTabs.forEach((t, i) => t.classList.toggle('active', i === index));
+        views.forEach((v, i) => { if(v) v.style.display = i === index ? 'block' : 'none'; });
+        mTabs.forEach((t, i) => { if(t) t.classList.toggle('active', i === index); });
+        dTabs.forEach((t, i) => { if(t) t.classList.toggle('active', i === index); });
         if (index === 1) { renderManifest(); renderLogbook(); }
         if (index === 2) updatePlacardMeter();
       }
-      mTabs.forEach((tab, index) => tab.addEventListener('click', () => selectTab(index)));
-      dTabs.forEach((tab, index) => tab.addEventListener('click', () => selectTab(index)));
+      mTabs.forEach((tab, index) => { if(tab) tab.addEventListener('click', () => selectTab(index)); });
+      dTabs.forEach((tab, index) => { if(tab) tab.addEventListener('click', () => selectTab(index)); });
 
       // Realtime Search
       const unInput = document.getElementById('unInput');
       const searchHits = document.getElementById('searchHits');
-      unInput.addEventListener('input', function(e) {
-        const val = e.target.value.trim().toLowerCase().replace(/^un\s*/i, '');
-        if (!val) { searchHits.style.display = 'none'; return; }
-        if (UN_DATABASE[val]) { applyItem(val, UN_DATABASE[val]); searchHits.style.display = 'none'; return; }
-        const matches = Object.keys(UN_DATABASE).filter(k => k.includes(val) || (UN_DATABASE[k].name && UN_DATABASE[k].name.toLowerCase().includes(val))).slice(0, 8);
-        if (matches.length > 0) {
-          searchHits.innerHTML = matches.map(k => `
-            <div class="hit-item" data-un="${k}">
-              <strong>UN ${k}</strong> - ${UN_DATABASE[k].name} (Cl ${UN_DATABASE[k].class})
-            </div>
-          `).join('');
-          searchHits.style.display = 'block';
-          searchHits.querySelectorAll('.hit-item').forEach(el => {
-            el.addEventListener('click', function() {
-              const code = this.getAttribute('data-un'); applyItem(code, UN_DATABASE[code]); unInput.value = code; searchHits.style.display = 'none';
+      if(unInput) {
+        unInput.addEventListener('input', function(e) {
+          const val = e.target.value.trim().toLowerCase().replace(/^un\s*/i, '');
+          if (!val) { if(searchHits) searchHits.style.display = 'none'; return; }
+          if (UN_DATABASE[val]) { applyItem(val, UN_DATABASE[val]); if(searchHits) searchHits.style.display = 'none'; return; }
+          const matches = Object.keys(UN_DATABASE).filter(k => k.includes(val) || (UN_DATABASE[k].name && UN_DATABASE[k].name.toLowerCase().includes(val))).slice(0, 8);
+          if (matches.length > 0 && searchHits) {
+            searchHits.innerHTML = matches.map(k => `
+              <div class="hit-item" data-un="${k}">
+                <strong>UN ${k}</strong> - ${UN_DATABASE[k].name} (Cl ${UN_DATABASE[k].class})
+              </div>
+            `).join('');
+            searchHits.style.display = 'block';
+            searchHits.querySelectorAll('.hit-item').forEach(el => {
+              el.addEventListener('click', function() {
+                const code = this.getAttribute('data-un'); applyItem(code, UN_DATABASE[code]); unInput.value = code; searchHits.style.display = 'none';
+              });
             });
-          });
-        } else searchHits.style.display = 'none';
-      });
+          } else if(searchHits) searchHits.style.display = 'none';
+        });
+      }
 
       function applyItem(code, item) {
-        document.getElementById('primaryClass').value = item.class.startsWith("1.") ? item.class.slice(0, 3) : item.class;
-        document.getElementById('subRisk').value = item.sub || "";
-        document.getElementById('hazchemCode').value = item.haz || "";
-        if (item.pg) document.getElementById('packingGroup').value = item.pg;
+        const pClassElem = document.getElementById('primaryClass');
+        const subElem = document.getElementById('subRisk');
+        const hazElem = document.getElementById('hazchemCode');
+        const pgElem = document.getElementById('packingGroup');
+        
+        if(pClassElem) pClassElem.value = item.class.startsWith("1.") ? item.class.slice(0, 3) : item.class;
+        if(subElem) subElem.value = item.sub || "";
+        if(hazElem) hazElem.value = item.haz || "";
+        if(pgElem && item.pg) pgElem.value = item.pg;
       }
 
       // Barcode Scanner
       let videoStream = null;
-      document.getElementById('btnToggleScan').addEventListener('click', async () => {
-        const box = document.getElementById('scannerBox');
-        const video = document.getElementById('cameraFeed');
-        try {
-          videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
-          video.srcObject = videoStream;
-          box.style.display = 'block';
-        } catch (err) {
-          alert("Camera access unavailable: " + err.message);
-        }
-      });
-      document.getElementById('btnCloseScan').addEventListener('click', () => {
-        if (videoStream) videoStream.getTracks().forEach(track => track.stop());
-        document.getElementById('scannerBox').style.display = 'none';
-      });
+      const btnToggleScan = document.getElementById('btnToggleScan');
+      const btnCloseScan = document.getElementById('btnCloseScan');
+      if(btnToggleScan) {
+        btnToggleScan.addEventListener('click', async () => {
+          const box = document.getElementById('scannerBox');
+          const video = document.getElementById('cameraFeed');
+          try {
+            videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+            if(video) video.srcObject = videoStream;
+            if(box) box.style.display = 'block';
+          } catch (err) {
+            alert("Camera access unavailable: " + err.message);
+          }
+        });
+      }
+      if(btnCloseScan) {
+        btnCloseScan.addEventListener('click', () => {
+          if (videoStream) videoStream.getTracks().forEach(track => track.stop());
+          const box = document.getElementById('scannerBox');
+          if(box) box.style.display = 'none';
+        });
+      }
 
-      // Evaluation Engine
+      // Evaluation Engine Button Hook
+      const btnEvaluate = document.getElementById('btnEvaluate');
+      if(btnEvaluate) {
+        btnEvaluate.addEventListener('click', runEvaluation);
+      }
+
       function runEvaluation() {
-        const code = unInput.value.trim().replace(/^UN\s*/i, '');
-        const pClass = document.getElementById('primaryClass').value;
-        const sub = document.getElementById('subRisk').value;
+        const code = unInput ? unInput.value.trim().replace(/^UN\s*/i, '') : "";
+        const pClassElem = document.getElementById('primaryClass');
+        const subElem = document.getElementById('subRisk');
+        const pClass = pClassElem ? pClassElem.value : "3";
+        const sub = subElem ? subElem.value : "";
+        
         const itemData = UN_DATABASE[code] || {};
         const title = itemData.name ? (`UN ${code} - ${itemData.name}`) : (code ? `UN ${code}` : `Class ${pClass}`);
         let sgg = itemData.sgg || "None";
         let stow = itemData.stow || (pClass === "2.1" || pClass === "3" ? "E" : "A");
 
-        document.getElementById('itemOverview').innerHTML = `
-          <h2 style="margin:0 0 8px 0; font-size:1.15rem;">${title}</h2>
-          <div>
-            <span class="g-chip chip-class">Class ${pClass}</span>
-            ${sub ? `<span class="g-chip chip-sub">Sub ${sub}</span>` : ''}
-            <span class="g-chip chip-sgg">SGG: ${sgg}</span>
-          </div>
-        `;
+        const itemOverview = document.getElementById('itemOverview');
+        if(itemOverview) {
+          itemOverview.innerHTML = `
+            <h2 style="margin:0 0 8px 0; font-size:1.15rem;">${title}</h2>
+            <div>
+              <span class="g-chip chip-class">Class ${pClass}</span>
+              ${sub ? `<span class="g-chip chip-sub">Sub ${sub}</span>` : ''}
+              <span class="g-chip chip-sgg">SGG: ${sgg}</span>
+            </div>
+          `;
+        }
         
         let indicatorHTML = "";
         if (stow === 'D' || stow === 'E') indicatorHTML = `<div class="ferry-indicator-banner ferry-banned"><span style="font-size:1.4rem;">🛑</span><div><strong>FREIGHT ONLY SAILING REQUIRED</strong><div style="font-size:0.75rem; font-weight:400;">IMDG Category ${stow} • Prohibited with passengers</div></div></div>`;
         else if (stow === 'B' || stow === 'C') indicatorHTML = `<div class="ferry-indicator-banner ferry-weather-deck"><span style="font-size:1.4rem;">⚠️</span><div><strong>WEATHER DECK ONLY (PAX OK)</strong><div style="font-size:0.75rem; font-weight:400;">IMDG Category ${stow} • Natural ventilation required</div></div></div>`;
         else indicatorHTML = `<div class="ferry-indicator-banner ferry-allowed"><span style="font-size:1.4rem;">🟢</span><div><strong>PASSENGER SAILING PERMITTED</strong><div style="font-size:0.75rem; font-weight:400;">IMDG Category A • Approved deck/holds</div></div></div>`;
-        document.getElementById('ferryIndicatorBox').innerHTML = indicatorHTML;
+        
+        const ferryBox = document.getElementById('ferryIndicatorBox');
+        if(ferryBox) ferryBox.innerHTML = indicatorHTML;
 
         let tunnelMsg = itemData.tunnel || (pClass === "2.1" || pClass.startsWith("1.") ? "BANNED (Lyttelton Port Daytime)" : "Allowed in normal traffic");
         let tunnelColor = tunnelMsg.includes("BANNED") ? "g-alert-error" : (tunnelMsg.includes("RESTRICTED") ? "g-alert-warn" : "g-alert-blue");
-        document.getElementById('tunnelIndicatorBox').innerHTML = `<div class="g-alert ${tunnelColor}" style="margin-top:10px; margin-bottom:0;"><div>🚇</div><div><strong>Tunnel Bylaw Check:</strong> ${tunnelMsg}</div></div>`;
+        
+        const tunnelBox = document.getElementById('tunnelIndicatorBox');
+        if(tunnelBox) tunnelBox.innerHTML = `<div class="g-alert ${tunnelColor}" style="margin-top:10px; margin-bottom:0;"><div>🚇</div><div><strong>Tunnel Bylaw Check:</strong> ${tunnelMsg}</div></div>`;
 
         const em = `<div class="rule-item"><strong>Spill:</strong> ${itemData.spill || 'Isolate & Evacuate.'}</div><div class="rule-item"><strong>Fire:</strong> ${itemData.fire || 'Use foam/dry powder.'}</div>`;
-        document.getElementById('emergencyGuidance').innerHTML = em;
-        document.getElementById('emergencyGuidance2').innerHTML = em; 
+        const eg1 = document.getElementById('emergencyGuidance');
+        const eg2 = document.getElementById('emergencyGuidance2');
+        if(eg1) eg1.innerHTML = em;
+        if(eg2) eg2.innerHTML = em; 
 
         let foodHTML = "";
         if (pClass === "6.1" || sub === "6.1" || pClass === "2.3") foodHTML = `<div class="g-alert g-alert-error"><div style="font-size:1.2rem;">🛑</div><div><strong>STRICT CO-LOAD PROHIBITION:</strong> Toxic substances (Primary or Sub-Risk) must never share a compartment with food or food packaging.</div></div>`;
         else if (pClass === "8" || sub === "8") foodHTML = `<div class="g-alert g-alert-warn"><div style="font-size:1.2rem;">⚠️</div><div><strong>CORROSIVE ISOLATION:</strong> Banned directly above/adjacent to food packaging. 1m clearance required.</div></div>`;
         else foodHTML = `<div class="g-alert g-alert-success"><div style="font-size:1.2rem;">✅</div><div><strong>COMPLIANT:</strong> Food co-loading permitted.</div></div>`;
-        document.getElementById('foodAudit').innerHTML = foodHTML;
+        
+        const foodAudit = document.getElementById('foodAudit');
+        if(foodAudit) foodAudit.innerHTML = foodHTML;
 
         let roadHTML = "";
         const targets = ["1.1", "1.4", "2.1", "2.2", "2.3", "3", "4.1", "4.2", "4.3", "5.1", "5.2", "6.1", "8", "9"];
@@ -844,41 +873,51 @@
           let label = rule === 'P' ? 'PROHIBITED (NZS 5433)' : (rule === 'S' ? '3m SEPARATION' : 'COMPATIBLE');
           roadHTML += `<div class="rule-item"><div><strong>Against Class ${tgt}</strong>: <span class="tag ${tagClass}">${label}</span></div><div style="font-size:0.75rem; color:var(--g-text-secondary);">${note}</div></div>`;
         });
-        document.getElementById('roadAudit').innerHTML = roadHTML;
+        
+        const roadAudit = document.getElementById('roadAudit');
+        if(roadAudit) roadAudit.innerHTML = roadHTML;
 
         let seaHTML = "";
         targets.forEach(tgt => {
-          let code = getMaritimeSegregation(pClass, sub, tgt, "");
+          let codeVal = getMaritimeSegregation(pClass, sub, tgt, "");
           let desc = "Allowed in same container (CTU)";
           let tagClass = "tag-allow";
-          if (code === "1") { desc = "1 - Away from (BANNED IN SAME CONTAINER / MIN 3M VESSEL SPACE)"; tagClass = "tag-sep"; }
-          if (code === "2") { desc = "2 - Separated from (BANNED IN SAME CONTAINER / MIN 6M VESSEL SPACE)"; tagClass = "tag-prohibit"; }
-          if (code === "3") { desc = "3 - Separated by complete hold"; tagClass = "tag-prohibit"; }
-          if (code === "4") { desc = "4 - Separated longitudinally by intervening hold"; tagClass = "tag-prohibit"; }
+          if (codeVal === "1") { desc = "1 - Away from (BANNED IN SAME CONTAINER / MIN 3M VESSEL SPACE)"; tagClass = "tag-sep"; }
+          if (codeVal === "2") { desc = "2 - Separated from (BANNED IN SAME CONTAINER / MIN 6M VESSEL SPACE)"; tagClass = "tag-prohibit"; }
+          if (codeVal === "3") { desc = "3 - Separated by complete hold"; tagClass = "tag-prohibit"; }
+          if (codeVal === "4") { desc = "4 - Separated longitudinally by intervening hold"; tagClass = "tag-prohibit"; }
 
           seaHTML += `
             <div class="rule-item">
-              <div><strong>Against Class ${tgt}</strong>: <span class="tag ${tagClass}">Code ${code}</span></div>
+              <div><strong>Against Class ${tgt}</strong>: <span class="tag ${tagClass}">Code ${codeVal}</span></div>
               <div style="font-size:0.75rem; color:var(--g-text-secondary);">${desc}</div>
             </div>
           `;
         });
-        document.getElementById('seaAudit').innerHTML = seaHTML;
+        
+        const seaAudit = document.getElementById('seaAudit');
+        if(seaAudit) seaAudit.innerHTML = seaHTML;
 
-        document.getElementById('inspectorPlaceholder').style.display = 'none';
-        document.getElementById('inspectorResults').style.display = 'block';
+        const placeholder = document.getElementById('inspectorPlaceholder');
+        const results = document.getElementById('inspectorResults');
+        if(placeholder) placeholder.style.display = 'none';
+        if(results) results.style.display = 'block';
       }
-      document.getElementById('btnEvaluate').addEventListener('click', runEvaluation);
+
+      const btnAddManifest = document.getElementById('btnAddManifest');
+      if(btnAddManifest) {
+        btnAddManifest.addEventListener('click', addToManifest);
+      }
 
       function addToManifest() {
-        const code = unInput.value.trim().replace(/^UN\s*/i, '');
-        const pClass = document.getElementById('primaryClass').value;
-        const sub = document.getElementById('subRisk').value;
-        const pg = document.getElementById('packingGroup').value;
-        const drop = document.getElementById('routeDrop').value;
-        const qty = parseFloat(document.getElementById('pkgQty').value) || 0;
-        const isLq = document.getElementById('isLq').value === 'lq';
-        const isMp = document.getElementById('isMp').value === 'yes';
+        const code = unInput ? unInput.value.trim().replace(/^UN\s*/i, '') : "";
+        const pClass = document.getElementById('primaryClass') ? document.getElementById('primaryClass').value : "3";
+        const sub = document.getElementById('subRisk') ? document.getElementById('subRisk').value : "";
+        const pg = document.getElementById('packingGroup') ? document.getElementById('packingGroup').value : "II";
+        const drop = document.getElementById('routeDrop') ? document.getElementById('routeDrop').value : "Final Destination";
+        const qty = document.getElementById('pkgQty') ? (parseFloat(document.getElementById('pkgQty').value) || 0) : 0;
+        const isLq = document.getElementById('isLq') ? document.getElementById('isLq').value === 'lq' : false;
+        const isMp = document.getElementById('isMp') ? document.getElementById('isMp').value === 'yes' : false;
 
         const itemData = UN_DATABASE[code] || {};
         const stow = itemData.stow || "A";
@@ -888,12 +927,13 @@
         saveManifest();
         alert(`Added ${label}`);
       }
-      document.getElementById('btnAddManifest').addEventListener('click', addToManifest);
 
       window.toggleSegBin = function(idx, checked) {
         manifest[idx].inSegBin = checked;
         saveManifest();
-        if(document.getElementById('manifestAuditOutput').style.display === 'block') document.getElementById('btnAuditManifest').click();
+        const auditOutput = document.getElementById('manifestAuditOutput');
+        const btnAudit = document.getElementById('btnAuditManifest');
+        if(auditOutput && auditOutput.style.display === 'block' && btnAudit) btnAudit.click();
       };
 
       window.deleteManifestItem = function(idx) {
@@ -903,7 +943,14 @@
 
       function renderManifest() {
         const list = document.getElementById('manifestList');
-        if (manifest.length === 0) { list.innerHTML = '<div style="color:var(--g-text-secondary); font-size:0.84rem; padding:16px 0;">Empty.</div>'; document.getElementById('dgdFormCard').style.display = 'none'; return; }
+        const dgdCard = document.getElementById('dgdFormCard');
+        if (!list) return;
+        
+        if (manifest.length === 0) { 
+          list.innerHTML = '<div style="color:var(--g-text-secondary); font-size:0.84rem; padding:16px 0;">Empty.</div>'; 
+          if(dgdCard) dgdCard.style.display = 'none'; 
+          return; 
+        }
         
         list.innerHTML = manifest.map((item, i) => `
           <div style="padding:12px; background:var(--g-surface-variant); border-radius:8px; margin-bottom:8px; border:1px solid var(--g-border);">
@@ -924,11 +971,14 @@
         generateDGDPreview();
       }
 
-      document.getElementById('btnSaveLogbook').addEventListener('click', () => {
-        if(manifest.length === 0) return alert("Nothing to save.");
-        const name = prompt("Name this load (e.g. Napier Night Run):");
-        if(name) { logbook.unshift({ name, date: new Date().toLocaleDateString(), data: JSON.parse(JSON.stringify(manifest)) }); saveLogbook(); alert("Saved to logbook."); }
-      });
+      const btnSaveLogbook = document.getElementById('btnSaveLogbook');
+      if(btnSaveLogbook) {
+        btnSaveLogbook.addEventListener('click', () => {
+          if(manifest.length === 0) return alert("Nothing to save.");
+          const name = prompt("Name this load (e.g. Napier Night Run):");
+          if(name) { logbook.unshift({ name, date: new Date().toLocaleDateString(), data: JSON.parse(JSON.stringify(manifest)) }); saveLogbook(); alert("Saved to logbook."); }
+        });
+      }
 
       window.loadLogbookItem = function(idx) {
         manifest = JSON.parse(JSON.stringify(logbook[idx].data));
@@ -938,6 +988,7 @@
 
       function renderLogbook() {
         const ll = document.getElementById('logbookList');
+        if(!ll) return;
         if(logbook.length === 0) { ll.innerHTML = "No saved manifests."; return; }
         ll.innerHTML = logbook.map((l, i) => `
           <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid var(--g-border-subtle);">
@@ -950,58 +1001,72 @@
         `).join('');
       }
 
-      document.getElementById('btnClearManifest').addEventListener('click', () => { if(confirm("Clear manifest?")){ manifest=[]; saveManifest(); renderManifest(); document.getElementById('manifestAuditOutput').style.display='none'; }});
+      const btnClearManifest = document.getElementById('btnClearManifest');
+      if(btnClearManifest) {
+        btnClearManifest.addEventListener('click', () => { 
+          if(confirm("Clear manifest?")){ 
+            manifest=[]; saveManifest(); renderManifest(); 
+            const auditOut = document.getElementById('manifestAuditOutput');
+            if(auditOut) auditOut.style.display='none'; 
+          }
+        });
+      }
 
       // Audit Engine
-      document.getElementById('btnAuditManifest').addEventListener('click', () => {
-        if (manifest.length < 2) return alert("Add at least 2 items.");
-        const banners = []; let roadBlocked = false; let seaBlocked = false; let freightOnlyItems = [];
+      const btnAuditManifest = document.getElementById('btnAuditManifest');
+      if(btnAuditManifest) {
+        btnAuditManifest.addEventListener('click', () => {
+          if (manifest.length < 2) return alert("Add at least 2 items.");
+          const banners = []; let roadBlocked = false; let seaBlocked = false; let freightOnlyItems = [];
 
-        for (let i = 0; i < manifest.length; i++) {
-          if (manifest[i].stow === 'D' || manifest[i].stow === 'E') freightOnlyItems.push(manifest[i].label);
-          for (let j = i + 1; j < manifest.length; j++) {
-            const a = manifest[i]; const b = manifest[j];
-            
-            let roadRule = getRoadSegregation(a.pClass, a.sub, b.pClass, b.sub);
+          for (let i = 0; i < manifest.length; i++) {
+            if (manifest[i].stow === 'D' || manifest[i].stow === 'E') freightOnlyItems.push(manifest[i].label);
+            for (let j = i + 1; j < manifest.length; j++) {
+              const a = manifest[i]; const b = manifest[j];
+              
+              let roadRule = getRoadSegregation(a.pClass, a.sub, b.pClass, b.sub);
 
-            if ((a.sgg.includes("SGG1") && b.sgg.includes("SGG18")) || (a.sgg.includes("SGG18") && b.sgg.includes("SGG1"))) {
-              roadRule = 'P';
-              banners.push(`💥 <strong>CHEMICAL REACTION (NZS 5433):</strong> ${a.label} (${a.sgg}) + ${b.label} (${b.sgg}) - Violent Acid/Base reaction.`);
-            }
-            if ((a.sgg.includes("SGG6") && b.sgg.includes("SGG1")) || (a.sgg.includes("SGG1") && b.sgg.includes("SGG6"))) {
-              roadRule = 'P';
-              banners.push(`☠️ <strong>CYANIDE GAS HAZARD (NZS 5433):</strong> Acid + Cyanide releases lethal HCN gas. Absolute ban.`);
-            }
+              if ((a.sgg.includes("SGG1") && b.sgg.includes("SGG18")) || (a.sgg.includes("SGG18") && b.sgg.includes("SGG1"))) {
+                roadRule = 'P';
+                banners.push(`💥 <strong>CHEMICAL REACTION (NZS 5433):</strong> ${a.label} (${a.sgg}) + ${b.label} (${b.sgg}) - Violent Acid/Base reaction.`);
+              }
+              if ((a.sgg.includes("SGG6") && b.sgg.includes("SGG1")) || (a.sgg.includes("SGG1") && b.sgg.includes("SGG6"))) {
+                roadRule = 'P';
+                banners.push(`☠️ <strong>CYANIDE GAS HAZARD (NZS 5433):</strong> Acid + Cyanide releases lethal HCN gas. Absolute ban.`);
+              }
 
-            if (roadRule === 'P') {
-              roadBlocked = true;
-              banners.push(`🚨 <strong>ROAD PROHIBITION (NZS 5433):</strong> ${a.label} & ${b.label} strictly banned on same vehicle.`);
-            } else if (roadRule === 'S') {
-              if(a.inSegBin || b.inSegBin) {
-                banners.push(`✅ <strong>ROAD OVERRIDE:</strong> ${a.label} & ${b.label} 3m rule satisfied by Segregation Device.`);
-              } else {
-                banners.push(`⚠️ <strong>ROAD SEPARATION:</strong> ${a.label} & ${b.label} require <strong>3 Metres</strong> physical distance.`);
+              if (roadRule === 'P') {
+                roadBlocked = true;
+                banners.push(`🚨 <strong>ROAD PROHIBITION (NZS 5433):</strong> ${a.label} & ${b.label} strictly banned on same vehicle.`);
+              } else if (roadRule === 'S') {
+                if(a.inSegBin || b.inSegBin) {
+                  banners.push(`✅ <strong>ROAD OVERRIDE:</strong> ${a.label} & ${b.label} 3m rule satisfied by Segregation Device.`);
+                } else {
+                  banners.push(`⚠️ <strong>ROAD SEPARATION:</strong> ${a.label} & ${b.label} require <strong>3 Metres</strong> physical distance.`);
+                }
+              }
+
+              const imdgCode = getMaritimeSegregation(a.pClass, a.sub, b.pClass, b.sub);
+              if (imdgCode === '1' || imdgCode === '2' || imdgCode === '3' || imdgCode === '4') {
+                seaBlocked = true;
+                banners.push(`🌊 <strong>IMDG MARITIME VIOLATION:</strong> ${a.label} & ${b.label} have Segregation Code <strong>${imdgCode}</strong>. BANNED from being packed in the same shipping container / CTU (IMDG 7.3.4.1).`);
               }
             }
-
-            const imdgCode = getMaritimeSegregation(a.pClass, a.sub, b.pClass, b.sub);
-            if (imdgCode === '1' || imdgCode === '2' || imdgCode === '3' || imdgCode === '4') {
-              seaBlocked = true;
-              banners.push(`🌊 <strong>IMDG MARITIME VIOLATION:</strong> ${a.label} & ${b.label} have Segregation Code <strong>${imdgCode}</strong>. BANNED from being packed in the same shipping container / CTU (IMDG 7.3.4.1).`);
-            }
           }
-        }
-        
-        let sum = "";
-        if (freightOnlyItems.length > 0) sum += `<div class="g-alert g-alert-error" style="margin-bottom:12px;"><div style="font-size:1.3rem;">🛑</div><div><strong>MUST BOOK FREIGHT ONLY SAILING:</strong><br>Manifest contains commodities banned from passenger ferries (${freightOnlyItems.join(', ')}).</div></div>`;
+          
+          let sum = "";
+          if (freightOnlyItems.length > 0) sum += `<div class="g-alert g-alert-error" style="margin-bottom:12px;"><div style="font-size:1.3rem;">🛑</div><div><strong>MUST BOOK FREIGHT ONLY SAILING:</strong><br>Manifest contains commodities banned from passenger ferries (${freightOnlyItems.join(', ')}).</div></div>`;
 
-        if (banners.length === 0) sum += `<div class="g-alert g-alert-success"><div>✅</div><div><strong>LOAD COMPLIANT:</strong> All items compatible for road and container freight.</div></div>`;
-        else sum += `<div class="g-alert ${roadBlocked || seaBlocked ? 'g-alert-error' : 'g-alert-warn'}"><div>${roadBlocked || seaBlocked ? '❌' : '⚠️'}</div><div><strong>AUDIT WARNINGS:</strong></div></div>
-        ${banners.map(b => `<div class="rule-item">${b}</div>`).join('')}`;
-        
-        document.getElementById('manifestBanners').innerHTML = sum;
-        document.getElementById('manifestAuditOutput').style.display = 'block';
-      });
+          if (banners.length === 0) sum += `<div class="g-alert g-alert-success"><div>✅</div><div><strong>LOAD COMPLIANT:</strong> All items compatible for road and container freight.</div></div>`;
+          else sum += `<div class="g-alert ${roadBlocked || seaBlocked ? 'g-alert-error' : 'g-alert-warn'}"><div>${roadBlocked || seaBlocked ? '❌' : '⚠️'}</div><div><strong>AUDIT WARNINGS:</strong></div></div>
+          ${banners.map(b => `<div class="rule-item">${b}</div>`).join('')}`;
+          
+          const mBanners = document.getElementById('manifestBanners');
+          const mAuditOut = document.getElementById('manifestAuditOutput');
+          if(mBanners) mBanners.innerHTML = sum;
+          if(mAuditOut) mAuditOut.style.display = 'block';
+        });
+      }
 
       // Visual Placard Generation
       function getPlacardDiamond(clsCode, isMp) {
@@ -1030,25 +1095,29 @@
           if (item.pClass.startsWith("1.") || item.pClass === "5.2") mult = 10;
           else if (item.pClass === "2.1" || item.pClass === "2.3" || (item.pClass === "3" && item.pg !== "III")) mult = 2;
           points += qty * mult;
-          if (qty > 0) mandatoryClasses.add(item.pClass.startsWith("1.") ? item.pClass : item.pClass);
+          if (qty > 0) mandatoryClasses.add(item.pClass);
           if (item.isMp) hasMp = true;
         });
 
-        document.getElementById('meterPoints').innerText = points;
+        const meterPointsElem = document.getElementById('meterPoints');
+        if(meterPointsElem) meterPointsElem.innerText = points;
+        
         const fill = document.getElementById('placardMeterFill');
-        fill.style.width = Math.min(100, (points / 500) * 100) + '%';
+        if(fill) fill.style.width = Math.min(100, (points / 500) * 100) + '%';
+        
         const pBoard = document.getElementById('visualPlacardBoard');
-
+        const pStatusBanner = document.getElementById('placardStatusBanner');
+        
         if (points >= 500) {
-          fill.style.backgroundColor = 'var(--g-red)';
-          document.getElementById('placardStatusBanner').innerHTML = `<div class="g-alert g-alert-error"><div>🚨</div><div><strong>PLACARDS MANDATED:</strong> Display the following diamonds on front, rear, and sides.</div></div>`;
+          if(fill) fill.style.backgroundColor = 'var(--g-red)';
+          if(pStatusBanner) pStatusBanner.innerHTML = `<div class="g-alert g-alert-error"><div>🚨</div><div><strong>PLACARDS MANDATED:</strong> Display the following diamonds on front, rear, and sides.</div></div>`;
           let html = Array.from(mandatoryClasses).map(c => getPlacardDiamond(c, false)).join('');
           if(hasMp) html += getPlacardDiamond('', true);
-          pBoard.innerHTML = html;
+          if(pBoard) pBoard.innerHTML = html;
         } else {
-          fill.style.backgroundColor = 'var(--g-green)';
-          document.getElementById('placardStatusBanner').innerHTML = `<div class="g-alert g-alert-success"><div>🟢</div><div><strong>UNDER LIMIT:</strong> Placards not required (Score < 500).</div></div>`;
-          pBoard.innerHTML = '';
+          if(fill) fill.style.backgroundColor = 'var(--g-green)';
+          if(pStatusBanner) pStatusBanner.innerHTML = `<div class="g-alert g-alert-success"><div>🟢</div><div><strong>UNDER LIMIT:</strong> Placards not required (Score < 500).</div></div>`;
+          if(pBoard) pBoard.innerHTML = '';
         }
       }
 
@@ -1059,19 +1128,29 @@
         manifest.forEach((m, idx) => {
           dgd += `${idx+1}. UN ${m.un || '----'} | ${m.label} | Cl ${m.pClass}${m.sub?'('+m.sub+')':''} | PG ${m.pg} | ${m.qty}${m.isLq?'[LQ]':''} ${m.isMp?'| MARINE POLLUTANT':''}\n`;
         });
-        document.getElementById('dgdPrintContent').innerText = dgd;
-        document.getElementById('dgdFormCard').style.display = 'block';
+        
+        const dgdContent = document.getElementById('dgdPrintContent');
+        const dgdCard = document.getElementById('dgdFormCard');
+        if(dgdContent) dgdContent.innerText = dgd;
+        if(dgdCard) dgdCard.style.display = 'block';
       }
-      document.getElementById('btnPrintDGD').addEventListener('click', () => { if(manifest.length>0) window.print(); });
+
+      const btnPrintDGD = document.getElementById('btnPrintDGD');
+      if(btnPrintDGD) {
+        btnPrintDGD.addEventListener('click', () => { if(manifest.length>0) window.print(); });
+      }
 
       // Bay Assignment
-      document.getElementById('btnAssignBay').addEventListener('click', () => {
-        if (manifest.length === 0) return alert("Manifest is empty. Add items first.");
-        const slotId = document.getElementById('assignSelect').value;
-        const target = document.getElementById(slotId);
-        target.innerHTML = `<b>${manifest[0].label}</b><br><span class="g-chip chip-class" style="margin-top:4px;">Cl ${manifest[0].pClass}</span>`;
-        alert(`Assigned ${manifest[0].label} to ${document.getElementById('assignSelect').options[document.getElementById('assignSelect'].selectedIndex].text}`);
-      });
+      const btnAssignBay = document.getElementById('btnAssignBay');
+      if(btnAssignBay) {
+        btnAssignBay.addEventListener('click', () => {
+          if (manifest.length === 0) return alert("Manifest is empty. Add items first.");
+          const slotId = document.getElementById('assignSelect').value;
+          const target = document.getElementById(slotId);
+          if(target) target.innerHTML = `<b>${manifest[0].label}</b><br><span class="g-chip chip-class" style="margin-top:4px;">Cl ${manifest[0].pClass}</span>`;
+          alert(`Assigned ${manifest[0].label} to ${document.getElementById('assignSelect').options[document.getElementById('assignSelect').selectedIndex].text}`);
+        });
+      }
     });
   </script>
 </body>
