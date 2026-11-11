@@ -77,7 +77,6 @@
       transition: background-color 0.2s, color 0.2s;
     }
 
-    /* Google Top Header */
     .g-appbar {
       position: sticky;
       top: 0;
@@ -160,14 +159,12 @@
     }
     .theme-toggle-btn:hover { background: var(--g-border); }
 
-    /* App Layout Frame */
     .app-frame {
       display: flex;
       flex: 1;
       overflow: hidden;
     }
 
-    /* Desktop Sidebar Nav Rail */
     .nav-rail {
       width: 240px;
       background: var(--g-surface);
@@ -206,7 +203,6 @@
       line-height: 1;
     }
 
-    /* Mobile Pill Navigation */
     .mobile-nav-wrap {
       display: none;
       overflow-x: auto;
@@ -239,7 +235,6 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.12);
     }
 
-    /* Main Content Area */
     .app-main {
       flex: 1;
       padding: 24px;
@@ -247,7 +242,6 @@
       max-width: 1360px;
     }
 
-    /* Desktop Multi-Column Grids */
     .desktop-dashboard-grid {
       display: grid;
       grid-template-columns: 440px 1fr;
@@ -260,7 +254,6 @@
       gap: 20px;
     }
 
-    /* Google Card */
     .g-card {
       background: var(--g-surface);
       border-radius: var(--g-radius-md);
@@ -280,35 +273,6 @@
       justify-content: space-between;
     }
 
-    /* Sailing Mode Segment Toggle */
-    .sailing-toggle-wrap {
-      display: flex;
-      background: var(--g-surface-variant);
-      border-radius: var(--g-radius-full);
-      padding: 4px;
-      margin-bottom: 14px;
-      border: 1px solid var(--g-border);
-    }
-    .sailing-btn {
-      flex: 1;
-      text-align: center;
-      padding: 8px 12px;
-      border-radius: var(--g-radius-full);
-      font-family: 'Google Sans', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      color: var(--g-text-secondary);
-      transition: all 0.2s ease;
-      user-select: none;
-    }
-    .sailing-btn.active {
-      background: var(--g-surface);
-      color: var(--g-blue);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-    }
-
-    /* Search Bar */
     .g-searchbar {
       display: flex;
       align-items: center;
@@ -338,7 +302,6 @@
       margin-right: 10px;
     }
 
-    /* Form Controls */
     .g-input-group {
       margin-bottom: 14px;
       position: relative;
@@ -371,7 +334,6 @@
     }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-    /* Buttons */
     .g-btn {
       font-family: 'Google Sans', sans-serif;
       font-weight: 500;
@@ -398,22 +360,49 @@
     .g-btn-danger { background: var(--g-red-surface); color: var(--g-red); }
     .g-btn-danger:hover { opacity: 0.9; }
 
-    /* Chips */
     .g-chip {
       display: inline-flex;
       align-items: center;
       font-size: 0.74rem;
       font-weight: 700;
-      padding: 3px 8px;
+      padding: 4px 9px;
       border-radius: 6px;
       margin-right: 4px;
+      margin-bottom: 4px;
     }
     .chip-class { background: var(--g-red-surface); color: var(--g-red); }
     .chip-sub { background: var(--g-yellow-surface); color: var(--g-yellow); }
     .chip-sgg { background: var(--g-purple-surface); color: var(--g-purple); }
     .chip-haz { background: var(--g-green-surface); color: var(--g-green); }
 
-    /* Alerts and Results */
+    /* Ferry Sailing Specific Indicator Badges */
+    .ferry-indicator-banner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: var(--g-radius-sm);
+      font-family: 'Google Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-top: 10px;
+    }
+    .ferry-banned {
+      background: var(--g-red-surface);
+      color: var(--g-red);
+      border: 1px solid var(--g-red);
+    }
+    .ferry-weather-deck {
+      background: var(--g-yellow-surface);
+      color: var(--g-yellow);
+      border: 1px solid var(--g-yellow);
+    }
+    .ferry-allowed {
+      background: var(--g-green-surface);
+      color: var(--g-green);
+      border: 1px solid var(--g-green);
+    }
+
     .g-alert {
       padding: 14px 16px;
       border-radius: var(--g-radius-sm);
@@ -441,7 +430,6 @@
     .tag-sep { background: var(--g-yellow-surface); color: var(--g-yellow); }
     .tag-allow { background: var(--g-green-surface); color: var(--g-green); }
 
-    /* Search Hits */
     .search-hits {
       max-height: 220px;
       overflow-y: auto;
@@ -461,7 +449,6 @@
     }
     .hit-item:hover { background: var(--g-surface-variant); color: var(--g-blue); }
 
-    /* Trailer Bay Graphics */
     .trailer-box {
       background: var(--g-surface-variant);
       border-radius: 12px;
@@ -574,13 +561,6 @@
                 </button>
               </div>
 
-              <!-- Sailing Profile Selector -->
-              <label class="g-label">Cook Strait Sailing Type</label>
-              <div class="sailing-toggle-wrap">
-                <div class="sailing-btn active" id="btnSailingPax">👥 Passenger Sailing</div>
-                <div class="sailing-btn" id="btnSailingFreight">🚛 Dedicated Freight Sailing</div>
-              </div>
-
               <!-- Camera Feed Box -->
               <div id="scannerBox" style="display:none; position:relative; background:#000; border-radius:12px; overflow:hidden; margin-bottom:14px;">
                 <video id="cameraFeed" playsinline autoplay style="width:100%; height:200px; object-fit:cover;"></video>
@@ -589,7 +569,7 @@
 
               <div class="g-searchbar">
                 <svg width="20" height="20" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-                <input type="text" id="unInput" placeholder="Enter UN number (e.g. 1203) or commodity keyword..." autocomplete="off">
+                <input type="text" id="unInput" placeholder="Enter UN number (e.g. 1203, 1075) or keyword..." autocomplete="off">
               </div>
               <div id="searchHits" class="search-hits"></div>
 
@@ -648,11 +628,11 @@
                 <div class="g-input-group">
                   <label class="g-label" for="stowageCat">IMDG Stowage Cat</label>
                   <select id="stowageCat" class="g-select">
-                    <option value="A">Cat A (Deck / Under Deck)</option>
-                    <option value="B">Cat B (Pax Deck Only)</option>
+                    <option value="A">Cat A (Pax Cleared / Any Deck)</option>
+                    <option value="B">Cat B (Pax Weather Deck Only)</option>
                     <option value="C">Cat C (Weather Deck Only)</option>
-                    <option value="D">Cat D (Pax Banned / Freight Deck)</option>
-                    <option value="E">Cat E (Pax Banned / Freight Any)</option>
+                    <option value="D">Cat D (FREIGHT ONLY SAILING)</option>
+                    <option value="E">Cat E (FREIGHT ONLY SAILING)</option>
                   </select>
                 </div>
               </div>
@@ -685,12 +665,8 @@
             <div id="inspectorResults" style="display:none;">
               <div class="g-card">
                 <div id="itemOverview"></div>
-              </div>
-
-              <!-- Dedicated Cook Strait Passenger vs Freight Card -->
-              <div class="g-card">
-                <div class="g-card-title">🚢 Ferry Sailing Compliance (<span id="sailingModeTitle">Passenger Sailing</span>)</div>
-                <div id="ferrySailingAudit"></div>
+                <!-- Ferry Sailing Indicator Target -->
+                <div id="ferryIndicatorBox"></div>
               </div>
 
               <div class="g-card">
@@ -713,7 +689,7 @@
               <div style="font-size:2.5rem; margin-bottom:12px;">📦</div>
               <h3 style="font-family:'Google Sans', sans-serif; margin:0 0 8px 0; color:var(--g-text-primary);">Awaiting Commodity Inspection</h3>
               <p style="font-size:0.86rem; color:var(--g-text-secondary); max-width:440px; margin:0 auto;">
-                Select a UN number or keyword from the search bar, then click <strong>Evaluate Full Compliance</strong> to generate road separation distances, IMDG container clearances, and passenger vs. freight ferry mandates.
+                Select a UN number or keyword from the search bar, then click <strong>Evaluate Full Compliance</strong> to generate road separation distances, IMDG container clearances, and Cook Strait ferry sailing requirements.
               </p>
             </div>
           </div>
@@ -755,48 +731,34 @@
               <div style="font-size:2.5rem; margin-bottom:12px;">📋</div>
               <h3 style="font-family:'Google Sans', sans-serif; margin:0 0 8px 0; color:var(--g-text-primary);">Load Manifest Checker</h3>
               <p style="font-size:0.86rem; color:var(--g-text-secondary); max-width:440px; margin:0 auto;">
-                Add multiple items to audit cross-compatibility across all loaded packages. Flags chemical collisions, acid/alkali reactions, and passenger ferry restrictions automatically.
+                Add multiple items to audit cross-compatibility across all loaded packages. Automatically flags chemical collisions and warns if any commodity triggers a <strong>Freight-Only Sailing Requirement</strong> for the entire unit.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- TAB 3: COOK STRAIT FERRY COMPARISON & DETAILS -->
+      <!-- TAB 3: COOK STRAIT FERRY COMPARISON -->
       <section id="view3" style="display:none;">
         <div class="g-card">
-          <div class="g-card-title">Cook Strait Ferry Guidelines (Passenger vs. Dedicated Freight)</div>
+          <div class="g-card-title">Cook Strait Ferries (Bluebridge & Interislander • Maritime NZ Part 24B)</div>
           <div class="desktop-full-grid">
             <div>
-              <h4 style="font-family:'Google Sans', sans-serif; margin:0 0 8px 0; color:var(--g-blue);">👥 Passenger Sailings (Daytime Standard)</h4>
-              <div class="g-alert g-alert-error">
-                <div style="font-size:1.2rem;">🚫</div>
-                <div><strong>IMDG Stowage Cat D & E:</strong> Strictly prohibited on passenger sailings. High bulk flammable fuels, toxic compressed gases, and unstable peroxides must be moved to freight-only sailings.</div>
-              </div>
+              <h4 style="font-family:'Google Sans', sans-serif; margin:0 0 8px 0; color:var(--g-red);">🛑 Freight-Only Sailing Mandate (Cat D & E)</h4>
+              <p style="font-size:0.82rem; color:var(--g-text-secondary); line-height:1.4;">
+                Under Maritime NZ Rule Part 24B and IMDG 7.1.4, substances with <strong>Stowage Category D or E</strong> cannot sail on any ferry carrying fare-paying passengers. This includes bulk road tankers of Class 2.1 gases (LPG UN 1075), flammable fuels (Petrol UN 1203), and toxic compressed gases. These vehicles must be booked on <strong>dedicated commercial freight sailings</strong> (typically night runs).
+              </p>
               <div class="g-alert g-alert-warn">
-                <div style="font-size:1.2rem;">📐</div>
-                <div><strong>12-Metre Accommodation Buffer:</strong> Class 1 explosives, toxic gases, and toxic chemicals must maintain a 12m horizontal buffer from passenger observation decks, cabins, and lifeboats.</div>
-              </div>
-              <div class="g-alert g-alert-blue">
-                <div style="font-size:1.2rem;">🌬️</div>
-                <div><strong>Weather-Deck Mandatory:</strong> Cat B and C substances (e.g. Bulk LPG UN 1075) can only sail on passenger ferries if placed in open weather-deck slots.</div>
+                <div>⚠️</div>
+                <div><strong>Weather-Deck (Cat B & C):</strong> Permitted on passenger sailings provided the vehicle is placed on open weather decks with natural ventilation. Prohibited under-deck.</div>
               </div>
             </div>
 
             <div>
-              <h4 style="font-family:'Google Sans', sans-serif; margin:0 0 8px 0; color:var(--g-green);">🚛 Dedicated Freight-Only Sailings</h4>
-              <div class="g-alert g-alert-success">
-                <div style="font-size:1.2rem;">✅</div>
-                <div><strong>Full IMDG Allocation:</strong> Authorised to carry Stowage Categories D & E. Accommodates standard Class 2.1 bulk road tankers and high-volume hazardous freight.</div>
-              </div>
-              <div class="g-alert g-alert-warn">
-                <div style="font-size:1.2rem;">🛑</div>
-                <div><strong>Reefer & Shore Power Clearance:</strong> 3-metre physical separation still mandated from running mechanical refrigeration diesel units and 415V electrical cords.</div>
-              </div>
-              <div class="g-alert g-alert-blue">
-                <div style="font-size:1.2rem;">🐑</div>
-                <div><strong>Livestock Buffer:</strong> Minimum longitudinal bay clearance required from live livestock trucks and driver accommodation quarters.</div>
-              </div>
+              <h4 style="font-family:'Google Sans', sans-serif; margin:0 0 8px 0; color:var(--g-blue);">⚓ Vessel Physical Separation Buffers</h4>
+              <div class="rule-item"><strong>Accommodation Buffer</strong>: Minimum 12-metre horizontal clearance required from passenger observation areas, cabins, and life-saving appliances.</div>
+              <div class="rule-item"><strong>Reefer Units</strong>: Minimum 3-metre physical clearance from operating refrigeration motors and 415V ferry shore-power cables.</div>
+              <div class="rule-item"><strong>Livestock Units</strong>: Corrosive liquids (Class 8) and toxic goods (Class 6.1/2.3) cannot share adjacent vehicle bays with livestock transporters.</div>
             </div>
           </div>
         </div>
@@ -899,28 +861,7 @@
 
       themeBtn.addEventListener('click', () => setTheme(!document.body.classList.contains('dark-mode')));
 
-      // Sailing Mode State
-      let currentSailingMode = 'passenger'; // 'passenger' or 'freight'
-      const btnPax = document.getElementById('btnSailingPax');
-      const btnFreight = document.getElementById('btnSailingFreight');
-
-      btnPax.addEventListener('click', () => {
-        currentSailingMode = 'passenger';
-        btnPax.classList.add('active');
-        btnFreight.classList.remove('active');
-        document.getElementById('sailingModeTitle').innerText = 'Passenger Sailing';
-        if (document.getElementById('inspectorResults').style.display === 'block') runEvaluation();
-      });
-
-      btnFreight.addEventListener('click', () => {
-        currentSailingMode = 'freight';
-        btnFreight.classList.add('active');
-        btnPax.classList.remove('active');
-        document.getElementById('sailingModeTitle').innerText = 'Dedicated Freight Sailing';
-        if (document.getElementById('inspectorResults').style.display === 'block') runEvaluation();
-      });
-
-      // Master UN Database with IMDG Stowage Categories (A, B, C, D, E)
+      // UN Database with IMDG Stowage Categories (A, B, C, D, E)
       const UN_DATABASE = {
         "1001": { name: "ACETYLENE, DISSOLVED", class: "2.1", sub: "", sgg: "None", haz: "2SE", stow: "D" },
         "1005": { name: "AMMONIA, ANHYDROUS", class: "2.3", sub: "8", sgg: "SGG18", haz: "2RE", stow: "D" },
@@ -1115,7 +1056,7 @@
         document.getElementById('scannerBox').style.display = 'none';
       });
 
-      // Evaluation Engine (Includes Passenger vs Freight Sailings)
+      // Evaluation Engine with Dedicated Freight Sailing Indicator
       function runEvaluation() {
         const inputVal = unInput.value.trim();
         const code = inputVal.replace(/^UN\s*/i, '');
@@ -1140,7 +1081,7 @@
             <span class="g-chip chip-class">Class ${pClass}</span>
             ${sub ? `<span class="g-chip chip-sub">Sub ${sub}</span>` : ''}
             <span class="g-chip chip-sgg">${sgg}</span>
-            <span class="g-chip" style="background:#e0f2fe; color:#0369a1;">Stowage ${stow}</span>
+            <span class="g-chip" style="background:var(--g-surface-variant); color:var(--g-text-primary);">IMDG Cat ${stow}</span>
             ${haz ? `<span class="g-chip chip-haz">Hazchem ${haz}</span>` : ''}
           </div>
           <div style="font-size:0.78rem; color:var(--g-text-secondary); margin-top:8px;">
@@ -1148,61 +1089,46 @@
           </div>
         `;
 
-        // Cook Strait Ferry Sailing Profile Logic
-        let ferryHTML = "";
-        if (currentSailingMode === 'passenger') {
-          if (stow === 'D' || stow === 'E') {
-            ferryHTML = `
-              <div class="g-alert g-alert-error">
-                <div style="font-size:1.3rem;">🚫</div>
-                <div>
-                  <strong>STRICT PASSENGER SAILING BAN (IMDG Category ${stow}):</strong><br>
-                  This item is <strong>PROHIBITED</strong> on passenger sailings. You must book this shipment on a <strong>Dedicated Freight-Only Sailing</strong> (e.g. night/freight crossing) under MNZ Part 24B.
-                </div>
-              </div>
-            `;
-          } else if (stow === 'B' || stow === 'C') {
-            ferryHTML = `
-              <div class="g-alert g-alert-warn">
-                <div style="font-size:1.3rem;">⚠️</div>
-                <div>
-                  <strong>WEATHER-DECK ONLY ON PASSENGER SAILING (IMDG Category ${stow}):</strong><br>
-                  Permitted on passenger sailings <strong>ONLY on open weather decks</strong> with natural ventilation. Prohibited in enclosed lower vehicle decks.
-                </div>
-              </div>
-            `;
-          } else {
-            ferryHTML = `
-              <div class="g-alert g-alert-success">
-                <div style="font-size:1.3rem;">✅</div>
-                <div>
-                  <strong>CLEARED FOR PASSENGER SAILINGS (Category A):</strong><br>
-                  Permitted on either upper weather deck or closed lower vehicle deck. Maintain 12m buffer from passenger stairs and cabins.
-                </div>
-              </div>
-            `;
-          }
-        } else {
-          // Freight Sailing
-          ferryHTML = `
-            <div class="g-alert g-alert-success">
-              <div style="font-size:1.3rem;">✅</div>
+        // Direct Ferry Sailing Requirement Indicator
+        let indicatorHTML = "";
+        if (stow === 'D' || stow === 'E') {
+          indicatorHTML = `
+            <div class="ferry-indicator-banner ferry-banned">
+              <span style="font-size:1.4rem;">🛑</span>
               <div>
-                <strong>CLEARED FOR DEDICATED FREIGHT SAILING:</strong><br>
-                Permitted under IMDG Stowage Category ${stow}. Stowage ${stow === 'C' || stow === 'D' ? 'restricted to open deck or mechanically ventilated cargo holds' : 'allowed on all approved freight vehicle decks'}.
+                <strong>FREIGHT ONLY SAILING REQUIRED</strong>
+                <div style="font-size:0.75rem; font-weight:400; opacity:0.9;">
+                  IMDG Stowage Category ${stow} • Strictly prohibited on passenger ferries. Must book on a commercial freight-only crossing.
+                </div>
+              </div>
+            </div>
+          `;
+        } else if (stow === 'B' || stow === 'C') {
+          indicatorHTML = `
+            <div class="ferry-indicator-banner ferry-weather-deck">
+              <span style="font-size:1.4rem;">⚠️</span>
+              <div>
+                <strong>PASSENGER SAILING: WEATHER DECK ONLY</strong>
+                <div style="font-size:0.75rem; font-weight:400; opacity:0.9;">
+                  IMDG Stowage Category ${stow} • Allowed on passenger sailings ONLY in open, naturally ventilated deck bays (prohibited under-deck).
+                </div>
+              </div>
+            </div>
+          `;
+        } else {
+          indicatorHTML = `
+            <div class="ferry-indicator-banner ferry-allowed">
+              <span style="font-size:1.4rem;">🟢</span>
+              <div>
+                <strong>PASSENGER SAILING PERMITTED</strong>
+                <div style="font-size:0.75rem; font-weight:400; opacity:0.9;">
+                  IMDG Stowage Category A • Cleared for passenger sailings on upper or lower vehicle decks.
+                </div>
               </div>
             </div>
           `;
         }
-
-        // Additional Ferry Buffers
-        if (pClass === '2.1' || pClass === '3') {
-          ferryHTML += `<div class="rule-item">🔌 <strong>Reefer Isolation:</strong> Must maintain at least 3m physical clearance from active 415V ferry shore-power leads and operating diesel refrigeration units.</div>`;
-        }
-        if (pClass === '6.1' || pClass === '8' || pClass === '2.3') {
-          ferryHTML += `<div class="rule-item">🐑 <strong>Livestock Separation:</strong> Must not be loaded in bays adjacent to livestock transport units or driver berths.</div>`;
-        }
-        document.getElementById('ferrySailingAudit').innerHTML = ferryHTML;
+        document.getElementById('ferryIndicatorBox').innerHTML = indicatorHTML;
 
         // Foodstuff Audit
         let foodHTML = "";
@@ -1279,7 +1205,6 @@
       }
       document.getElementById('btnAddManifest').addEventListener('click', addToManifest);
 
-      // Desktop Keyboard Shortcuts
       window.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && e.target.tagName !== 'BUTTON') {
           runEvaluation();
@@ -1290,29 +1215,34 @@
         }
       });
 
-      // Manifest Rendering
       function renderManifest() {
         const list = document.getElementById('manifestList');
         if (manifest.length === 0) {
           list.innerHTML = '<div style="color:var(--g-text-secondary); font-size:0.84rem; padding:16px 0;">No items loaded. Inspect items to build a manifest.</div>';
           return;
         }
-        list.innerHTML = manifest.map((item, i) => `
-          <div style="padding:12px; background:var(--g-surface-variant); border-radius:8px; margin-bottom:8px; border:1px solid var(--g-border); font-size:0.82rem;">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <strong>${item.label}</strong>
-              <button type="button" data-del="${i}" style="background:none; border:none; color:var(--g-red); font-weight:bold; cursor:pointer;">Remove</button>
+        list.innerHTML = manifest.map((item, i) => {
+          let ferryTag = item.stow === 'D' || item.stow === 'E' 
+            ? `<span class="tag tag-prohibit">FREIGHT ONLY</span>` 
+            : (item.stow === 'B' || item.stow === 'C' ? `<span class="tag tag-sep">WEATHER DECK</span>` : `<span class="tag tag-allow">PAX OK</span>`);
+
+          return `
+            <div style="padding:12px; background:var(--g-surface-variant); border-radius:8px; margin-bottom:8px; border:1px solid var(--g-border); font-size:0.82rem;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong>${item.label}</strong>
+                <button type="button" data-del="${i}" style="background:none; border:none; color:var(--g-red); font-weight:bold; cursor:pointer;">Remove</button>
+              </div>
+              <div style="margin-top:6px; display:flex; flex-wrap:wrap; gap:4px; align-items:center;">
+                <span class="g-chip chip-class">Class ${item.pClass}</span>
+                ${item.sub ? `<span class="g-chip chip-sub">Sub ${item.sub}</span>` : ''}
+                <span class="g-chip chip-sgg">${item.sgg}</span>
+                ${item.haz ? `<span class="g-chip chip-haz">${item.haz}</span>` : ''}
+                ${ferryTag}
+                <span style="color:var(--g-text-secondary); font-size:0.75rem; margin-left:4px;">${item.qty ? item.qty + ' units' : ''} ${item.isLq ? '[LQ]' : ''}</span>
+              </div>
             </div>
-            <div style="margin-top:6px;">
-              <span class="g-chip chip-class">Class ${item.pClass}</span>
-              ${item.sub ? `<span class="g-chip chip-sub">Sub ${item.sub}</span>` : ''}
-              <span class="g-chip chip-sgg">${item.sgg}</span>
-              <span class="g-chip" style="background:#e0f2fe; color:#0369a1;">Cat ${item.stow || 'A'}</span>
-              ${item.haz ? `<span class="g-chip chip-haz">${item.haz}</span>` : ''}
-              <span style="color:var(--g-text-secondary); font-size:0.75rem;">${item.qty ? item.qty + ' units' : ''} ${item.isLq ? '[LQ]' : ''}</span>
-            </div>
-          </div>
-        `).join('');
+          `;
+        }).join('');
 
         list.querySelectorAll('button[data-del]').forEach(btn => {
           btn.addEventListener('click', function() {
@@ -1336,7 +1266,8 @@
       function getManifestText() {
         let txt = "DANGEROUS GOODS FREIGHT MANIFEST\nNZS 5433 / IMDG COMPLIANCE VERIFIED\n------------------------------------\n";
         manifest.forEach((m, idx) => {
-          txt += `${idx + 1}. ${m.label} | Class: ${m.pClass}${m.sub ? ' (' + m.sub + ')' : ''} | SGG: ${m.sgg} | Stow: Cat ${m.stow || 'A'} | EAC: ${m.haz || 'N/A'} | Qty: ${m.qty || 'N/A'}${m.isLq ? ' [LQ]' : ''}\n`;
+          let fStatus = m.stow === 'D' || m.stow === 'E' ? 'FREIGHT ONLY' : 'PAX PERMITTED';
+          txt += `${idx + 1}. ${m.label} | Class: ${m.pClass}${m.sub ? ' (' + m.sub + ')' : ''} | SGG: ${m.sgg} | Ferry: ${fStatus} | EAC: ${m.haz || 'N/A'} | Qty: ${m.qty || 'N/A'}${m.isLq ? ' [LQ]' : ''}\n`;
         });
         txt += "------------------------------------\nStatus: Verified Complete";
         return txt;
@@ -1362,11 +1293,11 @@
         const banners = [];
         let roadBlocked = false;
         let seaBlocked = false;
-        let paxBanned = false;
+        let freightOnlyItems = [];
 
         for (let i = 0; i < manifest.length; i++) {
           if (manifest[i].stow === 'D' || manifest[i].stow === 'E') {
-            paxBanned = true;
+            freightOnlyItems.push(manifest[i].label);
           }
           for (let j = i + 1; j < manifest.length; j++) {
             const a = manifest[i];
@@ -1403,11 +1334,14 @@
         }
 
         let summary = "";
-        if (paxBanned) {
+        if (freightOnlyItems.length > 0) {
           summary += `
-            <div class="g-alert g-alert-warn" style="margin-bottom:10px;">
-              <div style="font-size:1.2rem;">🚢</div>
-              <div><strong>COOK STRAIT PASSENGER SAILING BAN:</strong> One or more items in this manifest require IMDG Stowage Category D or E. This entire unit <strong>MUST BE BOOKED ON A DEDICATED FREIGHT-ONLY SAILING</strong>.</div>
+            <div class="g-alert g-alert-error" style="margin-bottom:12px;">
+              <div style="font-size:1.3rem;">🛑</div>
+              <div>
+                <strong>MUST BOOK FREIGHT ONLY SAILING:</strong><br>
+                This manifest contains commodities banned from passenger ferries (${freightOnlyItems.join(', ')}). The entire vehicle combination <strong>must be booked on a dedicated freight sailing</strong> under Maritime NZ Part 24B.
+              </div>
             </div>
           `;
         }
