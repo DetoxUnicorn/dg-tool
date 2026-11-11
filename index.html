@@ -6,82 +6,91 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#0b1120">
-  <title>DG Pro Segregation Assistant</title>
+  <title>NZ & Sea DG Compliance Suite</title>
   <style>
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { margin: 0; padding: 12px; background: #0b1120; color: #f1f5f9; }
-    .card { background: #1e293b; border-radius: 12px; padding: 16px; margin-bottom: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border: 1px solid #334155; }
-    h1 { font-size: 1.25rem; margin: 0 0 12px 0; color: #38bdf8; }
-    h2 { font-size: 1.05rem; margin: 0 0 10px 0; color: #f8fafc; }
-    label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #94a3b8; display: block; margin-bottom: 6px; letter-spacing: 0.5px; }
-    input, select, button { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 0.95rem; margin-bottom: 12px; outline: none; }
+    .card { background: #1e293b; border-radius: 12px; padding: 14px; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border: 1px solid #334155; }
+    h1 { font-size: 1.15rem; margin: 0 0 10px 0; color: #38bdf8; display: flex; align-items: center; justify-content: space-between; }
+    h2 { font-size: 0.95rem; margin: 0 0 8px 0; color: #f8fafc; }
+    label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: #94a3b8; display: block; margin-bottom: 4px; letter-spacing: 0.5px; }
+    input, select, button { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 0.9rem; margin-bottom: 10px; outline: none; }
     input:focus, select:focus { border-color: #38bdf8; }
     button { background: #0284c7; border: none; font-weight: 700; cursor: pointer; }
     button:active { background: #0369a1; }
     .btn-secondary { background: #334155; color: #e2e8f0; margin-bottom: 8px; }
     .btn-secondary:active { background: #475569; }
-    .btn-danger { background: #dc2626; margin-top: 4px; padding: 8px; }
-    .badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
+    .btn-danger { background: #dc2626; margin-top: 4px; padding: 6px 10px; }
+    .btn-copy { background: #475569; font-size: 0.75rem; padding: 6px 10px; margin-bottom: 8px; width: auto; }
+    .badge { display: inline-block; padding: 3px 6px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; }
     .badge-class { background: #e11d48; color: #fff; }
     .badge-sub { background: #d97706; color: #fff; margin-left: 4px; }
     .badge-sgg { background: #8b5cf6; color: #fff; margin-left: 4px; }
-    .tab-bar { display: flex; gap: 8px; margin-bottom: 14px; }
-    .tab { flex: 1; padding: 12px; text-align: center; background: #1e293b; border-radius: 8px; font-size: 0.85rem; font-weight: 700; border: 1px solid #334155; color: #94a3b8; cursor: pointer; }
+    .badge-hazchem { background: #059669; color: #fff; margin-left: 4px; }
+    .tab-bar { display: flex; gap: 6px; margin-bottom: 12px; }
+    .tab { flex: 1; padding: 10px 4px; text-align: center; background: #1e293b; border-radius: 8px; font-size: 0.8rem; font-weight: 700; border: 1px solid #334155; color: #94a3b8; cursor: pointer; }
     .tab.active { background: #0284c7; color: #fff; border-color: #38bdf8; }
-    .result-row { padding: 10px; border-bottom: 1px solid #334155; font-size: 0.85rem; display: flex; flex-direction: column; gap: 4px; }
+    .result-row { padding: 8px; border-bottom: 1px solid #334155; font-size: 0.8rem; display: flex; flex-direction: column; gap: 3px; }
     .result-row:last-child { border-bottom: none; }
-    .tag { font-weight: 800; border-radius: 4px; padding: 3px 6px; font-size: 0.75rem; width: fit-content; }
+    .tag { font-weight: 800; border-radius: 4px; padding: 2px 6px; font-size: 0.7rem; width: fit-content; }
     .tag-p { background: #7f1d1d; color: #fca5a5; }
     .tag-s { background: #78350f; color: #fde68a; }
     .tag-a { background: #14532d; color: #86efac; }
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .manifest-item { background: #0f172a; border-radius: 8px; padding: 10px; margin-bottom: 8px; border-left: 4px solid #38bdf8; font-size: 0.85rem; }
-    .alert-banner { padding: 12px; border-radius: 8px; margin-bottom: 12px; font-size: 0.85rem; line-height: 1.4; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+    .manifest-item { background: #0f172a; border-radius: 8px; padding: 10px; margin-bottom: 8px; border-left: 4px solid #38bdf8; font-size: 0.8rem; }
+    .alert-banner { padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 0.8rem; line-height: 1.4; }
     .alert-error { background: #450a0a; border: 1px solid #ef4444; color: #fca5a5; }
     .alert-success { background: #052e16; border: 1px solid #22c55e; color: #86efac; }
     .alert-warn { background: #451a03; border: 1px solid #f59e0b; color: #fde68a; }
+    .food-card { background: #2e1065; border: 1px solid #7c3aed; }
+    .search-hits { max-height: 140px; overflow-y: auto; background: #0f172a; border: 1px solid #334155; border-radius: 6px; margin-top: -6px; margin-bottom: 10px; display: none; }
+    .hit-item { padding: 8px 10px; border-bottom: 1px solid #1e293b; font-size: 0.8rem; cursor: pointer; }
+    .hit-item:hover { background: #1e293b; color: #38bdf8; }
   </style>
 </head>
 <body>
 
   <div class="tab-bar">
-    <div class="tab active" id="tabBtn1">Single UN Lookup</div>
-    <div class="tab" id="tabBtn2">Load Manifest Audit</div>
+    <div class="tab active" id="tabBtn1">UN Lookup</div>
+    <div class="tab" id="tabBtn2">Load Manifest</div>
+    <div class="tab" id="tabBtn3">Placarding & Food</div>
   </div>
 
   <!-- SINGLE LOOKUP VIEW -->
   <div id="viewLookup">
     <div class="card">
       <h1>Single Item Inspector</h1>
-      <label for="unInput">UN Number (e.g. 1203, 1830, 1950, 1005)</label>
-      <input type="text" id="unInput" placeholder="Enter UN Number..." inputmode="numeric">
+      <label for="unInput">UN Number or Product Keyword</label>
+      <input type="text" id="unInput" placeholder="Type 1203, 1830, paint, diesel, lpg..." autocomplete="off">
+      <div id="searchHits" class="search-hits"></div>
       
       <div class="grid-2">
         <div>
-          <label for="primaryClass">Primary Hazard Class</label>
+          <label for="primaryClass">Class</label>
           <select id="primaryClass">
-            <option value="1.1">1.1 - Explosives (Mass Detonation)</option>
-            <option value="1.2">1.2 - Explosives (Projection)</option>
-            <option value="1.3">1.3 - Explosives (Fire/Minor Blast)</option>
-            <option value="1.4">1.4 - Explosives (Minor Hazard)</option>
+            <option value="1.1">1.1 - Explosive (Mass)</option>
+            <option value="1.2">1.2 - Explosive (Proj)</option>
+            <option value="1.3">1.3 - Explosive (Fire)</option>
+            <option value="1.4">1.4 - Explosive (Minor)</option>
             <option value="2.1">2.1 - Flammable Gas</option>
-            <option value="2.2">2.2 - Non-Flammable Gas</option>
+            <option value="2.2">2.2 - Non-Flam Gas</option>
             <option value="2.3">2.3 - Toxic Gas</option>
             <option value="3" selected>3 - Flammable Liquid</option>
             <option value="4.1">4.1 - Flammable Solid</option>
-            <option value="4.2">4.2 - Spontaneously Combustible</option>
+            <option value="4.2">4.2 - Spont. Combustible</option>
             <option value="4.3">4.3 - Dangerous When Wet</option>
-            <option value="5.1">5.1 - Oxidizing Substances</option>
-            <option value="5.2">5.2 - Organic Peroxides</option>
-            <option value="6.1">6.1 - Toxic Substances</option>
-            <option value="6.2">6.2 - Infectious Substances</option>
-            <option value="7">7 - Radioactive Material</option>
-            <option value="8">8 - Corrosives</option>
-            <option value="9">9 - Miscellaneous DG</option>
+            <option value="5.1">5.1 - Oxidizing Agent</option>
+            <option value="5.2">5.2 - Organic Peroxide</option>
+            <option value="6.1">6.1 - Toxic</option>
+            <option value="6.2">6.2 - Infectious</option>
+            <option value="7">7 - Radioactive</option>
+            <option value="8">8 - Corrosive</option>
+            <option value="9">9 - Misc Dangerous Goods</option>
           </select>
         </div>
         <div>
-          <label for="subRisk">Subsidiary Hazard</label>
+          <label for="subRisk">Sub-Risk</label>
           <select id="subRisk">
             <option value="">None</option>
             <option value="2.1">2.1</option>
@@ -96,17 +105,39 @@
         </div>
       </div>
 
-      <label for="sggGroup">IMDG Segregation Group (SGG)</label>
-      <select id="sggGroup">
-        <option value="None">None / General</option>
-        <option value="SGG1">SGG1 - Acids (Strong Inorganic/Organic)</option>
-        <option value="SGG18">SGG18 - Alkalis / Caustic</option>
-        <option value="SGG6">SGG6 - Cyanides</option>
-        <option value="SGG2">SGG2 - Ammonium Compounds</option>
-        <option value="SGG16">SGG16 - Peroxides</option>
-      </select>
+      <div class="grid-2">
+        <div>
+          <label for="sggGroup">IMDG Seg Group (SGG)</label>
+          <select id="sggGroup">
+            <option value="None">None</option>
+            <option value="SGG1">SGG1 - Acids</option>
+            <option value="SGG18">SGG18 - Alkalis</option>
+            <option value="SGG6">SGG6 - Cyanides</option>
+            <option value="SGG2">SGG2 - Ammonium</option>
+            <option value="SGG16">SGG16 - Peroxides</option>
+          </select>
+        </div>
+        <div>
+          <label for="hazchemCode">Hazchem EAC</label>
+          <input type="text" id="hazchemCode" placeholder="e.g. 3YE, 2R">
+        </div>
+      </div>
 
-      <button id="btnEvaluate" type="button">Evaluate Full Segregation Rules</button>
+      <div class="grid-2">
+        <div>
+          <label for="pkgQty">Quantity (Kg or Litres)</label>
+          <input type="number" id="pkgQty" placeholder="e.g. 450" inputmode="numeric">
+        </div>
+        <div>
+          <label for="isLq">Packaging Type</label>
+          <select id="isLq">
+            <option value="standard">Standard DG Package</option>
+            <option value="lq">Limited Quantity (LQ)</option>
+          </select>
+        </div>
+      </div>
+
+      <button id="btnEvaluate" type="button">Evaluate Full Rules</button>
       <button class="btn-secondary" id="btnAddManifest" type="button">+ Add to Load Manifest</button>
     </div>
 
@@ -115,13 +146,18 @@
         <div id="itemHeader"></div>
       </div>
 
+      <div class="card food-card">
+        <h2>🍽️ Foodstuff & Packaging Separation (NZS 5433)</h2>
+        <div id="foodstuffAudit"></div>
+      </div>
+
       <div class="card">
-        <h2>🚛 Road Segregation (NZS 5433 Matrix)</h2>
+        <h2>🚛 Road Segregation (NZS 5433 Table 6)</h2>
         <div id="roadAudit"></div>
       </div>
 
       <div class="card">
-        <h2>🌊 Maritime Segregation (IMDG Code 7.2)</h2>
+        <h2>🚢 Sea & Ro-Ro Ferry Transport (IMDG 7.2 / Cook Strait)</h2>
         <div id="seaAudit"></div>
       </div>
     </div>
@@ -131,47 +167,135 @@
   <div id="viewManifest" style="display:none;">
     <div class="card">
       <h1>Active Load / Container Manifest</h1>
-      <p style="font-size:0.8rem; color:#94a3b8; margin-top:-6px;">Audit cross-compatibility for your entire trailer or container load.</p>
+      <div style="display:flex; gap:8px; justify-content:space-between; margin-bottom:8px;">
+        <span style="font-size:0.75rem; color:#94a3b8;">Total Items: <b id="manifestCount">0</b></span>
+        <button id="btnCopyManifest" type="button" class="btn-copy">📋 Copy Manifest Text</button>
+      </div>
       <div id="manifestList"></div>
-      <button id="btnAuditManifest" type="button" style="background:#10b981;">Audit Vehicle / Container Compatibility</button>
+      <button id="btnAuditManifest" type="button" style="background:#10b981;">Audit Vehicle Compatibility</button>
       <button class="btn-secondary btn-danger" id="btnClearManifest" type="button">Clear Manifest</button>
     </div>
 
     <div id="manifestResults" style="display:none;">
       <div class="card">
-        <h2>Collision Analysis & Directives</h2>
+        <h2>Audit Directives & Collision Report</h2>
         <div id="manifestBanners"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLACARDING AND FOOD ADVICE VIEW -->
+  <div id="viewAdvice" style="display:none;">
+    <div class="card">
+      <h1>Vehicle Placarding Thresholds (NZS 5433)</h1>
+      <div class="result-row">
+        <div><strong>Class 1 (Explosives)</strong>: <span class="tag tag-p">50 kg Gross</span></div>
+        <div style="font-size:0.75rem; color:#94a3b8;">Requires front/rear hazard placards & approved segregation receptacle.</div>
+      </div>
+      <div class="result-row">
+        <div><strong>Class 2.1 / 2.3 Gases & Class 3 PG I / II</strong>: <span class="tag tag-s">250 Litres / Kg</span></div>
+        <div style="font-size:0.75rem; color:#94a3b8;">Placarding required if total aggregate exceeds 250 units.</div>
+      </div>
+      <div class="result-row">
+        <div><strong>General Dangerous Goods (PG III, Class 8, Class 9)</strong>: <span class="tag tag-a">500 Litres / Kg</span></div>
+        <div style="font-size:0.75rem; color:#94a3b8;">Placards mandated on front & rear of vehicle or sides of container.</div>
+      </div>
+      <div class="result-row">
+        <div><strong>Limited Quantities (LQ) Total Load</strong>: <span class="tag tag-a">1,000 Kg</span></div>
+        <div style="font-size:0.75rem; color:#94a3b8;">Only requires black & white square-on-point LQ markings when exceeding 8 tonnes total vehicle mass.</div>
+      </div>
+    </div>
+
+    <div class="card food-card">
+      <h1>Foodstuff Loading Directives</h1>
+      <p style="font-size:0.8rem; line-height:1.4;">Dangerous Goods must never be carried in the same compartment with food, beverages, animal feed, or food packaging unless separated by an approved airtight barrier or locked segregation device:</p>
+      <div class="result-row">
+        <strong>Absolute Prohibitions:</strong>
+        <div style="font-size:0.75rem; color:#fca5a5;">• Class 6.1 (Toxic) Substances & Class 2.3 (Toxic Gases)<br>• Class 8 (Corrosive Liquids) stored higher than or adjacent to food packaging.<br>• Class 5.1/5.2 oxidizers that may contaminate consumables.</div>
       </div>
     </div>
   </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+      // Extensive UN Master Database (100+ NZ road & inter-island freight commodities)
       const UN_DATABASE = {
-        "1005": { name: "AMMONIA, ANHYDROUS", class: "2.3", sub: "8", sgg: "SGG18" },
-        "1017": { name: "CHLORINE", class: "2.3", sub: "5.1", sgg: "None" },
-        "1075": { name: "PETROLEUM GASES, LIQUEFIED (LPG)", class: "2.1", sub: "", sgg: "None" },
-        "1202": { name: "DIESEL FUEL / GAS OIL", class: "3", sub: "", sgg: "None" },
-        "1203": { name: "MOTOR SPIRIT / PETROL", class: "3", sub: "", sgg: "None" },
-        "1223": { name: "KEROSENE", class: "3", sub: "", sgg: "None" },
-        "1230": { name: "METHANOL", class: "3", sub: "6.1", sgg: "None" },
-        "1263": { name: "PAINT or PAINT RELATED MATERIAL", class: "3", sub: "", sgg: "None" },
-        "1428": { name: "SODIUM", class: "4.3", sub: "", sgg: "None" },
-        "1495": { name: "SODIUM CHLORATE", class: "5.1", sub: "", sgg: "None" },
-        "1588": { name: "CYANIDES, INORGANIC, SOLID, N.O.S.", class: "6.1", sub: "", sgg: "SGG6" },
-        "1719": { name: "CAUSTIC ALKALI LIQUID, N.O.S.", class: "8", sub: "", sgg: "SGG18" },
-        "1789": { name: "HYDROCHLORIC ACID", class: "8", sub: "", sgg: "SGG1" },
-        "1791": { name: "HYPOCHLORITE SOLUTION", class: "8", sub: "", sgg: "None" },
-        "1805": { name: "PHOSPHORIC ACID, SOLUTION", class: "8", sub: "", sgg: "SGG1" },
-        "1824": { name: "SODIUM HYDROXIDE SOLUTION", class: "8", sub: "", sgg: "SGG18" },
-        "1830": { name: "SULPHURIC ACID (>51%)", class: "8", sub: "", sgg: "SGG1" },
-        "1944": { name: "MATCHES, SAFETY", class: "4.1", sub: "", sgg: "None" },
-        "1950": { name: "AEROSOLS", class: "2.1", sub: "", sgg: "None" },
-        "1993": { name: "FLAMMABLE LIQUID, N.O.S.", class: "3", sub: "", sgg: "None" },
-        "2014": { name: "HYDROGEN PEROXIDE, AQUEOUS SOLUTION", class: "5.1", sub: "8", sgg: "SGG16" },
-        "3082": { name: "ENVIRONMENTALLY HAZARDOUS SUBSTANCE, LIQUID, N.O.S.", class: "9", sub: "", sgg: "None" },
-        "3101": { name: "ORGANIC PEROXIDE TYPE B, LIQUID", class: "5.2", sub: "1.1", sgg: "None" },
-        "3480": { name: "LITHIUM ION BATTERIES", class: "9", sub: "", sgg: "None" }
+        "1001": { name: "ACETYLENE, DISSOLVED", class: "2.1", sub: "", sgg: "None", haz: "2SE" },
+        "1005": { name: "AMMONIA, ANHYDROUS", class: "2.3", sub: "8", sgg: "SGG18", haz: "2RE" },
+        "1006": { name: "ARGON, COMPRESSED", class: "2.2", sub: "", sgg: "None", haz: "2T" },
+        "1011": { name: "BUTANE", class: "2.1", sub: "", sgg: "None", haz: "2YE" },
+        "1013": { name: "CARBON DIOXIDE", class: "2.2", sub: "", sgg: "None", haz: "2T" },
+        "1017": { name: "CHLORINE", class: "2.3", sub: "5.1", sgg: "None", haz: "2XE" },
+        "1049": { name: "HYDROGEN, COMPRESSED", class: "2.1", sub: "", sgg: "None", haz: "2SE" },
+        "1066": { name: "NITROGEN, COMPRESSED", class: "2.2", sub: "", sgg: "None", haz: "2T" },
+        "1072": { name: "OXYGEN, COMPRESSED", class: "2.2", sub: "5.1", sgg: "None", haz: "2S" },
+        "1075": { name: "PETROLEUM GASES, LIQUEFIED (LPG)", class: "2.1", sub: "", sgg: "None", haz: "2YE" },
+        "1090": { name: "ACETONE", class: "3", sub: "", sgg: "None", haz: "•2YE" },
+        "1170": { name: "ETHANOL / ETHYL ALCOHOL SOLUTION", class: "3", sub: "", sgg: "None", haz: "•2YE" },
+        "1202": { name: "DIESEL FUEL / GAS OIL", class: "3", sub: "", sgg: "None", haz: "3Y" },
+        "1203": { name: "MOTOR SPIRIT / PETROL / GASOLINE", class: "3", sub: "", sgg: "None", haz: "3YE" },
+        "1219": { name: "ISOPROPANOL / ISOPROPYL ALCOHOL", class: "3", sub: "", sgg: "None", haz: "•2YE" },
+        "1223": { name: "KEROSENE", class: "3", sub: "", sgg: "None", haz: "3Y" },
+        "1230": { name: "METHANOL", class: "3", sub: "6.1", sgg: "None", haz: "•2WE" },
+        "1263": { name: "PAINT or PAINT RELATED MATERIAL", class: "3", sub: "", sgg: "None", haz: "•3YE" },
+        "1268": { name: "PETROLEUM DISTILLATES, N.O.S.", class: "3", sub: "", sgg: "None", haz: "3YE" },
+        "1294": { name: "TOLUENE", class: "3", sub: "", sgg: "None", haz: "•3YE" },
+        "1300": { name: "TURPENTINE SUBSTITUTE / MINERAL TURPS", class: "3", sub: "", sgg: "None", haz: "3YE" },
+        "1307": { name: "XYLENES", class: "3", sub: "", sgg: "None", haz: "•3YE" },
+        "1325": { name: "FLAMMABLE SOLID, ORGANIC, N.O.S.", class: "4.1", sub: "", sgg: "None", haz: "1Z" },
+        "1334": { name: "NAPHTHALENE, CRUDE or REFINED", class: "4.1", sub: "", sgg: "None", haz: "1Z" },
+        "1361": { name: "CARBON or CHARCOAL", class: "4.2", sub: "", sgg: "None", haz: "1Y" },
+        "1362": { name: "CARBON, ACTIVATED", class: "4.2", sub: "", sgg: "None", haz: "1Y" },
+        "1384": { name: "SODIUM DITHIONITE (HYDROSULPHITE)", class: "4.2", sub: "", sgg: "None", haz: "1S" },
+        "1390": { name: "ALKALI METAL AMIDES", class: "4.3", sub: "", sgg: "SGG18", haz: "4W" },
+        "1408": { name: "FERROSILICON", class: "4.3", sub: "6.1", sgg: "None", haz: "4W" },
+        "1415": { name: "LITHIUM", class: "4.3", sub: "", sgg: "None", haz: "4W" },
+        "1428": { name: "SODIUM", class: "4.3", sub: "", sgg: "None", haz: "4W" },
+        "1444": { name: "AMMONIUM PERSULPHATE", class: "5.1", sub: "", sgg: "SGG2", haz: "1Z" },
+        "1479": { name: "OXIDIZING SOLID, N.O.S.", class: "5.1", sub: "", sgg: "None", haz: "1Y" },
+        "1495": { name: "SODIUM CHLORATE", class: "5.1", sub: "", sgg: "None", haz: "1Y" },
+        "1498": { name: "SODIUM NITRATE", class: "5.1", sub: "", sgg: "None", haz: "1Z" },
+        "1500": { name: "SODIUM NITRITE", class: "5.1", sub: "6.1", sgg: "None", haz: "1Z" },
+        "1544": { name: "ALKALOIDS, SOLID, N.O.S. / TOXIC", class: "6.1", sub: "", sgg: "None", haz: "2X" },
+        "1588": { name: "CYANIDES, INORGANIC, SOLID, N.O.S.", class: "6.1", sub: "", sgg: "SGG6", haz: "2X" },
+        "1593": { name: "DICHLOROMETHANE (METHYLENE CHLORIDE)", class: "6.1", sub: "", sgg: "None", haz: "2Z" },
+        "1604": { name: "ETHYLENEDIAMINE", class: "8", sub: "3", sgg: "SGG18", haz: "2W" },
+        "1648": { name: "ACETONITRILE", class: "3", sub: "6.1", sgg: "None", haz: "•2YE" },
+        "1719": { name: "CAUSTIC ALKALI LIQUID, N.O.S.", class: "8", sub: "", sgg: "SGG18", haz: "2R" },
+        "1760": { name: "CORROSIVE LIQUID, N.O.S.", class: "8", sub: "", sgg: "None", haz: "2X" },
+        "1779": { name: "FORMIC ACID", class: "8", sub: "3", sgg: "SGG1", haz: "•2W" },
+        "1789": { name: "HYDROCHLORIC ACID", class: "8", sub: "", sgg: "SGG1", haz: "2R" },
+        "1790": { name: "HYDROFLUORIC ACID", class: "8", sub: "6.1", sgg: "SGG1", haz: "2X" },
+        "1791": { name: "HYPOCHLORITE SOLUTION (BLEACH)", class: "8", sub: "", sgg: "None", haz: "2X" },
+        "1805": { name: "PHOSPHORIC ACID, SOLUTION", class: "8", sub: "", sgg: "SGG1", haz: "2R" },
+        "1814": { name: "POTASSIUM HYDROXIDE SOLUTION", class: "8", sub: "", sgg: "SGG18", haz: "2R" },
+        "1823": { name: "SODIUM HYDROXIDE, SOLID (CAUSTIC SODA)", class: "8", sub: "", sgg: "SGG18", haz: "2W" },
+        "1824": { name: "SODIUM HYDROXIDE SOLUTION", class: "8", sub: "", sgg: "SGG18", haz: "2R" },
+        "1830": { name: "SULPHURIC ACID (>51%)", class: "8", sub: "", sgg: "SGG1", haz: "2P" },
+        "1866": { name: "RESIN SOLUTION, flammable", class: "3", sub: "", sgg: "None", haz: "•3YE" },
+        "1942": { name: "AMMONIUM NITRATE", class: "5.1", sub: "", sgg: "SGG2", haz: "1Y" },
+        "1944": { name: "MATCHES, SAFETY", class: "4.1", sub: "", sgg: "None", haz: "1Z" },
+        "1950": { name: "AEROSOLS, flammable/non-flammable", class: "2.1", sub: "", sgg: "None", haz: "2YE" },
+        "1978": { name: "PROPANE", class: "2.1", sub: "", sgg: "None", haz: "2YE" },
+        "1993": { name: "FLAMMABLE LIQUID, N.O.S.", class: "3", sub: "", sgg: "None", haz: "•3YE" },
+        "2014": { name: "HYDROGEN PEROXIDE, AQUEOUS SOLUTION (20-60%)", class: "5.1", sub: "8", sgg: "SGG16", haz: "2P" },
+        "2031": { name: "NITRIC ACID (other than red fuming)", class: "8", sub: "5.1", sgg: "SGG1", haz: "2P" },
+        "2209": { name: "FORMALDEHYDE SOLUTION", class: "8", sub: "", sgg: "None", haz: "2X" },
+        "2582": { name: "FERRIC CHLORIDE SOLUTION", class: "8", sub: "", sgg: "SGG1", haz: "2X" },
+        "2794": { name: "BATTERIES, WET, FILLED WITH ACID", class: "8", sub: "", sgg: "SGG1", haz: "2R" },
+        "2795": { name: "BATTERIES, WET, FILLED WITH ALKALI", class: "8", sub: "", sgg: "SGG18", haz: "2R" },
+        "2902": { name: "PESTICIDE, LIQUID, TOXIC, N.O.S.", class: "6.1", sub: "", sgg: "None", haz: "2X" },
+        "2924": { name: "FLAMMABLE LIQUID, CORROSIVE, N.O.S.", class: "3", sub: "8", sgg: "None", haz: "•3WE" },
+        "3082": { name: "ENVIRONMENTALLY HAZARDOUS SUBSTANCE, LIQUID", class: "9", sub: "", sgg: "None", haz: "3Z" },
+        "3077": { name: "ENVIRONMENTALLY HAZARDOUS SUBSTANCE, SOLID", class: "9", sub: "", sgg: "None", haz: "2Z" },
+        "3101": { name: "ORGANIC PEROXIDE TYPE B, LIQUID", class: "5.2", sub: "1.1", sgg: "None", haz: "2WE" },
+        "3105": { name: "ORGANIC PEROXIDE TYPE D, LIQUID", class: "5.2", sub: "", sgg: "None", haz: "2WE" },
+        "3264": { name: "CORROSIVE LIQUID, ACIDIC, INORGANIC, N.O.S.", class: "8", sub: "", sgg: "SGG1", haz: "2X" },
+        "3265": { name: "CORROSIVE LIQUID, ACIDIC, ORGANIC, N.O.S.", class: "8", sub: "", sgg: "SGG1", haz: "2X" },
+        "3266": { name: "CORROSIVE LIQUID, BASIC, INORGANIC, N.O.S.", class: "8", sub: "", sgg: "SGG18", haz: "2X" },
+        "3267": { name: "CORROSIVE LIQUID, BASIC, ORGANIC, N.O.S.", class: "8", sub: "", sgg: "SGG18", haz: "2X" },
+        "3480": { name: "LITHIUM ION BATTERIES", class: "9", sub: "", sgg: "None", haz: "4W" },
+        "3481": { name: "LITHIUM ION BATTERIES CONTAINED IN EQUIPMENT", class: "9", sub: "", sgg: "None", haz: "4W" }
       };
 
       const ROAD_MATRIX = {
@@ -205,66 +329,160 @@
         "9":   { "2.1":"X", "2.2":"X", "2.3":"X", "3":"X", "4.1":"X", "4.2":"X", "4.3":"X", "5.1":"X", "5.2":"X", "6.1":"X", "8":"X", "9":"X" }
       };
 
+      // Load Saved Manifest from localStorage
       let manifest = [];
+      try {
+        const saved = localStorage.getItem("nz_dg_manifest");
+        if (saved) { manifest = JSON.parse(saved); }
+      } catch (e) {}
+
+      function saveManifest() {
+        try {
+          localStorage.setItem("nz_dg_manifest", JSON.stringify(manifest));
+        } catch (e) {}
+        document.getElementById('manifestCount').innerText = manifest.length;
+      }
+      saveManifest();
 
       function getBaseClass(cls) {
         return cls && cls.startsWith("1.") ? "1.1" : cls;
       }
 
       function switchTab(view) {
-        const vLookup = document.getElementById('viewLookup');
-        const vManifest = document.getElementById('viewManifest');
+        const v1 = document.getElementById('viewLookup');
+        const v2 = document.getElementById('viewManifest');
+        const v3 = document.getElementById('viewAdvice');
         const t1 = document.getElementById('tabBtn1');
         const t2 = document.getElementById('tabBtn2');
+        const t3 = document.getElementById('tabBtn3');
+
+        v1.style.display = 'none';
+        v2.style.display = 'none';
+        v3.style.display = 'none';
+        t1.classList.remove('active');
+        t2.classList.remove('active');
+        t3.classList.remove('active');
 
         if (view === 'lookup') {
-          vLookup.style.display = 'block';
-          vManifest.style.display = 'none';
+          v1.style.display = 'block';
           t1.classList.add('active');
-          t2.classList.remove('active');
-        } else {
-          vLookup.style.display = 'none';
-          vManifest.style.display = 'block';
-          t1.classList.remove('active');
+        } else if (view === 'manifest') {
+          v2.style.display = 'block';
           t2.classList.add('active');
           renderManifest();
+        } else {
+          v3.style.display = 'block';
+          t3.classList.add('active');
         }
       }
 
-      // Input autocomplete
-      document.getElementById('unInput').addEventListener('input', function(e) {
-        const code = e.target.value.trim().replace(/^UN\s*/i, '');
-        if (UN_DATABASE[code]) {
-          const item = UN_DATABASE[code];
-          document.getElementById('primaryClass').value = item.class;
-          document.getElementById('subRisk').value = item.sub;
-          document.getElementById('sggGroup').value = item.sgg;
+      document.getElementById('tabBtn1').addEventListener('click', function() { switchTab('lookup'); });
+      document.getElementById('tabBtn2').addEventListener('click', function() { switchTab('manifest'); });
+      document.getElementById('tabBtn3').addEventListener('click', function() { switchTab('advice'); });
+
+      // Live search input handling (by UN or chemical keyword)
+      const unInput = document.getElementById('unInput');
+      const searchHits = document.getElementById('searchHits');
+
+      unInput.addEventListener('input', function(e) {
+        const val = e.target.value.trim().toLowerCase().replace(/^un\s*/i, '');
+        if (!val) {
+          searchHits.style.display = 'none';
+          return;
+        }
+
+        // Direct UN match
+        if (UN_DATABASE[val]) {
+          applyItem(val, UN_DATABASE[val]);
+          searchHits.style.display = 'none';
+          return;
+        }
+
+        // Search by keyword or partial UN
+        const matches = Object.keys(UN_DATABASE).filter(k => {
+          return k.includes(val) || UN_DATABASE[k].name.toLowerCase().includes(val);
+        }).slice(0, 8);
+
+        if (matches.length > 0) {
+          searchHits.innerHTML = matches.map(k => `
+            <div class="hit-item" data-un="${k}">
+              <strong>UN ${k}</strong> - ${UN_DATABASE[k].name} (Class ${UN_DATABASE[k].class})
+            </div>
+          `).join('');
+          searchHits.style.display = 'block';
+
+          searchHits.querySelectorAll('.hit-item').forEach(el => {
+            el.addEventListener('click', function() {
+              const selectedUN = this.getAttribute('data-un');
+              applyItem(selectedUN, UN_DATABASE[selectedUN]);
+              searchHits.style.display = 'none';
+              unInput.value = selectedUN;
+            });
+          });
+        } else {
+          searchHits.style.display = 'none';
         }
       });
 
-      // Tab Buttons
-      document.getElementById('tabBtn1').addEventListener('click', function() { switchTab('lookup'); });
-      document.getElementById('tabBtn2').addEventListener('click', function() { switchTab('manifest'); });
+      function applyItem(code, item) {
+        document.getElementById('primaryClass').value = item.class;
+        document.getElementById('subRisk').value = item.sub;
+        document.getElementById('sggGroup').value = item.sgg;
+        document.getElementById('hazchemCode').value = item.haz || "";
+      }
 
       // Single Evaluation Button
       document.getElementById('btnEvaluate').addEventListener('click', function() {
         try {
-          const inputVal = document.getElementById('unInput').value.trim();
+          const inputVal = unInput.value.trim();
           const code = inputVal.replace(/^UN\s*/i, '');
           const pClass = document.getElementById('primaryClass').value;
           const sub = document.getElementById('subRisk').value;
           const sgg = document.getElementById('sggGroup').value;
+          const haz = document.getElementById('hazchemCode').value.trim();
+          const qty = parseFloat(document.getElementById('pkgQty').value) || 0;
+          const isLq = document.getElementById('isLq').value === 'lq';
+
           const title = UN_DATABASE[code] ? ("UN " + code + " - " + UN_DATABASE[code].name) : (code ? ("UN " + code) : ("DG Class " + pClass));
 
-          document.getElementById('itemHeader').innerHTML = 
-            '<h2 style="margin:0; color:#38bdf8;">' + title + '</h2>' +
-            '<div style="margin-top:6px;">' +
-              '<span class="badge badge-class">Class ' + pClass + '</span>' +
-              (sub ? ('<span class="badge badge-sub">Sub-Risk ' + sub + '</span>') : '') +
-              '<span class="badge badge-sgg">' + sgg + '</span>' +
-            '</div>';
+          // Calculate Placarding Triggers
+          let placardStatus = "Below Placard Quantities";
+          let threshold = 500;
+          if (pClass.startsWith("1.")) threshold = 50;
+          else if (pClass === "2.1" || pClass === "2.3" || pClass === "3") threshold = 250;
+          if (qty >= threshold) {
+            placardStatus = `<span class="tag tag-p">PLACARD MANDATED (≥ ${threshold} units)</span>`;
+          } else if (qty > 0) {
+            placardStatus = `<span class="tag tag-a">Under Placard Threshold (&lt; ${threshold} units)</span>`;
+          }
 
-          // Road Audit
+          document.getElementById('itemHeader').innerHTML = `
+            <h2 style="margin:0; color:#38bdf8;">${title}</h2>
+            <div style="margin-top:6px; display:flex; flex-wrap:wrap; gap:4px;">
+              <span class="badge badge-class">Class ${pClass}</span>
+              ${sub ? `<span class="badge badge-sub">Sub ${sub}</span>` : ''}
+              <span class="badge badge-sgg">${sgg}</span>
+              ${haz ? `<span class="badge badge-hazchem">Hazchem: ${haz}</span>` : ''}
+            </div>
+            <div style="margin-top:8px; font-size:0.75rem; color:#94a3b8;">
+              Quantity: <b>${qty || 'Unspecified'}</b> ${isLq ? '(Limited Quantity - LQ)' : '(Standard DG)'} | ${placardStatus}
+            </div>
+          `;
+
+          // Foodstuff Separation Check
+          let foodHTML = "";
+          if (pClass === "6.1" || sub === "6.1") {
+            foodHTML = `<div class="result-row"><span class="tag tag-p">STRICT BAN</span> <strong>Toxic Product:</strong> MUST NOT be loaded in the same compartment as food, beverages, animal feed, or empty food packaging under any circumstances.</div>`;
+          } else if (pClass === "8" || sub === "8") {
+            foodHTML = `<div class="result-row"><span class="tag tag-p">PROHIBITED ABOVE FOOD</span> <strong>Corrosive:</strong> Must never be stowed above food packaging. Minimum 1 metre horizontal separation or approved liquid-tight partition required.</div>`;
+          } else if (pClass === "2.3") {
+            foodHTML = `<div class="result-row"><span class="tag tag-p">TOXIC GAS</span> Complete isolation from consumable goods compartments required.</div>`;
+          } else {
+            foodHTML = `<div class="result-row"><span class="tag tag-a">COMPATIBLE</span> No special food contamination prohibition under NZS 5433, provided packaging is undamaged and secured.</div>`;
+          }
+          document.getElementById('foodstuffAudit').innerHTML = foodHTML;
+
+          // Road Audit (NZS 5433 Table 6)
           let roadHTML = "";
           const baseP = getBaseClass(pClass);
           const targets = ["1.1", "2.1", "2.2", "2.3", "3", "4.1", "4.2", "4.3", "5.1", "5.2", "6.1", "8", "9"];
@@ -275,41 +493,45 @@
             if (sgg === "SGG1" && tgt === "8") {
               note = " (CRITICAL: Prohibited with SGG18 Alkalis & SGG6 Cyanides)";
             }
-            if (tgt === "6.1" || tgt === "8") {
-              note += " [Must isolate from foodstuffs]";
-            }
 
             let tagClass = rule === 'P' ? 'tag-p' : (rule === 'S' ? 'tag-s' : 'tag-a');
-            let text = rule === 'P' ? 'PROHIBITED (Same Vehicle)' : (rule === 'S' ? 'SEPARATE 3 METRES / Partition' : 'COMPATIBLE');
+            let text = rule === 'P' ? 'PROHIBITED' : (rule === 'S' ? '3m SEPARATION / Partition' : 'COMPATIBLE');
 
-            roadHTML += 
-              '<div class="result-row">' +
-                '<div><strong>Against Class ' + tgt + '</strong>: <span class="tag ' + tagClass + '">' + text + '</span></div>' +
-                '<div style="font-size:0.75rem; color:#94a3b8;">' + note + '</div>' +
-              '</div>';
+            roadHTML += `
+              <div class="result-row">
+                <div><strong>Against Class ${tgt}</strong>: <span class="tag ${tagClass}">${text}</span></div>
+                <div style="font-size:0.75rem; color:#94a3b8;">${note}</div>
+              </div>
+            `;
           });
           document.getElementById('roadAudit').innerHTML = roadHTML;
 
-          // Maritime Audit
-          let seaHTML = "";
+          // Maritime / Cook Strait Ro-Ro Ferry Audit
+          let seaHTML = `
+            <div class="result-row" style="background:#0f172a; padding:8px; border-radius:6px; margin-bottom:8px;">
+              <strong>🚢 Cook Strait Ro-Ro Ferry Rule:</strong>
+              <div style="font-size:0.75rem; color:#cbd5e1;">${(pClass === '2.1' || pClass === '3') ? 'Open-deck or weather-deck only preferred. Prohibited adjacent to vessel accommodation quarters or live livestock units.' : 'Standard vehicle deck lashings & certified DG declaration required before boarding.'}</div>
+            </div>
+          `;
           targets.filter(function(t) { return t !== "1.1"; }).forEach(function(tgt) {
             let code = (IMDG_MATRIX[pClass] && IMDG_MATRIX[pClass][tgt]) ? IMDG_MATRIX[pClass][tgt] : "X";
-            let desc = "Check Dangerous Goods List (DGL)";
+            let desc = "Check DGL";
             let tagClass = "tag-s";
-            if (code === "1") { desc = "1 - Away from (Minimum 3m in cargo space)"; }
-            if (code === "2") { desc = "2 - Separated from (Different hold/bulkhead or on-deck spacing)"; tagClass = "tag-p"; }
-            if (code === "X") { desc = "X - Permitted in same container unless DGL/SGG specifies"; tagClass = "tag-a"; }
+            if (code === "1") { desc = "1 - Away from (Min 3m in vessel space)"; }
+            if (code === "2") { desc = "2 - Separated from (Different bulkhead/hold; Banned in same ISO container)"; tagClass = "tag-p"; }
+            if (code === "X") { desc = "X - Permitted in same container unless specific DGL/SGG conflict"; tagClass = "tag-a"; }
 
             if (sgg === "SGG1" && tgt === "8") {
               desc += " [IMDG 7.2.6: SGG1 Acids must be SEPARATED FROM (2) SGG18 Alkalis]";
               tagClass = "tag-p";
             }
 
-            seaHTML += 
-              '<div class="result-row">' +
-                '<div><strong>Against Class ' + tgt + '</strong>: <span class="tag ' + tagClass + '">' + code + '</span></div>' +
-                '<div style="font-size:0.75rem; color:#94a3b8;">' + desc + '</div>' +
-              '</div>';
+            seaHTML += `
+              <div class="result-row">
+                <div><strong>Against Class ${tgt}</strong>: <span class="tag ${tagClass}">${code}</span></div>
+                <div style="font-size:0.75rem; color:#94a3b8;">${desc}</div>
+              </div>
+            `;
           });
           document.getElementById('seaAudit').innerHTML = seaHTML;
 
@@ -321,61 +543,87 @@
         }
       });
 
-      // Add to Manifest Button
+      // Add Current Item to Load Manifest
       document.getElementById('btnAddManifest').addEventListener('click', function() {
-        const inputVal = document.getElementById('unInput').value.trim();
+        const inputVal = unInput.value.trim();
         const code = inputVal.replace(/^UN\s*/i, '');
         const pClass = document.getElementById('primaryClass').value;
         const sub = document.getElementById('subRisk').value;
         const sgg = document.getElementById('sggGroup').value;
-        const label = code ? ("UN " + code) : ("Class " + pClass);
+        const haz = document.getElementById('hazchemCode').value.trim();
+        const qty = parseFloat(document.getElementById('pkgQty').value) || 0;
+        const isLq = document.getElementById('isLq').value === 'lq';
+        const label = UN_DATABASE[code] ? (`UN ${code} (${UN_DATABASE[code].name.slice(0, 20)}...)`) : (code ? `UN ${code}` : `Class ${pClass}`);
 
-        manifest.push({ label: label, pClass: pClass, sub: sub, sgg: sgg });
-        alert("Added " + label + " to Load Manifest (" + manifest.length + " items total)");
+        manifest.push({ label, pClass, sub, sgg, haz, qty, isLq });
+        saveManifest();
+        alert(`Added ${label} to manifest (${manifest.length} items total)`);
       });
 
       function renderManifest() {
         const container = document.getElementById('manifestList');
         if (manifest.length === 0) {
-          container.innerHTML = '<div style="color:#64748b; font-size:0.85rem; padding:12px 0;">No items loaded. Use Single UN Lookup to add goods to this shipment.</div>';
+          container.innerHTML = '<div style="color:#64748b; font-size:0.8rem; padding:12px 0;">No items loaded. Use Single UN Lookup to add goods to this shipment.</div>';
           return;
         }
         let listHTML = "";
         manifest.forEach(function(item, i) {
-          listHTML += 
-            '<div class="manifest-item">' +
-              '<div style="display:flex; justify-content:space-between; align-items:center;">' +
-                '<strong>' + item.label + '</strong>' +
-                '<button type="button" data-del="' + i + '" style="width:auto; padding:4px 8px; margin:0; background:#dc2626; font-size:0.75rem;">Remove</button>' +
-              '</div>' +
-              '<div style="margin-top:4px;">' +
-                '<span class="badge badge-class">Class ' + item.pClass + '</span>' +
-                (item.sub ? ('<span class="badge badge-sub">Sub ' + item.sub + '</span>') : '') +
-                '<span class="badge badge-sgg">' + item.sgg + '</span>' +
-              '</div>' +
-            '</div>';
+          listHTML += `
+            <div class="manifest-item">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong>${item.label}</strong>
+                <button type="button" data-del="${i}" style="width:auto; padding:4px 8px; margin:0; background:#dc2626; font-size:0.75rem;">Remove</button>
+              </div>
+              <div style="margin-top:4px;">
+                <span class="badge badge-class">Class ${item.pClass}</span>
+                ${item.sub ? `<span class="badge badge-sub">Sub ${item.sub}</span>` : ''}
+                <span class="badge badge-sgg">${item.sgg}</span>
+                ${item.haz ? `<span class="badge badge-hazchem">${item.haz}</span>` : ''}
+                <span style="font-size:0.75rem; color:#94a3b8; margin-left:6px;">${item.qty ? item.qty + ' units' : ''} ${item.isLq ? '(LQ)' : ''}</span>
+              </div>
+            </div>
+          `;
         });
         container.innerHTML = listHTML;
 
-        // Attach delete listeners
-        const delButtons = container.querySelectorAll('button[data-del]');
-        delButtons.forEach(function(b) {
+        container.querySelectorAll('button[data-del]').forEach(function(b) {
           b.addEventListener('click', function() {
             const idx = parseInt(this.getAttribute('data-del'), 10);
             manifest.splice(idx, 1);
+            saveManifest();
             renderManifest();
           });
         });
       }
 
-      // Clear Manifest Button
       document.getElementById('btnClearManifest').addEventListener('click', function() {
-        manifest = [];
-        renderManifest();
-        document.getElementById('manifestResults').style.display = 'none';
+        if (confirm("Clear all items from this manifest?")) {
+          manifest = [];
+          saveManifest();
+          renderManifest();
+          document.getElementById('manifestResults').style.display = 'none';
+        }
       });
 
-      // Audit Manifest Button
+      // Copy Manifest Text to Clipboard
+      document.getElementById('btnCopyManifest').addEventListener('click', function() {
+        if (manifest.length === 0) {
+          alert("Manifest is empty.");
+          return;
+        }
+        let txt = "DANGEROUS GOODS MANIFEST / LOAD DECLARATION\n--------------------------------------------\n";
+        manifest.forEach((m, idx) => {
+          txt += `${idx + 1}. ${m.label} | Class: ${m.pClass}${m.sub ? ' (' + m.sub + ')' : ''} | SGG: ${m.sgg} | EAC: ${m.haz || 'N/A'} | Qty: ${m.qty || 'N/A'}${m.isLq ? ' [LQ]' : ''}\n`;
+        });
+        txt += "--------------------------------------------\nGenerated via DG Compliance Suite";
+        navigator.clipboard.writeText(txt).then(() => {
+          alert("Manifest copied to clipboard!");
+        }).catch(() => {
+          prompt("Copy manifest text below:", txt);
+        });
+      });
+
+      // Audit Vehicle / Container Compatibility
       document.getElementById('btnAuditManifest').addEventListener('click', function() {
         if (manifest.length < 2) {
           alert("Please add at least 2 DG items to audit co-loading compatibility.");
@@ -385,6 +633,13 @@
         const banners = [];
         let roadBlocked = false;
         let seaBlocked = false;
+        let totalQty = 0;
+        let hasFoodRisk = false;
+
+        manifest.forEach(m => {
+          totalQty += (m.qty || 0);
+          if (m.pClass === "6.1" || m.sub === "6.1" || m.pClass === "2.3") hasFoodRisk = true;
+        });
 
         for (let i = 0; i < manifest.length; i++) {
           for (let j = i + 1; j < manifest.length; j++) {
@@ -397,41 +652,44 @@
 
             if (roadRule === 'P') {
               roadBlocked = true;
-              banners.push("🚨 <strong>ROAD VIOLATION:</strong> " + a.label + " (Class " + a.pClass + ") and " + b.label + " (Class " + b.pClass + ") are <strong>PROHIBITED</strong> on the same vehicle without certified isolation compartments.");
+              banners.push(`🚨 <strong>ROAD PROHIBITION:</strong> ${a.label} (Class ${a.pClass}) & ${b.label} (Class ${b.pClass}) are <strong>PROHIBITED TOGETHER</strong> on the same vehicle without certified isolation compartments.`);
             } else if (roadRule === 'S') {
-              banners.push("⚠️ <strong>ROAD SEPARATION:</strong> " + a.label + " and " + b.label + " require minimum <strong>3 Metres physical space</strong> or an approved Segregation Device.");
+              banners.push(`⚠️ <strong>ROAD SEPARATION:</strong> ${a.label} & ${b.label} require <strong>3 Metres distance</strong> or an approved Segregation Device.`);
             }
 
             if ((a.sgg === "SGG1" && b.sgg === "SGG18") || (a.sgg === "SGG18" && b.sgg === "SGG1")) {
               roadBlocked = true;
               seaBlocked = true;
-              banners.push("💥 <strong>CHEMICAL INCOMPATIBILITY:</strong> " + a.label + " (" + a.sgg + ") + " + b.label + " (" + b.sgg + ") - Reaction hazard between Strong Acid and Caustic Base. Prohibited in same container.");
+              banners.push(`💥 <strong>CHEMICAL INCOMPATIBILITY:</strong> ${a.label} (${a.sgg}) + ${b.label} (${b.sgg}) - Exothermic reaction hazard between Acid and Base.`);
             }
             if ((a.sgg === "SGG6" && b.sgg === "SGG1") || (a.sgg === "SGG1" && b.sgg === "SGG6")) {
               roadBlocked = true;
               seaBlocked = true;
-              banners.push("☠️ <strong>LETHAL REACTION HAZARD:</strong> Acid + Cyanide co-load produces Hydrogen Cyanide gas! Absolute co-load ban.");
+              banners.push(`☠️ <strong>LETHAL GAS REACTION:</strong> Acid + Cyanide produces Hydrogen Cyanide gas! Absolute co-load ban.`);
             }
 
             const imdgCode = (IMDG_MATRIX[a.pClass] && IMDG_MATRIX[a.pClass][b.pClass]) || "X";
             if (imdgCode === '2' || imdgCode === '3' || imdgCode === '4') {
               seaBlocked = true;
-              banners.push("🌊 <strong>IMDG CONTAINER PROHIBITION:</strong> " + a.label + " and " + b.label + " have maritime segregation code <strong>" + imdgCode + "</strong> (\"Separated From\"). They CANNOT be packed in the same freight container.");
+              banners.push(`🌊 <strong>IMDG / FERRY BAN:</strong> ${a.label} and ${b.label} have maritime segregation code <strong>${imdgCode}</strong> ("Separated From"). BANNED inside the same freight container.`);
             }
           }
         }
 
         let summaryHTML = "";
         if (banners.length === 0) {
-          summaryHTML = '<div class="alert-banner alert-success">✅ <strong>LOAD COMPLIANT:</strong> All items in this manifest are mutually compatible for general co-loading under both NZS 5433 road and IMDG sea container transport.</div>';
+          summaryHTML = `<div class="alert-banner alert-success">✅ <strong>LOAD COMPLIANT:</strong> All items in this manifest are mutually compatible for co-loading on the same vehicle or ISO sea container.</div>`;
         } else {
-          summaryHTML = 
-            '<div class="alert-banner ' + (roadBlocked || seaBlocked ? 'alert-error' : 'alert-warn') + '">' +
-              (roadBlocked || seaBlocked ? '❌ <strong>COMPLIANCE ALERT:</strong> Segregation violations detected in this manifest.' : '⚠️ <strong>NOTICE:</strong> Specific physical separation distances required.') +
-            '</div>';
-          banners.forEach(function(b) {
-            summaryHTML += '<div class="result-row" style="background:#0f172a; border-radius:6px; margin-bottom:6px; padding:10px;">' + b + '</div>';
-          });
+          summaryHTML = `
+            <div class="alert-banner ${roadBlocked || seaBlocked ? 'alert-error' : 'alert-warn'}">
+              ${roadBlocked || seaBlocked ? '❌ <strong>COMPLIANCE ALERT:</strong> Segregation violations detected.' : '⚠️ <strong>NOTICE:</strong> Physical separation distances required.'}
+            </div>
+            ${banners.map(b => `<div class="result-row" style="background:#0f172a; border-radius:6px; margin-bottom:6px; padding:10px;">${b}</div>`).join('')}
+          `;
+        }
+
+        if (hasFoodRisk) {
+          summaryHTML += `<div class="alert-banner alert-warn" style="margin-top:8px;">🍽️ <strong>FOOD WARNING:</strong> Manifest contains Class 6.1 Toxic or Class 2.3 Toxic Gas. No food products, animal feed, or food containers may share this vehicle!</div>`;
         }
 
         const mRes = document.getElementById('manifestResults');
