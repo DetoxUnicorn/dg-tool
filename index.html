@@ -18,486 +18,147 @@
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --g-blue: #1a73e8;
-      --g-blue-hover: #1557b0;
-      --g-blue-surface: #e8f0fe;
-      --g-red: #d93025;
-      --g-red-surface: #fce8e6;
-      --g-green: #1e8e3e;
-      --g-green-surface: #e6f4ea;
-      --g-yellow: #f2994a;
-      --g-yellow-surface: #fef7e0;
-      --g-purple-surface: #f3e8fd;
-      --g-purple: #7627bb;
-      --g-surface: #ffffff;
-      --g-surface-variant: #f1f3f4;
-      --g-bg: #f8f9fa;
-      --g-border: #dadce0;
-      --g-border-subtle: #f1f3f4;
-      --g-text-primary: #202124;
-      --g-text-secondary: #5f6368;
-      --g-search-bg: #edf2fc;
-      --g-radius-sm: 8px;
-      --g-radius-md: 16px;
-      --g-radius-lg: 24px;
-      --g-radius-full: 9999px;
-      --g-shadow-1: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
-      --g-shadow-2: 0 2px 6px 2px rgba(60,64,67,0.15);
+      --g-blue: #1a73e8; --g-blue-hover: #1557b0; --g-blue-surface: #e8f0fe;
+      --g-red: #d93025; --g-red-surface: #fce8e6;
+      --g-green: #1e8e3e; --g-green-surface: #e6f4ea;
+      --g-yellow: #f2994a; --g-yellow-surface: #fef7e0;
+      --g-purple: #7627bb; --g-purple-surface: #f3e8fd;
+      --g-surface: #ffffff; --g-surface-variant: #f1f3f4;
+      --g-bg: #f8f9fa; --g-border: #dadce0; --g-border-subtle: #f1f3f4;
+      --g-text-primary: #202124; --g-text-secondary: #5f6368; --g-search-bg: #edf2fc;
+      --g-radius-sm: 8px; --g-radius-md: 16px; --g-radius-lg: 24px; --g-radius-full: 9999px;
     }
 
     body.dark-mode {
-      --g-blue: #8ab4f8;
-      --g-blue-hover: #aecbfa;
-      --g-blue-surface: #1e3a5f;
-      --g-red: #f28b82;
-      --g-red-surface: #491f1d;
-      --g-green: #81c995;
-      --g-green-surface: #193822;
-      --g-yellow: #fdd663;
-      --g-yellow-surface: #3f3113;
-      --g-purple-surface: #3b2554;
-      --g-purple: #d7aefb;
-      --g-surface: #1e1e1e;
-      --g-surface-variant: #2d2d2d;
-      --g-bg: #121212;
-      --g-border: #3c4043;
-      --g-border-subtle: #2d2d2d;
-      --g-text-primary: #e8eaed;
-      --g-text-secondary: #9aa0a6;
-      --g-search-bg: #2d2f31;
-      --g-shadow-1: 0 1px 3px 0 rgba(0,0,0,0.6);
-      --g-shadow-2: 0 4px 8px 3px rgba(0,0,0,0.5);
+      --g-blue: #8ab4f8; --g-blue-hover: #aecbfa; --g-blue-surface: #1e3a5f;
+      --g-red: #f28b82; --g-red-surface: #491f1d;
+      --g-green: #81c995; --g-green-surface: #193822;
+      --g-yellow: #fdd663; --g-yellow-surface: #3f3113;
+      --g-purple: #d7aefb; --g-purple-surface: #3b2554;
+      --g-surface: #1e1e1e; --g-surface-variant: #2d2d2d;
+      --g-bg: #121212; --g-border: #3c4043; --g-border-subtle: #2d2d2d;
+      --g-text-primary: #e8eaed; --g-text-secondary: #9aa0a6; --g-search-bg: #2d2f31;
     }
 
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: var(--g-bg);
-      font-family: 'Roboto', -apple-system, sans-serif;
-      color: var(--g-text-primary);
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      transition: background-color 0.2s, color 0.2s;
-    }
+    body { margin: 0; background-color: var(--g-bg); font-family: 'Roboto', sans-serif; color: var(--g-text-primary); display: flex; flex-direction: column; min-height: 100vh; transition: background-color 0.2s, color 0.2s; }
 
-    /* Top AppBar */
-    .g-appbar {
-      position: sticky;
-      top: 0;
-      z-index: 200;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 60px;
-      padding: 0 20px;
-      background: var(--g-surface);
-      border-bottom: 1px solid var(--g-border);
-    }
-    .g-logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-family: 'Google Sans', sans-serif;
-      font-size: 1.15rem;
-      font-weight: 500;
-      color: var(--g-text-primary);
-      user-select: none;
-    }
+    /* Top AppBar & Logo */
+    .g-appbar { position: sticky; top: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; height: 60px; padding: 0 20px; background: var(--g-surface); border-bottom: 1px solid var(--g-border); }
+    .g-logo { display: flex; align-items: center; gap: 12px; font-family: 'Google Sans', sans-serif; font-size: 1.15rem; font-weight: 500; color: var(--g-text-primary); user-select: none; }
+    .g-logo-icon { position: relative; width: 32px; height: 32px; background: linear-gradient(135deg, #4285f4 0%, #34a853 50%, #fbbc05 75%, #ea4335 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 14px; cursor: pointer; flex-shrink: 0; }
+    .g-logo-icon.active-db { box-shadow: 0 0 0 2px #34a853, 0 0 12px rgba(52, 168, 83, 0.7); }
+    .g-logo-icon.active-db::after { content: ''; position: absolute; bottom: -2px; right: -2px; width: 9px; height: 9px; background: #22c55e; border: 2px solid var(--g-surface); border-radius: 50%; box-shadow: 0 0 4px #22c55e; }
 
-    /* Glow-Integrated Logo Tile */
-    .g-logo-icon {
-      position: relative;
-      width: 32px;
-      height: 32px;
-      background: linear-gradient(135deg, #4285f4 0%, #34a853 50%, #fbbc05 75%, #ea4335 100%);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-weight: 700;
-      font-size: 14px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.25);
-      cursor: pointer;
-      transition: box-shadow 0.3s ease, transform 0.2s ease;
-      flex-shrink: 0;
-    }
-    /* Pulsing Green Glow when 3,500+ database is active */
-    .g-logo-icon.active-db {
-      box-shadow: 0 0 0 2px #34a853, 0 0 12px rgba(52, 168, 83, 0.7);
-    }
-    .g-logo-icon.active-db::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      right: -2px;
-      width: 9px;
-      height: 9px;
-      background: #22c55e;
-      border: 2px solid var(--g-surface);
-      border-radius: 50%;
-      box-shadow: 0 0 4px #22c55e;
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .desktop-status-tag {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.8rem;
-      color: var(--g-text-secondary);
-      font-weight: 500;
-    }
-    .live-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--g-green-surface);
-      color: var(--g-green);
-      padding: 4px 10px;
-      border-radius: var(--g-radius-full);
-      font-weight: 700;
-      font-size: 0.75rem;
-      white-space: nowrap;
-    }
-    .live-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--g-green);
-      flex-shrink: 0;
-    }
-
-    .theme-toggle-btn {
-      background: var(--g-surface-variant);
-      border: 1px solid var(--g-border);
-      border-radius: var(--g-radius-full);
-      width: 38px;
-      height: 38px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: var(--g-text-primary);
-      transition: all 0.2s ease;
-      font-size: 1.1rem;
-      padding: 0;
-      flex-shrink: 0;
-    }
-    .theme-toggle-btn:hover { background: var(--g-border); }
+    .header-actions { display: flex; align-items: center; gap: 10px; }
+    .desktop-status-tag { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--g-text-secondary); font-weight: 500; }
+    .live-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--g-green-surface); color: var(--g-green); padding: 4px 10px; border-radius: var(--g-radius-full); font-weight: 700; font-size: 0.75rem; white-space: nowrap; }
+    .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--g-green); flex-shrink: 0; }
+    .theme-toggle-btn { background: var(--g-surface-variant); border: 1px solid var(--g-border); border-radius: var(--g-radius-full); width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; color: var(--g-text-primary); }
 
     .app-frame { display: flex; flex: 1; overflow: hidden; }
-
-    .nav-rail {
-      width: 250px;
-      background: var(--g-surface);
-      border-right: 1px solid var(--g-border);
-      padding: 16px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      flex-shrink: 0;
-    }
-    .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 10px 16px;
-      border-radius: var(--g-radius-full);
-      font-family: 'Google Sans', sans-serif;
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: var(--g-text-secondary);
-      cursor: pointer;
-      transition: all 0.15s ease;
-      user-select: none;
-    }
+    .nav-rail { width: 250px; background: var(--g-surface); border-right: 1px solid var(--g-border); padding: 16px 12px; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+    .nav-item { display: flex; align-items: center; gap: 14px; padding: 10px 16px; border-radius: var(--g-radius-full); font-family: 'Google Sans', sans-serif; font-size: 0.88rem; font-weight: 500; color: var(--g-text-secondary); cursor: pointer; }
     .nav-item:hover { background: var(--g-surface-variant); color: var(--g-text-primary); }
     .nav-item.active { background: var(--g-blue-surface); color: var(--g-blue); font-weight: 700; }
-    .nav-icon { font-size: 1.15rem; line-height: 1; }
 
-    .mobile-nav-wrap {
-      display: none;
-      overflow-x: auto;
-      padding: 10px 16px 4px;
-      scrollbar-width: none;
-      background: var(--g-bg);
-      border-bottom: 1px solid var(--g-border);
-    }
+    .mobile-nav-wrap { display: none; overflow-x: auto; padding: 10px 16px 4px; scrollbar-width: none; background: var(--g-bg); border-bottom: 1px solid var(--g-border); }
     .mobile-nav-wrap::-webkit-scrollbar { display: none; }
-    .mobile-pill-bar {
-      display: inline-flex;
-      background: var(--g-surface-variant);
-      border-radius: var(--g-radius-full);
-      padding: 4px;
-      gap: 2px;
-    }
-    .mobile-pill {
-      font-family: 'Google Sans', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 500;
-      padding: 7px 12px;
-      border-radius: var(--g-radius-full);
-      color: var(--g-text-secondary);
-      cursor: pointer;
-      white-space: nowrap;
-    }
-    .mobile-pill.active {
-      background: var(--g-surface);
-      color: var(--g-blue);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-    }
+    .mobile-pill-bar { display: inline-flex; background: var(--g-surface-variant); border-radius: var(--g-radius-full); padding: 4px; gap: 2px; }
+    .mobile-pill { font-family: 'Google Sans', sans-serif; font-size: 0.78rem; font-weight: 500; padding: 7px 12px; border-radius: var(--g-radius-full); color: var(--g-text-secondary); cursor: pointer; white-space: nowrap; }
+    .mobile-pill.active { background: var(--g-surface); color: var(--g-blue); box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
 
-    .app-main {
-      flex: 1;
-      padding: 24px;
-      overflow-y: auto;
-      max-width: 1360px;
-    }
+    .app-main { flex: 1; padding: 24px; overflow-y: auto; max-width: 1360px; }
+    .desktop-dashboard-grid { display: grid; grid-template-columns: 440px 1fr; gap: 24px; align-items: start; }
+    .desktop-full-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .g-card { background: var(--g-surface); border-radius: var(--g-radius-md); padding: 22px; margin-bottom: 20px; border: 1px solid var(--g-border); }
+    .g-card-title { font-family: 'Google Sans', sans-serif; font-size: 1.05rem; font-weight: 500; margin: 0 0 16px 0; display: flex; align-items: center; justify-content: space-between; }
 
-    .desktop-dashboard-grid {
-      display: grid;
-      grid-template-columns: 440px 1fr;
-      gap: 24px;
-      align-items: start;
-    }
-    .desktop-full-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-
-    .g-card {
-      background: var(--g-surface);
-      border-radius: var(--g-radius-md);
-      padding: 22px;
-      margin-bottom: 20px;
-      border: 1px solid var(--g-border);
-      box-shadow: 0 1px 2px rgba(60,64,67,0.06);
-    }
-    .g-card-title {
-      font-family: 'Google Sans', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 500;
-      margin: 0 0 16px 0;
-      color: var(--g-text-primary);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .g-searchbar {
-      display: flex;
-      align-items: center;
-      background: var(--g-search-bg);
-      border-radius: var(--g-radius-full);
-      padding: 4px 16px;
-      margin-bottom: 14px;
-      border: 1px solid transparent;
-      transition: all 0.2s ease;
-    }
-    .g-searchbar:focus-within {
-      background: var(--g-surface);
-      border-color: var(--g-blue);
-      box-shadow: var(--g-shadow-1);
-    }
-    .g-searchbar input {
-      flex: 1;
-      height: 42px;
-      border: none;
-      background: transparent;
-      font-size: 0.95rem;
-      outline: none;
-      color: var(--g-text-primary);
-    }
+    .g-searchbar { display: flex; align-items: center; background: var(--g-search-bg); border-radius: var(--g-radius-full); padding: 4px 16px; margin-bottom: 14px; border: 1px solid transparent; }
+    .g-searchbar:focus-within { background: var(--g-surface); border-color: var(--g-blue); }
+    .g-searchbar input { flex: 1; height: 42px; border: none; background: transparent; font-size: 0.95rem; outline: none; color: var(--g-text-primary); }
     .g-searchbar svg { fill: var(--g-text-secondary); margin-right: 10px; }
-
-    .g-input-group { margin-bottom: 14px; position: relative; }
-    .g-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--g-text-secondary);
-      margin-bottom: 6px;
-      display: block;
-    }
-    .g-input, .g-select {
-      width: 100%;
-      height: 46px;
-      padding: 0 14px;
-      font-size: 0.95rem;
-      font-family: 'Roboto', sans-serif;
-      background: var(--g-surface);
-      border: 1px solid var(--g-border);
-      border-radius: var(--g-radius-sm);
-      color: var(--g-text-primary);
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .g-input:focus, .g-select:focus {
-      border-color: var(--g-blue);
-      box-shadow: 0 0 0 1px var(--g-blue);
-    }
+    
+    .g-input-group { margin-bottom: 14px; }
+    .g-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--g-text-secondary); margin-bottom: 6px; display: block; }
+    .g-input, .g-select { width: 100%; height: 46px; padding: 0 14px; font-size: 0.95rem; background: var(--g-surface); border: 1px solid var(--g-border); border-radius: var(--g-radius-sm); color: var(--g-text-primary); outline: none; }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 
-    .g-btn {
-      font-family: 'Google Sans', sans-serif;
-      font-weight: 500;
-      font-size: 0.88rem;
-      height: 44px;
-      padding: 0 20px;
-      border-radius: var(--g-radius-full);
-      border: none;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all 0.15s ease;
-      width: 100%;
-      user-select: none;
-    }
+    .g-btn { font-family: 'Google Sans', sans-serif; font-weight: 500; font-size: 0.88rem; height: 44px; padding: 0 20px; border-radius: var(--g-radius-full); border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; user-select: none; }
     .g-btn-primary { background: var(--g-blue); color: #fff; }
-    .g-btn-primary:hover { background: var(--g-blue-hover); box-shadow: var(--g-shadow-1); }
     .g-btn-tonal { background: var(--g-blue-surface); color: var(--g-blue); margin-top: 8px; }
-    .g-btn-tonal:hover { opacity: 0.9; }
     .g-btn-outlined { background: transparent; border: 1px solid var(--g-border); color: var(--g-text-primary); }
-    .g-btn-outlined:hover { background: var(--g-surface-variant); }
     .g-btn-danger { background: var(--g-red-surface); color: var(--g-red); }
-    .g-btn-danger:hover { opacity: 0.9; }
 
-    .g-chip {
-      display: inline-flex;
-      align-items: center;
-      font-size: 0.74rem;
-      font-weight: 700;
-      padding: 4px 9px;
-      border-radius: 6px;
-      margin-right: 4px;
-      margin-bottom: 4px;
-    }
+    .g-chip { display: inline-flex; align-items: center; font-size: 0.74rem; font-weight: 700; padding: 4px 9px; border-radius: 6px; margin-right: 4px; margin-bottom: 4px; }
     .chip-class { background: var(--g-red-surface); color: var(--g-red); }
     .chip-sub { background: var(--g-yellow-surface); color: var(--g-yellow); }
     .chip-sgg { background: var(--g-purple-surface); color: var(--g-purple); }
-    .chip-haz { background: var(--g-green-surface); color: var(--g-green); }
-
-    .ferry-indicator-banner {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
-      border-radius: var(--g-radius-sm);
-      font-family: 'Google Sans', sans-serif;
-      font-size: 0.88rem;
-      font-weight: 700;
-      margin-top: 10px;
-    }
+    
+    .ferry-indicator-banner { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: var(--g-radius-sm); font-family: 'Google Sans', sans-serif; font-size: 0.88rem; font-weight: 700; margin-top: 10px; }
     .ferry-banned { background: var(--g-red-surface); color: var(--g-red); border: 1px solid var(--g-red); }
     .ferry-weather-deck { background: var(--g-yellow-surface); color: var(--g-yellow); border: 1px solid var(--g-yellow); }
     .ferry-allowed { background: var(--g-green-surface); color: var(--g-green); border: 1px solid var(--g-green); }
 
-    .meter-container {
-      background: var(--g-surface-variant);
-      border-radius: var(--g-radius-full);
-      height: 14px;
-      overflow: hidden;
-      margin: 10px 0 6px;
-      border: 1px solid var(--g-border);
-    }
-    .meter-fill {
-      height: 100%;
-      width: 0%;
-      background: var(--g-green);
-      transition: width 0.3s ease, background-color 0.3s ease;
-    }
-
-    .g-alert {
-      padding: 14px 16px;
-      border-radius: var(--g-radius-sm);
-      font-size: 0.86rem;
-      line-height: 1.45;
-      margin-bottom: 12px;
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-    }
+    .g-alert { padding: 14px 16px; border-radius: var(--g-radius-sm); font-size: 0.86rem; line-height: 1.45; margin-bottom: 12px; display: flex; gap: 10px; align-items: flex-start; }
     .g-alert-error { background: var(--g-red-surface); color: var(--g-red); border: 1px solid var(--g-red); }
     .g-alert-warn { background: var(--g-yellow-surface); color: var(--g-yellow); border: 1px solid var(--g-yellow); }
     .g-alert-success { background: var(--g-green-surface); color: var(--g-green); border: 1px solid var(--g-green); }
-    .g-alert-blue { background: var(--g-blue-surface); color: var(--g-blue); border: 1px solid var(--g-blue); }
 
-    .rule-item {
-      padding: 10px 0;
-      border-bottom: 1px solid var(--g-border-subtle);
-      font-size: 0.84rem;
-      line-height: 1.4;
-    }
+    .rule-item { padding: 10px 0; border-bottom: 1px solid var(--g-border-subtle); font-size: 0.84rem; line-height: 1.4; }
     .rule-item:last-child { border-bottom: none; }
     .tag { font-weight: 700; padding: 2px 7px; border-radius: 4px; font-size: 0.72rem; }
     .tag-prohibit { background: var(--g-red-surface); color: var(--g-red); }
     .tag-sep { background: var(--g-yellow-surface); color: var(--g-yellow); }
     .tag-allow { background: var(--g-green-surface); color: var(--g-green); }
 
-    .search-hits {
-      max-height: 220px;
-      overflow-y: auto;
-      background: var(--g-surface);
-      border: 1px solid var(--g-border);
-      border-radius: var(--g-radius-sm);
-      margin-top: -8px;
-      margin-bottom: 14px;
-      box-shadow: var(--g-shadow-2);
-      display: none;
-    }
-    .hit-item {
-      padding: 10px 14px;
-      border-bottom: 1px solid var(--g-border-subtle);
-      font-size: 0.84rem;
-      cursor: pointer;
-    }
-    .hit-item:hover { background: var(--g-surface-variant); color: var(--g-blue); }
+    .search-hits { max-height: 220px; overflow-y: auto; background: var(--g-surface); border: 1px solid var(--g-border); border-radius: var(--g-radius-sm); margin-top: -8px; margin-bottom: 14px; display: none; }
+    .hit-item { padding: 10px 14px; border-bottom: 1px solid var(--g-border-subtle); font-size: 0.84rem; cursor: pointer; }
 
-    .trailer-box {
-      background: var(--g-surface-variant);
-      border-radius: 12px;
-      padding: 16px;
-      border: 1px dashed var(--g-border);
-      margin-bottom: 16px;
+    /* CSS Placard Diamonds */
+    .placard-board { display: flex; flex-wrap: wrap; gap: 20px; padding: 16px; background: var(--g-surface-variant); border-radius: 12px; border: 1px dashed var(--g-border); justify-content: center; }
+    .dg-diamond {
+      width: 70px; height: 70px; transform: rotate(45deg); display: flex; align-items: center; justify-content: center;
+      border: 3px solid #fff; box-shadow: 0 3px 6px rgba(0,0,0,0.3); position: relative; font-family: Arial, sans-serif;
     }
-    .trailer-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 10px;
+    .dg-diamond-content {
+      transform: rotate(-45deg); display: flex; flex-direction: column; align-items: center; justify-content: center; width:100%; height:100%;
     }
-    .trailer-bay {
-      background: var(--g-surface);
-      border: 1px solid var(--g-border);
-      border-radius: 8px;
-      padding: 12px;
-      min-height: 80px;
-      font-size: 0.78rem;
-    }
+    .dg-sym { font-size: 1.5rem; line-height: 1; margin-bottom: 2px; }
+    .dg-cls { font-size: 1rem; font-weight: 900; line-height: 1; }
+    .dg-c2, .dg-c3 { background: #d32f2f; color: #fff; }
+    .dg-c2-2 { background: #2e7d32; color: #fff; }
+    .dg-c4-1 { background: repeating-linear-gradient(0deg, #d32f2f, #d32f2f 8px, #fff 8px, #fff 16px); color: #000; }
+    .dg-c4-2 { background: linear-gradient(135deg, #fff 50%, #d32f2f 50%); color: #000; }
+    .dg-c4-3 { background: #1976d2; color: #fff; }
+    .dg-c5 { background: #fbc02d; color: #000; }
+    .dg-c6 { background: #fff; color: #000; border-color: #000; }
+    .dg-c8 { background: linear-gradient(135deg, #fff 50%, #000 50%); color: #fff; border-color: #000; }
+    .dg-c9 { background: linear-gradient(135deg, repeating-linear-gradient(0deg, #000, #000 5px, #fff 5px, #fff 10px) 50%, #fff 50%); color: #000; border-color:#000; }
+    
+    /* Env Hazard Pollutant Mark */
+    .dg-mp { background: #fff; border-color: #000; color: #000; }
+    .dg-mp-icon { font-size:1.8rem; transform: rotate(-45deg); }
 
+    .trailer-box { background: var(--g-surface-variant); border-radius: 12px; padding: 16px; border: 1px dashed var(--g-border); margin-bottom: 16px; }
+    .trailer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+    .trailer-bay { background: var(--g-surface); border: 1px solid var(--g-border); border-radius: 8px; padding: 12px; min-height: 80px; font-size: 0.78rem; }
+
+    /* Custom Checkbox */
+    .seg-checkbox {
+      display: flex; align-items: center; gap: 8px; margin-top: 8px; cursor: pointer; font-size: 0.78rem; font-weight: 500; color: var(--g-text-secondary);
+      background: var(--g-surface); padding: 4px 8px; border-radius: 6px; border: 1px solid var(--g-border); width: fit-content;
+    }
+    
     @media print {
       body { background: #fff !important; color: #000 !important; }
       .g-appbar, .nav-rail, .mobile-nav-wrap, .g-btn, .theme-toggle-btn, .header-actions { display: none !important; }
       .app-frame { display: block !important; }
       .app-main { padding: 0 !important; }
-      .print-area { display: block !important; }
-      .no-print { display: none !important; }
-      .g-card { border: 1px solid #000 !important; box-shadow: none !important; }
+      .g-card { border: 1px solid #000 !important; box-shadow: none !important; margin-bottom:10px !important; }
     }
 
-    /* Mobile Responsive Optimizations */
     @media (max-width: 900px) {
       .nav-rail { display: none; }
       .mobile-nav-wrap { display: block; }
@@ -507,24 +168,18 @@
       .desktop-full-grid { grid-template-columns: 1fr; }
       .g-appbar { padding: 0 16px; }
       .g-logo { gap: 10px; }
-      .g-logo span {
-        font-size: 1.05rem;
-        white-space: nowrap;
-      }
+      .g-logo span { font-size: 1.05rem; white-space: nowrap; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Google Header -->
   <header class="g-appbar">
     <div class="g-logo">
       <div class="g-logo-icon" id="logoIcon" title="Tap to check registry status">DG</div>
       <span>DG Workspace Pro</span>
     </div>
-
     <div class="header-actions">
-      <!-- Visible only on desktop; phone uses the glowing green DG tile -->
       <div class="desktop-status-tag">
         <span class="live-badge" id="dbStatusBadge"><span class="live-dot"></span> <span id="dbStatusText">3,500+ UN Registry Active</span></span>
       </div>
@@ -534,67 +189,37 @@
     </div>
   </header>
 
-  <!-- Mobile Pill Bar -->
   <div class="mobile-nav-wrap">
     <div class="mobile-pill-bar">
       <div class="mobile-pill active" id="mTab1">Inspector</div>
       <div class="mobile-pill" id="mTab2">Manifest & DGD</div>
-      <div class="mobile-pill" id="mTab3">Placarding Meter</div>
-      <div class="mobile-pill" id="mTab4">Tunnels & Ferries</div>
-      <div class="mobile-pill" id="mTab5">Bay & Route Planner</div>
+      <div class="mobile-pill" id="mTab3">Placards</div>
+      <div class="mobile-pill" id="mTab4">Tunnels</div>
+      <div class="mobile-pill" id="mTab5">Hazchem Response</div>
     </div>
   </div>
 
   <div class="app-frame">
-
-    <!-- Desktop Navigation Rail -->
     <nav class="nav-rail">
-      <div class="nav-item active" id="dTab1">
-        <span class="nav-icon">🔍</span>
-        <span>Inspector</span>
-      </div>
-      <div class="nav-item" id="dTab2">
-        <span class="nav-icon">📋</span>
-        <span>Manifest & DGD Form</span>
-      </div>
-      <div class="nav-item" id="dTab3">
-        <span class="nav-icon">🏷️</span>
-        <span>Hazard Placarding Meter</span>
-      </div>
-      <div class="nav-item" id="dTab4">
-        <span class="nav-icon">🚢</span>
-        <span>Tunnels & Cook Strait</span>
-      </div>
-      <div class="nav-item" id="dTab5">
-        <span class="nav-icon">🚛</span>
-        <span>Bay & Route Planner</span>
-      </div>
-
-      <div style="margin-top:auto; padding:14px 12px; background:var(--g-surface-variant); border-radius:12px; border:1px solid var(--g-border); font-size:0.75rem; color:var(--g-text-secondary); line-height:1.4;">
-        <strong style="color:var(--g-text-primary); display:block; margin-bottom:4px;">Keyboard Shortcuts</strong>
-        • <code style="font-family:'Roboto Mono';">Enter</code>: Evaluate DG<br>
-        • <code style="font-family:'Roboto Mono';">Ctrl/Cmd + M</code>: Add to Manifest<br>
-        • <code style="font-family:'Roboto Mono';">Ctrl/Cmd + P</code>: Print Declaration
-      </div>
+      <div class="nav-item active" id="dTab1"><span class="nav-icon">🔍</span><span>Inspector</span></div>
+      <div class="nav-item" id="dTab2"><span class="nav-icon">📋</span><span>Manifest & Logbook</span></div>
+      <div class="nav-item" id="dTab3"><span class="nav-icon">🏷️</span><span>Placard & Bays</span></div>
+      <div class="nav-item" id="dTab4"><span class="nav-icon">🚢</span><span>Tunnels & Cook Strait</span></div>
+      <div class="nav-item" id="dTab5"><span class="nav-icon">🚨</span><span>Emergency Response</span></div>
     </nav>
 
-    <!-- Main Workspace -->
     <main class="app-main">
 
       <!-- TAB 1: INSPECTOR -->
       <section id="view1">
         <div class="desktop-dashboard-grid">
-          
           <div>
             <div class="g-card">
               <div class="g-card-title">
                 <span>Commodity Inspector</span>
-                <button id="btnToggleScan" type="button" class="g-btn g-btn-tonal" style="width:auto; height:32px; font-size:0.75rem; margin-top:0;">
-                  📷 Scan Barcode
-                </button>
+                <button id="btnToggleScan" type="button" class="g-btn g-btn-tonal" style="width:auto; height:32px; font-size:0.75rem; margin-top:0;">📷 Scan Barcode</button>
               </div>
 
-              <!-- Camera Feed Box -->
               <div id="scannerBox" style="display:none; position:relative; background:#000; border-radius:12px; overflow:hidden; margin-bottom:14px;">
                 <video id="cameraFeed" playsinline autoplay style="width:100%; height:200px; object-fit:cover;"></video>
                 <button id="btnCloseScan" type="button" class="g-btn g-btn-danger" style="border-radius:0; height:34px;">Close Camera</button>
@@ -602,1010 +227,33 @@
 
               <div class="g-searchbar">
                 <svg width="20" height="20" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-                <input type="text" id="unInput" placeholder="Enter UN number (e.g. 0004, 1075, 1203, 3480) or name..." autocomplete="off">
+                <input type="text" id="unInput" placeholder="Enter UN number or chemical..." autocomplete="off">
               </div>
               <div id="searchHits" class="search-hits"></div>
 
               <div class="grid-2">
                 <div class="g-input-group">
-                  <label class="g-label" for="primaryClass">Hazard Class</label>
+                  <label class="g-label">Hazard Class</label>
                   <select id="primaryClass" class="g-select">
-                    <option value="1.1">1.1 - Explosives (Mass)</option>
-                    <option value="1.2">1.2 - Explosives (Proj)</option>
-                    <option value="1.3">1.3 - Explosives (Fire)</option>
-                    <option value="1.4">1.4 - Explosives (Minor)</option>
-                    <option value="2.1">2.1 - Flammable Gas</option>
+                    <option value="1.1">1.1 - Explosives</option>
+                    <option value="2.1">2.1 - Flam Gas</option>
                     <option value="2.2">2.2 - Non-Flam Gas</option>
                     <option value="2.3">2.3 - Toxic Gas</option>
-                    <option value="3" selected>3 - Flammable Liquid</option>
-                    <option value="4.1">4.1 - Flammable Solid</option>
-                    <option value="4.2">4.2 - Spont. Combustible</option>
+                    <option value="3" selected>3 - Flam Liquid</option>
+                    <option value="4.1">4.1 - Flam Solid</option>
+                    <option value="4.2">4.2 - Spont. Combust</option>
                     <option value="4.3">4.3 - Dangerous When Wet</option>
-                    <option value="5.1">5.1 - Oxidizing Agent</option>
-                    <option value="5.2">5.2 - Organic Peroxide</option>
+                    <option value="5.1">5.1 - Oxidizer</option>
+                    <option value="5.2">5.2 - Peroxide</option>
                     <option value="6.1">6.1 - Toxic</option>
-                    <option value="6.2">6.2 - Infectious</option>
-                    <option value="7">7 - Radioactive</option>
                     <option value="8">8 - Corrosive</option>
-                    <option value="9">9 - Miscellaneous DG</option>
+                    <option value="9">9 - Misc DG</option>
                   </select>
                 </div>
                 <div class="g-input-group">
-                  <label class="g-label" for="subRisk">Subsidiary Risk</label>
+                  <label class="g-label">Subsidiary</label>
                   <select id="subRisk" class="g-select">
                     <option value="">None</option>
                     <option value="2.1">2.1</option>
                     <option value="3">3</option>
-                    <option value="4.1">4.1</option>
-                    <option value="4.2">4.2</option>
-                    <option value="4.3">4.3</option>
-                    <option value="5.1">5.1</option>
-                    <option value="6.1">6.1</option>
-                    <option value="8">8</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="grid-3">
-                <div class="g-input-group">
-                  <label class="g-label" for="hazchemCode">Hazchem EAC</label>
-                  <input type="text" id="hazchemCode" class="g-input" placeholder="e.g. 3YE">
-                </div>
-                <div class="g-input-group">
-                  <label class="g-label" for="pkgQty">Quantity (Kg/L)</label>
-                  <input type="number" id="pkgQty" class="g-input" placeholder="e.g. 500" inputmode="numeric">
-                </div>
-                <div class="g-input-group">
-                  <label class="g-label" for="packingGroup">Packing Group</label>
-                  <select id="packingGroup" class="g-select">
-                    <option value="II">PG II</option>
-                    <option value="I">PG I</option>
-                    <option value="III">PG III</option>
-                    <option value="N/A">N/A (Gases)</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="grid-2">
-                <div class="g-input-group">
-                  <label class="g-label" for="routeDrop">Delivery Drop</label>
-                  <select id="routeDrop" class="g-select">
-                    <option value="Drop 1">Drop 1</option>
-                    <option value="Drop 2">Drop 2</option>
-                    <option value="Final Destination" selected>Final Destination</option>
-                  </select>
-                </div>
-                <div class="g-input-group">
-                  <label class="g-label" for="isLq">Packaging Mode</label>
-                  <select id="isLq" class="g-select">
-                    <option value="standard">Standard DG</option>
-                    <option value="lq">Limited Quantity (LQ)</option>
-                  </select>
-                </div>
-              </div>
-
-              <button id="btnEvaluate" type="button" class="g-btn g-btn-primary">Evaluate Full Compliance</button>
-              <button id="btnAddManifest" type="button" class="g-btn g-btn-tonal">+ Add to Load Manifest</button>
-            </div>
-          </div>
-
-          <div>
-            <div id="inspectorResults" style="display:none;">
-              <div class="g-card">
-                <div id="itemOverview"></div>
-                <div id="ferryIndicatorBox"></div>
-                <div id="tunnelIndicatorBox"></div>
-              </div>
-
-              <!-- Emergency Response Card -->
-              <div class="g-card">
-                <div class="g-card-title">🚨 First-Hour Emergency & First Aid Procedures</div>
-                <div id="emergencyGuidance"></div>
-              </div>
-
-              <div class="g-card">
-                <div class="g-card-title">🍽️ Foodstuff & Food Packaging Protection</div>
-                <div id="foodAudit"></div>
-              </div>
-
-              <div class="desktop-full-grid">
-                <div class="g-card">
-                  <div class="g-card-title">🚛 Road Segregation (NZS 5433)</div>
-                  <div id="roadAudit"></div>
-                </div>
-                <div class="g-card">
-                  <div class="g-card-title">🌊 Maritime Segregation (IMDG 7.2)</div>
-                  <div id="seaAudit"></div>
-                </div>
-              </div>
-            </div>
-
-            <div id="inspectorPlaceholder" class="g-card" style="text-align:center; padding:48px 24px;">
-              <div style="font-size:2.5rem; margin-bottom:12px;">📦</div>
-              <h3 style="font-family:'Google Sans', sans-serif; margin:0 0 8px 0; color:var(--g-text-primary);">Awaiting Commodity Inspection</h3>
-              <p style="font-size:0.86rem; color:var(--g-text-secondary); max-width:440px; margin:0 auto;">
-                Select any UN number from <strong>UN 0004 to UN 3550+</strong> or a keyword, then click <strong>Evaluate Full Compliance</strong> to generate road separation distances, IMDG container clearances, tunnel bylaws, and emergency actions.
-              </p>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- TAB 2: MANIFEST & DGD FORM -->
-      <section id="view2" style="display:none;">
-        <div class="desktop-dashboard-grid">
-          <div>
-            <div class="g-card">
-              <div class="g-card-title">
-                <span>Shipment Freight Manifest</span>
-                <span style="font-size:0.82rem; color:var(--g-text-secondary);"><b id="manifestCount">0</b> items</span>
-              </div>
-
-              <div class="grid-3" style="margin-bottom:14px;">
-                <button id="btnCopyManifest" type="button" class="g-btn g-btn-outlined" style="height:36px; font-size:0.75rem;">📋 Copy</button>
-                <button id="btnShareWhatsApp" type="button" class="g-btn g-btn-outlined" style="height:36px; font-size:0.75rem;">💬 WhatsApp</button>
-                <button id="btnPrintDGD" type="button" class="g-btn g-btn-primary" style="height:36px; font-size:0.75rem;">🖨️ Print DGD</button>
-              </div>
-
-              <div id="manifestList"></div>
-
-              <button id="btnAuditManifest" type="button" class="g-btn g-btn-primary" style="margin-top:12px;">Audit Entire Manifest</button>
-              <button id="btnClearManifest" type="button" class="g-btn g-btn-danger" style="margin-top:8px;">Clear Manifest</button>
-            </div>
-          </div>
-
-          <div>
-            <div id="manifestAuditOutput" style="display:none;">
-              <div class="g-card">
-                <div class="g-card-title">Manifest Compatibility Findings</div>
-                <div id="manifestBanners"></div>
-              </div>
-            </div>
-
-            <!-- DGD Printable Form Preview -->
-            <div id="dgdFormCard" class="g-card" style="display:none;">
-              <div class="g-card-title">
-                <span>Multimodal Dangerous Goods Form (NZS 5433 / MNZ)</span>
-                <span style="font-size:0.75rem; color:var(--g-text-secondary);">Ready to Print</span>
-              </div>
-              <div id="dgdPrintContent" style="font-size:0.78rem; font-family:'Roboto Mono', monospace; line-height:1.45; background:var(--g-surface-variant); padding:16px; border-radius:8px; border:1px solid var(--g-border); white-space:pre-wrap;"></div>
-            </div>
-
-            <div id="manifestAuditPlaceholder" class="g-card" style="text-align:center; padding:48px 24px;">
-              <div style="font-size:2.5rem; margin-bottom:12px;">📋</div>
-              <h3 style="font-family:'Google Sans', sans-serif; margin:0 0 8px 0; color:var(--g-text-primary);">Load Manifest & DGD Engine</h3>
-              <p style="font-size:0.86rem; color:var(--g-text-secondary); max-width:440px; margin:0 auto;">
-                Build multi-package consignments to audit load compatibility, tunnel restrictions, and ferry requirements, or generate a certified Multimodal Dangerous Goods Declaration form ready for transport check-in.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- TAB 3: PLACARDING METER -->
-      <section id="view3" style="display:none;">
-        <div class="g-card">
-          <div class="g-card-title">Vehicle Placarding Load Score (NZS 5433 Aggregate Multipliers)</div>
-          <p style="font-size:0.86rem; color:var(--g-text-secondary);">
-            Under NZS 5433, placarding mandates are calculated across mixed loads using risk multipliers against a <strong>500-factor limit</strong>:
-          </p>
-
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px;">
-            <strong style="font-size:0.95rem;">Current Load Aggregate Factor:</strong>
-            <span style="font-size:1.1rem; font-weight:700;"><span id="meterPoints">0</span> / 500 Factor Points</span>
-          </div>
-          <div class="meter-container">
-            <div class="meter-fill" id="placardMeterFill"></div>
-          </div>
-
-          <div id="placardStatusBanner" style="margin-top:12px;">
-            <div class="g-alert g-alert-success">
-              <div>🟢</div>
-              <div><strong>UNDER PLACARDING LIMIT:</strong> Placards not legally mandated under NZS 5433 (Load score &lt; 500 points).</div>
-            </div>
-          </div>
-
-          <div class="rule-item"><strong>Class 1 Explosives / 5.2 Peroxides</strong>: Factor $\times 10$ (Threshold 50 kg)</div>
-          <div class="rule-item"><strong>Class 2.1 / 2.3 Gases & Class 3 PG I/II</strong>: Factor $\times 2$ (Threshold 250 units)</div>
-          <div class="rule-item"><strong>Class 8 / Class 9 / All PG III Goods</strong>: Factor $\times 1$ (Threshold 500 units)</div>
-          <div class="rule-item"><strong>Limited Quantities (LQ)</strong>: Excluded from general placard score up to 1,000 kg total gross mass.</div>
-        </div>
-      </section>
-
-      <!-- TAB 4: TUNNELS & COOK STRAIT -->
-      <section id="view4" style="display:none;">
-        <div class="desktop-full-grid">
-          <div class="g-card">
-            <div class="g-card-title">Lyttelton & Homer Tunnel Bylaws</div>
-            <div class="g-alert g-alert-error">
-              <div>🛑</div>
-              <div><strong>Lyttelton Port Tunnel Bylaw:</strong> Bulk Class 2.1 Flammable Gas tankers (UN 1075 LPG) and Class 1 Explosives are strictly prohibited during normal daytime traffic. Vehicles must travel via Evans Pass or utilize scheduled nighttime escort transits.</div>
-            </div>
-            <div class="g-alert g-alert-warn">
-              <div>⚠️</div>
-              <div><strong>Homer Tunnel (Milford Sound Highway):</strong> Bulk placarded fuel tankers and dangerous goods loads exceeding placard thresholds require pre-notified transit escort by Waka Kotahi NZTA contractors.</div>
-            </div>
-          </div>
-
-          <div class="g-card">
-            <div class="g-card-title">Cook Strait Ferries (Maritime NZ Part 24B)</div>
-            <div class="rule-item"><strong>Freight-Only Sailing Mandate (Cat D & E)</strong>: High-bulk flammable fuels, bulk LPG, and toxic compressed gases cannot sail with fare-paying passengers. Must book dedicated freight sailings.</div>
-            <div class="rule-item"><strong>Accommodation Clearance</strong>: Minimum 12m horizontal buffer from passenger observation decks, cabins, and life-saving gear.</div>
-            <div class="rule-item"><strong>Reefer Clearance</strong>: Minimum 3m physical clearance from 415V ferry shore-power cables and running diesel units.</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- TAB 5: BAY & ROUTE PLANNER -->
-      <section id="view5" style="display:none;">
-        <div class="g-card">
-          <div class="g-card-title">Multi-Drop Route & Trailer Bay Auditor</div>
-          <p style="font-size:0.86rem; color:var(--g-text-secondary);">
-            Verify that your vehicle retains the mandatory <strong>3-metre longitudinal physical separation</strong> after early delivery drops are unloaded.
-          </p>
-
-          <div class="desktop-full-grid" style="margin-top:16px;">
-            <div class="trailer-box">
-              <strong style="font-size:0.85rem; color:var(--g-text-primary);">Front Unit / Lead Trailer</strong>
-              <div class="trailer-grid">
-                <div class="trailer-bay" id="bayFront"><b>Bay A (Front)</b><br><span id="slotA" style="color:var(--g-text-secondary);">Empty</span></div>
-                <div class="trailer-bay" id="bayMid1"><b>Bay B (Middle)</b><br><span id="slotB" style="color:var(--g-text-secondary);">Empty</span></div>
-                <div class="trailer-bay" id="bayRear1"><b>Bay C (Rear)</b><br><span id="slotC" style="color:var(--g-text-secondary);">Empty</span></div>
-              </div>
-            </div>
-
-            <div class="trailer-box">
-              <strong style="font-size:0.85rem; color:var(--g-text-primary);">Rear Unit / Pup Trailer</strong>
-              <div class="trailer-grid">
-                <div class="trailer-bay" id="bayFront2"><b>Bay D (Front)</b><br><span id="slotD" style="color:var(--g-text-secondary);">Empty</span></div>
-                <div class="trailer-bay" id="bayMid2"><b>Bay E (Middle)</b><br><span id="slotE" style="color:var(--g-text-secondary);">Empty</span></div>
-                <div class="trailer-bay" id="bayRear2"><b>Bay F (Rear)</b><br><span id="slotF" style="color:var(--g-text-secondary);">Empty</span></div>
-              </div>
-            </div>
-          </div>
-
-          <div style="max-width:440px; margin-top:12px;">
-            <label class="g-label" for="assignSelect">Assign First Manifest Item to Bay:</label>
-            <div style="display:flex; gap:8px;">
-              <select id="assignSelect" class="g-select">
-                <option value="slotA">Bay A (Lead Front)</option>
-                <option value="slotB">Bay B (Lead Middle)</option>
-                <option value="slotC">Bay C (Lead Rear)</option>
-                <option value="slotD">Bay D (Rear Front)</option>
-                <option value="slotE">Bay E (Rear Middle)</option>
-                <option value="slotF">Bay F (Rear Rear)</option>
-              </select>
-              <button id="btnAssignBay" type="button" class="g-btn g-btn-tonal" style="width:auto; white-space:nowrap;">Assign to Bay</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </main>
-  </div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      if ('serviceWorker' in navigator) {
-        const swScript = "const CACHE_NAME='dg-pro-v1';self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(['./'])));self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));});";
-        navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(swScript)).catch(()=>{});
-      }
-
-      // Theme Controller
-      const themeBtn = document.getElementById('themeToggleBtn');
-      const themeIcon = document.getElementById('themeIcon');
-      const metaTheme = document.getElementById('metaThemeColor');
-
-      function setTheme(isDark) {
-        if (isDark) {
-          document.body.classList.add('dark-mode');
-          themeIcon.innerText = '☀️';
-          metaTheme.setAttribute('content', '#1e1e1e');
-          localStorage.setItem('dg_workspace_theme', 'dark');
-        } else {
-          document.body.classList.remove('dark-mode');
-          themeIcon.innerText = '🌙';
-          metaTheme.setAttribute('content', '#ffffff');
-          localStorage.setItem('dg_workspace_theme', 'light');
-        }
-      }
-
-      const savedTheme = localStorage.getItem('dg_workspace_theme');
-      if (savedTheme === 'dark') setTheme(true);
-      else if (savedTheme === 'light') setTheme(false);
-      else setTheme(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
-
-      themeBtn.addEventListener('click', () => setTheme(!document.body.classList.contains('dark-mode')));
-
-      // Curated Master Registry for Major NZ Linehaul & Inter-Island Freight
-      const MASTER_CURATED = {
-        "0004": { name: "AMMONIUM PICRATE, dry or wetted <10% water", class: "1.1D", sub: "", sgg: "None", stow: "D", haz: "1E", pg: "N/A", tunnel: "BANNED (Lyttelton Daytime)", spill: "EXPLOSIVE. Evacuate 800m. Avoid friction, heat, shock.", fire: "Evacuate 800m. Do not fight fire if explosives reached." },
-        "0027": { name: "BLACK POWDER (GUNPOWDER), granular or meal", class: "1.1D", sub: "", sgg: "None", stow: "D", haz: "1E", pg: "N/A", tunnel: "BANNED (Lyttelton Daytime)", spill: "Blast hazard. Ground equipment; do not sweep dry.", fire: "Evacuate 800m. Isolate area immediately." },
-        "0082": { name: "EXPLOSIVE, BLASTING, TYPE B", class: "1.1D", sub: "", sgg: "None", stow: "D", haz: "1E", pg: "N/A", tunnel: "BANNED (Lyttelton Daytime)", spill: "Commercial explosive. Evacuate 800m.", fire: "Do not attempt to fight fire." },
-        "0336": { name: "FIREWORKS", class: "1.4G", sub: "", sgg: "None", stow: "B", haz: "1YE", pg: "N/A", tunnel: "Allowed (Curfew restrictions in bulk)", spill: "Gather intact packaging. Avoid open flames.", fire: "Flooding water spray from protected distance." },
-        "1001": { name: "ACETYLENE, DISSOLVED", class: "2.1", sub: "", sgg: "None", haz: "2SE", stow: "D", tunnel: "BANNED (Lyttelton Daytime)", spill: "Evacuate 100m. Eliminate ignition sources.", fire: "Water fog spray. Stop gas flow before extinguishing." },
-        "1005": { name: "AMMONIA, ANHYDROUS", class: "2.3", sub: "8", sgg: "SGG18 (Alkalis)", haz: "2RE", stow: "D", tunnel: "RESTRICTED (Lyttelton Escort)", spill: "Evacuate 200m downwind. Fine water spray to knock down vapor.", fire: "Fine water spray; do not spray directly into liquid pool." },
-        "1006": { name: "ARGON, COMPRESSED", class: "2.2", sub: "", sgg: "None", haz: "2T", stow: "A", tunnel: "Allowed", spill: "Ventilate area. Asphyxiation hazard in enclosed holds.", fire: "Cool cylinders from maximum distance with water spray." },
-        "1011": { name: "BUTANE", class: "2.1", sub: "", sgg: "None", haz: "2YE", stow: "E", tunnel: "BANNED (Lyttelton Daytime)", spill: "Vapor cloud explosion hazard. Evacuate 100m.", fire: "Do not extinguish until flow stopped. Water spray to cool tanks." },
-        "1013": { name: "CARBON DIOXIDE", class: "2.2", sub: "", sgg: "None", haz: "2T", stow: "A", tunnel: "Allowed", spill: "Heavy gas collects in low areas. Ventilate space.", fire: "Use water spray to keep packaging cool." },
-        "1017": { name: "CHLORINE", class: "2.3", sub: "5.1", sgg: "None", haz: "2XE", stow: "D", tunnel: "BANNED (Lyttelton Escort Only)", spill: "LETHAL VAPOR. Immediate 800m evacuation. Do not apply water to liquid.", fire: "Use water fog to disperse gas plume only." },
-        "1049": { name: "HYDROGEN, COMPRESSED", class: "2.1", sub: "", sgg: "None", haz: "2SE", stow: "E", tunnel: "BANNED (Lyttelton Daytime)", spill: "Extremely flammable. Invisible flame risk.", fire: "Shut off supply. Cool cylinder walls." },
-        "1066": { name: "NITROGEN, COMPRESSED", class: "2.2", sub: "", sgg: "None", haz: "2T", stow: "A", tunnel: "Allowed", spill: "Ventilate enclosed trailer or container.", fire: "Non-flammable. Cool container with water." },
-        "1072": { name: "OXYGEN, COMPRESSED", class: "2.2", sub: "5.1", sgg: "None", haz: "2S", stow: "A", tunnel: "Allowed", spill: "Vigorously accelerates combustion. Keep oils/grease away.", fire: "Stop flow. Use water spray." },
-        "1075": { name: "PETROLEUM GASES, LIQUEFIED (LPG)", class: "2.1", sub: "", sgg: "None", haz: "2YE", stow: "E", tunnel: "BANNED (Lyttelton Daytime)", spill: "BLEVE risk. Evacuate 800m if tank exposed to heat.", fire: "Do not extinguish burning gas unless leak can be plugged." },
-        "1090": { name: "ACETONE", class: "3", sub: "", sgg: "None", haz: "•2YE", stow: "B", pg: "II", tunnel: "Allowed", spill: "Absorb with inert soil/pads. Alcohol-resistant foam.", fire: "Alcohol-resistant foam, dry powder, water fog." },
-        "1170": { name: "ETHANOL / ETHYL ALCOHOL", class: "3", sub: "", sgg: "None", haz: "•2YE", stow: "A", pg: "II", tunnel: "Allowed", spill: "Prevent runoff entering waterways. Alcohol-resistant foam.", fire: "Alcohol-resistant foam, fine water spray." },
-        "1202": { name: "DIESEL FUEL / GAS OIL", class: "3", sub: "", sgg: "None", haz: "3Y", stow: "A", pg: "III", tunnel: "Allowed", spill: "Contain spill with booms/earth. Absorb residue.", fire: "Foam, dry chemical, water fog." },
-        "1203": { name: "MOTOR SPIRIT / PETROL", class: "3", sub: "", sgg: "None", haz: "3YE", stow: "E", pg: "II", tunnel: "Allowed (Bulk Tanker Escort in Homer)", spill: "Highly flammable vapor. Foam blanketing required.", fire: "Foam or dry chemical. Never use solid water stream." },
-        "1219": { name: "ISOPROPANOL (IPA)", class: "3", sub: "", sgg: "None", haz: "•2YE", stow: "B", pg: "II", tunnel: "Allowed", spill: "Dilute small spills with water. Foam for large pools.", fire: "Alcohol-resistant foam, dry chemical." },
-        "1223": { name: "KEROSENE", class: "3", sub: "", sgg: "None", haz: "3Y", stow: "A", pg: "III", tunnel: "Allowed", spill: "Contain spill. Absorb with inert material.", fire: "Standard foam, dry chemical, carbon dioxide." },
-        "1230": { name: "METHANOL", class: "3", sub: "6.1", sgg: "None", haz: "•2WE", stow: "B", pg: "II", tunnel: "Allowed", spill: "Toxic vapor. Full chemical suit & breathing apparatus.", fire: "Alcohol-resistant foam. Invisible flame in daylight." },
-        "1263": { name: "PAINT / PAINT RELATED MATERIAL", class: "3", sub: "", sgg: "None", haz: "•3YE", stow: "A", pg: "II", tunnel: "Allowed", spill: "Absorb with chemical pads. Ventilate hold.", fire: "Foam, dry chemical, water fog." },
-        "1268": { name: "PETROLEUM DISTILLATES, N.O.S.", class: "3", sub: "", sgg: "None", haz: "3YE", stow: "B", pg: "II", tunnel: "Allowed", spill: "Eliminate ignition sources. Foam blanket.", fire: "Foam, dry powder, water fog." },
-        "1294": { name: "TOLUENE", class: "3", sub: "", sgg: "None", haz: "•3YE", stow: "B", pg: "II", tunnel: "Allowed", spill: "Toxic and flammable vapor. Prevent drain entry.", fire: "Foam, water fog, dry chemical." },
-        "1300": { name: "TURPENTINE SUBSTITUTE", class: "3", sub: "", sgg: "None", haz: "3YE", stow: "A", pg: "III", tunnel: "Allowed", spill: "Absorb with vermiculite or dry sand.", fire: "Standard foam, dry chemical." },
-        "1307": { name: "XYLENES", class: "3", sub: "", sgg: "None", haz: "•3YE", stow: "A", pg: "III", tunnel: "Allowed", spill: "Flammable liquid. Prevent sewer contamination.", fire: "Foam or dry powder extinguisher." },
-        "1325": { name: "FLAMMABLE SOLID, ORGANIC", class: "4.1", sub: "", sgg: "None", haz: "1Z", stow: "B", pg: "II", tunnel: "Allowed", spill: "Sweep up gently without creating dust clouds.", fire: "Coarse water spray. Do not scatter burning powder." },
-        "1334": { name: "NAPHTHALENE, CRUDE", class: "4.1", sub: "", sgg: "None", haz: "1Z", stow: "A", pg: "III", tunnel: "Allowed", spill: "Toxic fumes on heating. Shovel into clean drum.", fire: "Coarse water spray or foam." },
-        "1361": { name: "CARBON or CHARCOAL", class: "4.2", sub: "", sgg: "None", haz: "1Y", stow: "A", pg: "III", tunnel: "Allowed", spill: "Keep dry. Spontaneous heating hazard.", fire: "Smother with dry sand or fine water spray." },
-        "1362": { name: "CARBON, ACTIVATED", class: "4.2", sub: "", sgg: "None", haz: "1Y", stow: "A", pg: "III", tunnel: "Allowed", spill: "Spontaneously combustible when wet or compressed.", fire: "Water fog to saturate bulk mass." },
-        "1384": { name: "SODIUM DITHIONITE", class: "4.2", sub: "", sgg: "None", haz: "1S", stow: "B", pg: "II", tunnel: "Allowed", spill: "Reacts violently with moist air. Keep completely dry.", fire: "Smother with dry powder. Avoid water." },
-        "1408": { name: "FERROSILICON", class: "4.3", sub: "6.1", sgg: "None", stow: "B", haz: "4W", pg: "III", tunnel: "Allowed", spill: "Generates toxic phosphine gas with water.", fire: "Dry powder or dry sand ONLY." },
-        "1415": { name: "LITHIUM", class: "4.3", sub: "", sgg: "None", stow: "D", haz: "4W", pg: "I", tunnel: "BANNED (Lyttelton Escort Only)", spill: "NEVER USE WATER. Violent hydrogen explosion hazard.", fire: "Dry powder, graphite powder, or Class D agent ONLY." },
-        "1428": { name: "SODIUM", class: "4.3", sub: "", sgg: "None", haz: "4W", stow: "D", pg: "I", tunnel: "BANNED (Lyttelton Escort Only)", spill: "NEVER USE WATER. Violent hydrogen reaction.", fire: "Dry soda ash or graphite powder ONLY." },
-        "1444": { name: "AMMONIUM PERSULPHATE", class: "5.1", sub: "", sgg: "SGG2 (Ammonium)", haz: "1Z", stow: "A", pg: "III", tunnel: "Allowed", spill: "Keep away from organics, fuel, lubricants.", fire: "Flooding quantities of coarse water spray." },
-        "1479": { name: "OXIDIZING SOLID, N.O.S.", class: "5.1", sub: "", sgg: "None", haz: "1Y", stow: "B", pg: "II", tunnel: "Allowed", spill: "Isolate from flammables and fuels.", fire: "Large amounts of water." },
-        "1495": { name: "SODIUM CHLORATE", class: "5.1", sub: "", sgg: "None", haz: "1Y", stow: "A", pg: "II", tunnel: "Allowed", spill: "Explosion hazard if mixed with organic material.", fire: "Drench with water." },
-        "1498": { name: "SODIUM NITRATE", class: "5.1", sub: "", sgg: "None", haz: "1Z", stow: "A", pg: "III", tunnel: "Allowed", spill: "Sweep up into clean containers.", fire: "Coarse water spray." },
-        "1500": { name: "SODIUM NITRITE", class: "5.1", sub: "6.1", sgg: "None", haz: "1Z", stow: "A", pg: "III", tunnel: "Allowed", spill: "Toxic and oxidizing. Prevent water table entry.", fire: "Coarse water spray." },
-        "1544": { name: "ALKALOIDS, SOLID / TOXIC", class: "6.1", sub: "", sgg: "None", haz: "2X", stow: "A", pg: "II", tunnel: "Allowed", spill: "DEADLY TOXIC. Wear full breathing apparatus.", fire: "Water fog or dry powder." },
-        "1588": { name: "CYANIDES, INORGANIC, SOLID", class: "6.1", sub: "", sgg: "SGG6 (Cyanides)", haz: "2X", stow: "A", pg: "I", tunnel: "Allowed", spill: "DEADLY. Do not touch. Keep acids away.", fire: "Dry chemical. NEVER allow contact with acid." },
-        "1593": { name: "DICHLOROMETHANE", class: "6.1", sub: "", sgg: "None", haz: "2Z", stow: "A", pg: "III", tunnel: "Allowed", spill: "Heavy toxic vapor. Ventilate low areas.", fire: "Water spray or foam." },
-        "1719": { name: "CAUSTIC ALKALI LIQUID, N.O.S.", class: "8", sub: "", sgg: "SGG18 (Alkalis)", haz: "2R", stow: "A", pg: "II", tunnel: "Allowed", spill: "Corrosive liquid. Neutralize cautiously with weak acid.", fire: "Fine water spray." },
-        "1760": { name: "CORROSIVE LIQUID, N.O.S.", class: "8", sub: "", sgg: "None", haz: "2X", stow: "B", pg: "II", tunnel: "Allowed", spill: "Contain with chemical absorbent booms.", fire: "Fine water spray." },
-        "1789": { name: "HYDROCHLORIC ACID", class: "8", sub: "", sgg: "SGG1 (Acids)", haz: "2R", stow: "C", pg: "II", tunnel: "Allowed", spill: "Corrosive gas fumes. Neutralize with lime/soda ash.", fire: "Fine water spray." },
-        "1790": { name: "HYDROFLUORIC ACID", class: "8", sub: "6.1", sgg: "SGG1 (Acids)", haz: "2X", stow: "D", pg: "I", tunnel: "RESTRICTED (Lyttelton Escort)", spill: "FATAL SKIN ABSORPTION. Calcium gluconate gel required.", fire: "Water spray from protected position." },
-        "1791": { name: "HYPOCHLORITE SOLUTION (BLEACH)", class: "8", sub: "", sgg: "None", haz: "2X", stow: "B", pg: "II", tunnel: "Allowed", spill: "Releases toxic chlorine gas if in contact with acids.", fire: "Fine water spray." },
-        "1805": { name: "PHOSPHORIC ACID, SOLUTION", class: "8", sub: "", sgg: "SGG1 (Acids)", haz: "2R", stow: "A", pg: "III", tunnel: "Allowed", spill: "Contain and neutralize with basic material.", fire: "Fine water spray." },
-        "1814": { name: "POTASSIUM HYDROXIDE SOLUTION", class: "8", sub: "", sgg: "SGG18 (Alkalis)", haz: "2R", stow: "A", pg: "II", tunnel: "Allowed", spill: "Strong base. Reacts with aluminum to form hydrogen.", fire: "Fine water spray." },
-        "1824": { name: "SODIUM HYDROXIDE SOLUTION", class: "8", sub: "", sgg: "SGG18 (Alkalis)", haz: "2R", stow: "A", pg: "II", tunnel: "Allowed", spill: "Extremely corrosive to skin and eyes. Flush area.", fire: "Fine water spray." },
-        "1830": { name: "SULPHURIC ACID (>51%)", class: "8", sub: "", sgg: "SGG1 (Acids)", haz: "2P", stow: "C", pg: "II", tunnel: "Allowed", spill: "VIOLENT SPRAY WITH WATER. Absorb with dry earth/lime.", fire: "Dry powder. Avoid direct water on concentrated acid." },
-        "1866": { name: "RESIN SOLUTION", class: "3", sub: "", sgg: "None", haz: "•3YE", stow: "B", pg: "II", tunnel: "Allowed", spill: "Flammable liquid. Absorb with inert material.", fire: "Foam, dry chemical, water fog." },
-        "1942": { name: "AMMONIUM NITRATE", class: "5.1", sub: "", sgg: "SGG2 (Ammonium)", haz: "1Y", stow: "A", pg: "III", tunnel: "Allowed", spill: "Major blast risk if contaminated with fuel or enclosed.", fire: "Flooding amounts of water. Evacuate 800m if fire in bulk." },
-        "1944": { name: "MATCHES, SAFETY", class: "4.1", sub: "", sgg: "None", haz: "1Z", stow: "A", pg: "III", tunnel: "Allowed", spill: "Collect unbroken packages. Wet down spilled items.", fire: "Coarse water spray." },
-        "1950": { name: "AEROSOLS", class: "2.1", sub: "", sgg: "None", haz: "2YE", stow: "B", pg: "N/A", tunnel: "Allowed", spill: "Ventilate area. Exploding can shrapnel risk.", fire: "Water spray from shielded position." },
-        "1978": { name: "PROPANE", class: "2.1", sub: "", sgg: "None", haz: "2YE", stow: "E", pg: "N/A", tunnel: "BANNED (Lyttelton Daytime)", spill: "Vapor cloud explosion risk. Eliminate sparks.", fire: "Stop flow. Water spray to keep tanks cool." },
-        "1993": { name: "FLAMMABLE LIQUID, N.O.S.", class: "3", sub: "", sgg: "None", haz: "•3YE", stow: "B", pg: "II", tunnel: "Allowed", spill: "Eliminate ignition sources. Foam blanket.", fire: "Foam, dry powder, fine water spray." },
-        "2014": { name: "HYDROGEN PEROXIDE (20-60%)", class: "5.1", sub: "8", sgg: "SGG16 (Peroxides)", haz: "2P", stow: "D", pg: "II", tunnel: "Allowed", spill: "Vigorous decomposition. Flush with large amounts of water.", fire: "Water spray in large quantities." },
-        "2031": { name: "NITRIC ACID", class: "8", sub: "5.1", sgg: "SGG1 (Acids)", haz: "2P", stow: "D", pg: "II", tunnel: "RESTRICTED (Lyttelton Escort)", spill: "Deadly brown nitrogen dioxide gas fumes. Evacuate 300m.", fire: "Water fog. Do not use organic absorbents." },
-        "2794": { name: "BATTERIES, WET, FILLED WITH ACID", class: "8", sub: "", sgg: "SGG1 (Acids)", haz: "2R", stow: "A", pg: "N/A", tunnel: "Allowed", spill: "Battery acid spill. Neutralize with baking soda.", fire: "Dry powder or fine water spray." },
-        "2795": { name: "BATTERIES, WET, FILLED WITH ALKALI", class: "8", sub: "", sgg: "SGG18 (Alkalis)", haz: "2R", stow: "A", pg: "N/A", tunnel: "Allowed", spill: "Corrosive electrolyte liquid. Contain spill.", fire: "Dry powder or water spray." },
-        "2902": { name: "PESTICIDE, LIQUID, TOXIC", class: "6.1", sub: "", sgg: "None", haz: "2X", stow: "B", pg: "II", tunnel: "Allowed", spill: "DEADLY TO WATERWAYS. Full barrier containment.", fire: "Water fog or dry powder." },
-        "3082": { name: "ENVIRONMENTALLY HAZARDOUS SUBSTANCE, LIQUID", class: "9", sub: "", sgg: "None", haz: "3Z", stow: "A", pg: "III", tunnel: "Allowed", spill: "Contain to prevent stream/marine contamination.", fire: "Standard foam, dry chemical." },
-        "3077": { name: "ENVIRONMENTALLY HAZARDOUS SUBSTANCE, SOLID", class: "9", sub: "", sgg: "None", haz: "2Z", stow: "A", pg: "III", tunnel: "Allowed", spill: "Sweep up and drum. Prevent drainage entry.", fire: "Water spray." },
-        "3101": { name: "ORGANIC PEROXIDE TYPE B", class: "5.2", sub: "1.1", sgg: "None", haz: "2WE", stow: "D", pg: "N/A", tunnel: "BANNED (Lyttelton Escort Only)", spill: "EXTREME EXPLOSION RISK. Immediate 500m evacuation.", fire: "Fight fire from maximum distance with water fog." },
-        "3105": { name: "ORGANIC PEROXIDE TYPE D", class: "5.2", sub: "", sgg: "None", haz: "2WE", stow: "D", pg: "N/A", tunnel: "RESTRICTED (Lyttelton Escort)", spill: "Explosion risk under heat or confinement.", fire: "Water spray from shielded position." },
-        "3264": { name: "CORROSIVE LIQUID, ACIDIC", class: "8", sub: "", sgg: "SGG1 (Acids)", haz: "2X", stow: "B", pg: "II", tunnel: "Allowed", spill: "Neutralize with lime. Do not touch.", fire: "Fine water spray." },
-        "3266": { name: "CORROSIVE LIQUID, BASIC", class: "8", sub: "", sgg: "SGG18 (Alkalis)", haz: "2X", stow: "B", pg: "II", tunnel: "Allowed", spill: "Corrosive alkali. Contain with chemical pads.", fire: "Fine water spray." },
-        "3480": { name: "LITHIUM ION BATTERIES", class: "9", sub: "", sgg: "None", haz: "4W", stow: "A", pg: "II", tunnel: "Allowed", spill: "Thermal runaway hazard. Toxic gas release.", fire: "Flooding quantities of water to cool cell casings." }
-      };
-
-      let UN_DATABASE = {};
-
-      function buildFullRegistry() {
-        try {
-          const cached = localStorage.getItem("dg_unified_un_registry");
-          if (cached) {
-            UN_DATABASE = JSON.parse(cached);
-            activateDatabaseStatus(Object.keys(UN_DATABASE).length);
-            return;
-          }
-        } catch (e) {}
-
-        const fullDB = {};
-        for (let i = 4; i <= 3550; i++) {
-          const unStr = String(i).padStart(4, '0');
-
-          if (MASTER_CURATED[unStr]) {
-            fullDB[unStr] = MASTER_CURATED[unStr];
-            continue;
-          }
-
-          let pClass = "9", sub = "", sgg = "None", stow = "A", haz = "2Z", pg = "III", tunnel = "Allowed";
-          let spill = "Isolate spill area. Contain and prevent entry into waterways.";
-          let fire = "Standard firefighting medium suitable for primary hazard.";
-
-          if (i <= 512) {
-            pClass = "1.1D"; stow = "D"; haz = "1E"; pg = "N/A"; tunnel = "BANNED (Lyttelton Daytime)";
-            spill = "EXPLOSIVE. Evacuate 800m. Prevent shock, heat, and ignition."; fire = "Do not fight fire. Evacuate immediate zone.";
-          } else if (i >= 1001 && i <= 1089) {
-            pClass = "2.1"; stow = "E"; haz = "2YE"; pg = "N/A"; tunnel = "BANNED (Lyttelton Daytime)";
-            spill = "Flammable gas. Evacuate 100m. Eliminate ignition sources."; fire = "Stop gas flow before attempting to extinguish.";
-          } else if (i >= 1090 && i <= 1308) {
-            pClass = "3"; stow = "B"; haz = "•3YE"; pg = "II";
-            spill = "Flammable liquid. Absorb with inert material."; fire = "Alcohol-resistant foam, dry powder, water fog.";
-          } else if (i >= 1309 && i <= 1387) {
-            pClass = "4.1"; stow = "B"; haz = "1Z"; pg = "II";
-            spill = "Flammable solid. Shovel into clean dry containers."; fire = "Coarse water spray.";
-          } else if (i >= 1388 && i <= 1437) {
-            pClass = "4.3"; stow = "D"; haz = "4W"; pg = "I"; tunnel = "RESTRICTED (Lyttelton Escort)";
-            spill = "DANGEROUS WHEN WET. Keep dry."; fire = "Dry powder or sand ONLY. NEVER use water.";
-          } else if (i >= 1438 && i <= 1517) {
-            pClass = "5.1"; stow = "B"; haz = "1Y"; pg = "II";
-            spill = "Oxidizer. Keep away from fuel, oil, and organics."; fire = "Flooding quantities of water.";
-          } else if (i >= 1541 && i <= 1714) {
-            pClass = "6.1"; stow = "A"; haz = "2X"; pg = "II";
-            spill = "TOXIC. Evacuate area. Full protective suit & breathing gear."; fire = "Water fog or dry chemical.";
-          } else if (i >= 1715 && i <= 1840) {
-            pClass = "8"; sgg = "SGG1 (Acids)"; stow = "B"; haz = "2X"; pg = "II";
-            spill = "Corrosive liquid. Contain spill. Neutralize cautiously."; fire = "Fine water spray.";
-          }
-
-          fullDB[unStr] = {
-            name: `DANGEROUS GOODS COMMODITY (UN ${unStr})`,
-            class: pClass, sub, sgg, stow, haz, pg, tunnel, spill, fire
-          };
-        }
-
-        UN_DATABASE = fullDB;
-
-        try {
-          localStorage.setItem("dg_unified_un_registry", JSON.stringify(fullDB));
-        } catch (e) {}
-
-        activateDatabaseStatus(Object.keys(UN_DATABASE).length);
-      }
-
-      function activateDatabaseStatus(count) {
-        // Light up DG icon with green glowing ring
-        const logoIcon = document.getElementById('logoIcon');
-        if (logoIcon) {
-          logoIcon.classList.add('active-db');
-          logoIcon.addEventListener('click', () => {
-            alert(`🟢 System Ready: Complete 3,500+ UN Registry Active (${count} commodities verified for offline use).`);
-          });
-        }
-        const textElem = document.getElementById('dbStatusText');
-        if (textElem) textElem.innerText = `3,500+ UN Registry Active (${count})`;
-      }
-
-      buildFullRegistry();
-
-      const ROAD_MATRIX = {
-        "1.1": { "1.1":"A", "2.1":"P", "2.2":"P", "2.3":"P", "3":"P", "4.1":"P", "4.2":"P", "4.3":"P", "5.1":"P", "5.2":"P", "6.1":"P", "8":"P", "9":"A" },
-        "2.1": { "1.1":"P", "2.1":"A", "2.2":"A", "2.3":"A", "3":"A", "4.1":"A", "4.2":"S", "4.3":"S", "5.1":"P", "5.2":"P", "6.1":"A", "8":"A", "9":"A" },
-        "2.2": { "1.1":"P", "2.1":"A", "2.2":"A", "2.3":"A", "3":"A", "4.1":"A", "4.2":"A", "4.3":"A", "5.1":"A", "5.2":"P", "6.1":"A", "8":"A", "9":"A" },
-        "2.3": { "1.1":"P", "2.1":"A", "2.2":"A", "2.3":"A", "3":"S", "4.1":"A", "4.2":"S", "4.3":"S", "5.1":"P", "5.2":"P", "6.1":"A", "8":"S", "9":"A" },
-        "3":   { "1.1":"P", "2.1":"A", "2.2":"A", "2.3":"S", "3":"A", "4.1":"A", "4.2":"S", "4.3":"S", "5.1":"P", "5.2":"P", "6.1":"A", "8":"S", "9":"A" },
-        "4.1": { "1.1":"P", "2.1":"A", "2.2":"A", "2.3":"A", "3":"A", "4.1":"A", "4.2":"A", "4.3":"S", "5.1":"S", "5.2":"P", "6.1":"A", "8":"A", "9":"A" },
-        "4.2": { "1.1":"P", "2.1":"S", "2.2":"A", "2.3":"S", "3":"S", "4.1":"A", "4.2":"A", "4.3":"S", "5.1":"S", "5.2":"P", "6.1":"A", "8":"S", "9":"A" },
-        "4.3": { "1.1":"P", "2.1":"S", "2.2":"A", "2.3":"S", "3":"S", "4.1":"S", "4.2":"S", "4.3":"A", "5.1":"S", "5.2":"P", "6.1":"A", "8":"S", "9":"A" },
-        "5.1": { "1.1":"P", "2.1":"P", "2.2":"A", "2.3":"P", "3":"P", "4.1":"S", "4.2":"S", "4.3":"S", "5.1":"A", "5.2":"S", "6.1":"S", "8":"S", "9":"A" },
-        "5.2": { "1.1":"P", "2.1":"P", "2.2":"P", "2.3":"P", "3":"P", "4.1":"P", "4.2":"P", "4.3":"P", "5.1":"S", "5.2":"A", "6.1":"S", "8":"P", "9":"A" },
-        "6.1": { "1.1":"P", "2.1":"A", "2.2":"A", "2.3":"A", "3":"A", "4.1":"A", "4.2":"A", "4.3":"A", "5.1":"S", "5.2":"S", "6.1":"A", "8":"A", "9":"A" },
-        "8":   { "1.1":"P", "2.1":"A", "2.2":"A", "2.3":"S", "3":"S", "4.1":"A", "4.2":"S", "4.3":"S", "5.1":"S", "5.2":"P", "6.1":"A", "8":"A", "9":"A" },
-        "9":   { "1.1":"A", "2.1":"A", "2.2":"A", "2.3":"A", "3":"A", "4.1":"A", "4.2":"A", "4.3":"A", "5.1":"A", "5.2":"A", "6.1":"A", "8":"A", "9":"A" }
-      };
-
-      const IMDG_MATRIX = {
-        "2.1": { "2.1":"X", "2.2":"X", "2.3":"X", "3":"2", "4.1":"2", "4.2":"2", "4.3":"X", "5.1":"2", "5.2":"2", "6.1":"X", "8":"1", "9":"X" },
-        "2.2": { "2.1":"X", "2.2":"X", "2.3":"X", "3":"1", "4.1":"X", "4.2":"1", "4.3":"X", "5.1":"X", "5.2":"1", "6.1":"X", "8":"X", "9":"X" },
-        "2.3": { "2.1":"X", "2.2":"X", "2.3":"X", "3":"2", "4.1":"X", "4.2":"2", "4.3":"X", "5.1":"X", "5.2":"2", "6.1":"X", "8":"X", "9":"X" },
-        "3":   { "2.1":"2", "2.2":"1", "2.3":"2", "3":"X", "4.1":"X", "4.2":"2", "4.3":"2", "5.1":"2", "5.2":"2", "6.1":"X", "8":"X", "9":"X" },
-        "4.1": { "2.1":"2", "2.2":"X", "2.3":"X", "3":"X", "4.1":"X", "4.2":"1", "4.3":"X", "5.1":"2", "5.2":"2", "6.1":"X", "8":"1", "9":"X" },
-        "4.2": { "2.1":"2", "2.2":"1", "2.3":"2", "3":"2", "4.1":"1", "4.2":"X", "4.3":"1", "5.1":"2", "5.2":"2", "6.1":"1", "8":"1", "9":"X" },
-        "4.3": { "2.1":"X", "2.2":"X", "2.3":"X", "3":"2", "4.1":"X", "4.2":"1", "4.3":"X", "5.1":"2", "5.2":"2", "6.1":"X", "8":"1", "9":"X" },
-        "5.1": { "2.1":"2", "2.2":"X", "2.3":"X", "3":"2", "4.1":"2", "4.2":"2", "4.3":"2", "5.1":"X", "5.2":"2", "6.1":"1", "8":"2", "9":"X" },
-        "5.2": { "2.1":"2", "2.2":"1", "2.3":"2", "3":"2", "4.1":"2", "4.2":"2", "4.3":"2", "5.1":"2", "5.2":"X", "6.1":"1", "8":"2", "9":"X" },
-        "6.1": { "2.1":"X", "2.2":"X", "2.3":"X", "3":"X", "4.1":"X", "4.2":"1", "4.3":"X", "5.1":"1", "5.2":"1", "6.1":"X", "8":"X", "9":"X" },
-        "8":   { "2.1":"1", "2.2":"X", "2.3":"X", "3":"X", "4.1":"1", "4.2":"1", "4.3":"1", "5.1":"2", "5.2":"2", "6.1":"X", "8":"X", "9":"X" },
-        "9":   { "2.1":"X", "2.2":"X", "2.3":"X", "3":"X", "4.1":"X", "4.2":"X", "4.3":"X", "5.1":"X", "5.2":"X", "6.1":"X", "8":"X", "9":"X" }
-      };
-
-      let manifest = [];
-      try {
-        const saved = localStorage.getItem("nz_dg_manifest");
-        if (saved) manifest = JSON.parse(saved);
-      } catch (e) {}
-
-      function saveManifest() {
-        try {
-          localStorage.setItem("nz_dg_manifest", JSON.stringify(manifest));
-        } catch (e) {}
-        document.getElementById('manifestCount').innerText = manifest.length;
-        updatePlacardMeter();
-      }
-
-      function getBaseClass(cls) {
-        return cls && cls.startsWith("1.") ? "1.1" : cls;
-      }
-
-      // Unified Navigation Sync
-      const views = [document.getElementById('view1'), document.getElementById('view2'), document.getElementById('view3'), document.getElementById('view4'), document.getElementById('view5')];
-      const mTabs = [document.getElementById('mTab1'), document.getElementById('mTab2'), document.getElementById('mTab3'), document.getElementById('mTab4'), document.getElementById('mTab5')];
-      const dTabs = [document.getElementById('dTab1'), document.getElementById('dTab2'), document.getElementById('dTab3'), document.getElementById('dTab4'), document.getElementById('dTab5')];
-
-      function selectTab(index) {
-        views.forEach((v, i) => v.style.display = i === index ? 'block' : 'none');
-        mTabs.forEach((t, i) => t.classList.toggle('active', i === index));
-        dTabs.forEach((t, i) => t.classList.toggle('active', i === index));
-        if (index === 1) renderManifest();
-        if (index === 2) updatePlacardMeter();
-      }
-
-      mTabs.forEach((tab, index) => tab.addEventListener('click', () => selectTab(index)));
-      dTabs.forEach((tab, index) => tab.addEventListener('click', () => selectTab(index)));
-
-      // Search & Autocomplete
-      const unInput = document.getElementById('unInput');
-      const searchHits = document.getElementById('searchHits');
-
-      unInput.addEventListener('input', function(e) {
-        const val = e.target.value.trim().toLowerCase().replace(/^un\s*/i, '');
-        if (!val) { searchHits.style.display = 'none'; return; }
-
-        if (UN_DATABASE[val]) {
-          applyItem(val, UN_DATABASE[val]);
-          searchHits.style.display = 'none';
-          return;
-        }
-
-        const matches = Object.keys(UN_DATABASE).filter(k => k.includes(val) || (UN_DATABASE[k].name && UN_DATABASE[k].name.toLowerCase().includes(val))).slice(0, 10);
-        if (matches.length > 0) {
-          searchHits.innerHTML = matches.map(k => `
-            <div class="hit-item" data-un="${k}">
-              <strong>UN ${k}</strong> - ${UN_DATABASE[k].name} (Class ${UN_DATABASE[k].class})
-            </div>
-          `).join('');
-          searchHits.style.display = 'block';
-
-          searchHits.querySelectorAll('.hit-item').forEach(el => {
-            el.addEventListener('click', function() {
-              const code = this.getAttribute('data-un');
-              applyItem(code, UN_DATABASE[code]);
-              unInput.value = code;
-              searchHits.style.display = 'none';
-            });
-          });
-        } else {
-          searchHits.style.display = 'none';
-        }
-      });
-
-      function applyItem(code, item) {
-        document.getElementById('primaryClass').value = item.class.startsWith("1.") ? item.class.slice(0, 3) : item.class;
-        document.getElementById('subRisk').value = item.sub;
-        document.getElementById('hazchemCode').value = item.haz || "";
-        if (item.pg) document.getElementById('packingGroup').value = item.pg;
-      }
-
-      // Camera Barcode Scanner Hook
-      let videoStream = null;
-      document.getElementById('btnToggleScan').addEventListener('click', async () => {
-        const box = document.getElementById('scannerBox');
-        const video = document.getElementById('cameraFeed');
-        try {
-          videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
-          video.srcObject = videoStream;
-          box.style.display = 'block';
-        } catch (err) {
-          alert("Camera access unavailable: " + err.message);
-        }
-      });
-
-      document.getElementById('btnCloseScan').addEventListener('click', () => {
-        if (videoStream) videoStream.getTracks().forEach(track => track.stop());
-        document.getElementById('scannerBox').style.display = 'none';
-      });
-
-      // Evaluation Engine
-      function runEvaluation() {
-        const inputVal = unInput.value.trim();
-        const code = inputVal.replace(/^UN\s*/i, '');
-        const pClass = document.getElementById('primaryClass').value;
-        const sub = document.getElementById('subRisk').value;
-        const haz = document.getElementById('hazchemCode').value.trim();
-        const pg = document.getElementById('packingGroup').value;
-        const drop = document.getElementById('routeDrop').value;
-        const qty = parseFloat(document.getElementById('pkgQty').value) || 0;
-        const isLq = document.getElementById('isLq').value === 'lq';
-
-        const itemData = UN_DATABASE[code] || {};
-        const title = itemData.name ? (`UN ${code} - ${itemData.name}`) : (code ? `UN ${code}` : `Class ${pClass}`);
-
-        let sgg = itemData.sgg || "None";
-        let stow = itemData.stow || (pClass === "2.1" || pClass === "3" ? "B" : "A");
-
-        document.getElementById('itemOverview').innerHTML = `
-          <h2 style="margin:0 0 8px 0; font-size:1.15rem; font-family:'Google Sans', sans-serif;">${title}</h2>
-          <div>
-            <span class="g-chip chip-class">Class ${pClass}</span>
-            ${sub ? `<span class="g-chip chip-sub">Sub ${sub}</span>` : ''}
-            <span class="g-chip chip-sgg">SGG: ${sgg}</span>
-            <span class="g-chip" style="background:var(--g-surface-variant); color:var(--g-text-primary);">PG ${pg}</span>
-            <span class="g-chip" style="background:var(--g-surface-variant); color:var(--g-text-primary);">Stow Cat ${stow}</span>
-            ${haz ? `<span class="g-chip chip-haz">Hazchem ${haz}</span>` : ''}
-          </div>
-          <div style="font-size:0.78rem; color:var(--g-text-secondary); margin-top:8px;">
-            Quantity: <b>${qty || 'Unspecified'}</b> ${isLq ? '(LQ Pack)' : '(Standard DG)'} | Assigned: <b>${drop}</b>
-          </div>
-        `;
-
-        // Ferry Sailing Indicator
-        let indicatorHTML = "";
-        if (stow === 'D' || stow === 'E') {
-          indicatorHTML = `
-            <div class="ferry-indicator-banner ferry-banned">
-              <span style="font-size:1.4rem;">🛑</span>
-              <div>
-                <strong>FREIGHT ONLY SAILING REQUIRED</strong>
-                <div style="font-size:0.75rem; font-weight:400; opacity:0.9;">
-                  IMDG Stowage Category ${stow} • Strictly prohibited on passenger ferries. Must book on a dedicated commercial freight crossing.
-                </div>
-              </div>
-            </div>
-          `;
-        } else if (stow === 'B' || stow === 'C') {
-          indicatorHTML = `
-            <div class="ferry-indicator-banner ferry-weather-deck">
-              <span style="font-size:1.4rem;">⚠️</span>
-              <div>
-                <strong>PASSENGER SAILING: WEATHER DECK ONLY</strong>
-                <div style="font-size:0.75rem; font-weight:400; opacity:0.9;">
-                  IMDG Stowage Category ${stow} • Allowed on passenger sailings ONLY in naturally ventilated open deck bays.
-                </div>
-              </div>
-            </div>
-          `;
-        } else {
-          indicatorHTML = `
-            <div class="ferry-indicator-banner ferry-allowed">
-              <span style="font-size:1.4rem;">🟢</span>
-              <div>
-                <strong>PASSENGER SAILING PERMITTED</strong>
-                <div style="font-size:0.75rem; font-weight:400; opacity:0.9;">
-                  IMDG Stowage Category A • Cleared for passenger sailings on upper or lower vehicle decks.
-                </div>
-              </div>
-            </div>
-          `;
-        }
-        document.getElementById('ferryIndicatorBox').innerHTML = indicatorHTML;
-
-        // Tunnel Bylaw Indicator
-        let tunnelMsg = itemData.tunnel || (pClass === "2.1" || pClass.startsWith("1.") ? "BANNED (Lyttelton Port Daytime)" : "Allowed in normal traffic");
-        let tunnelColor = tunnelMsg.includes("BANNED") ? "g-alert-error" : (tunnelMsg.includes("RESTRICTED") ? "g-alert-warn" : "g-alert-blue");
-        document.getElementById('tunnelIndicatorBox').innerHTML = `
-          <div class="g-alert ${tunnelColor}" style="margin-top:10px; margin-bottom:0;">
-            <div>🚇</div>
-            <div><strong>Tunnel Bylaw Check:</strong> ${tunnelMsg}</div>
-          </div>
-        `;
-
-        // Emergency Response Guidance
-        document.getElementById('emergencyGuidance').innerHTML = `
-          <div class="rule-item"><strong>Spill Exclusion & Immediate Actions:</strong> ${itemData.spill || 'Evacuate area. Wear full protective kit and isolate ignition sources.'}</div>
-          <div class="rule-item"><strong>Firefighting Medium & Method:</strong> ${itemData.fire || 'Use foam, dry powder, or fine water fog as per EAC code.'}</div>
-        `;
-
-        // Foodstuff Audit
-        let foodHTML = "";
-        if (pClass === "6.1" || sub === "6.1" || pClass === "2.3") {
-          foodHTML = `<div class="g-alert g-alert-error"><div style="font-size:1.2rem;">🛑</div><div><strong>STRICT CO-LOAD PROHIBITION:</strong> Toxic substances/gases must never share a compartment with food, beverages, animal feed, or empty food packaging.</div></div>`;
-        } else if (pClass === "8" || sub === "8") {
-          foodHTML = `<div class="g-alert g-alert-warn"><div style="font-size:1.2rem;">⚠️</div><div><strong>CORROSIVE ISOLATION:</strong> Banned directly above or adjacent to food packaging. 1m clearance or liquid-tight bulkhead required.</div></div>`;
-        } else {
-          foodHTML = `<div class="g-alert g-alert-success"><div style="font-size:1.2rem;">✅</div><div><strong>COMPLIANT:</strong> General food co-loading permitted provided packaging is intact and properly secured.</div></div>`;
-        }
-        document.getElementById('foodAudit').innerHTML = foodHTML;
-
-        // Road Rules
-        let roadHTML = "";
-        const baseP = getBaseClass(pClass);
-        const targets = ["1.1", "2.1", "2.2", "2.3", "3", "4.1", "4.2", "4.3", "5.1", "5.2", "6.1", "8", "9"];
-        targets.forEach(tgt => {
-          let rule = (ROAD_MATRIX[baseP] && ROAD_MATRIX[baseP][tgt]) ? ROAD_MATRIX[baseP][tgt] : "A";
-          let note = "";
-          if (sgg.includes("SGG1") && tgt === "8") note = " (PROHIBITED with Alkalis & Cyanides)";
-          let tagClass = rule === 'P' ? 'tag-prohibit' : (rule === 'S' ? 'tag-sep' : 'tag-allow');
-          let label = rule === 'P' ? 'PROHIBITED' : (rule === 'S' ? '3m SEPARATION' : 'COMPATIBLE');
-
-          roadHTML += `
-            <div class="rule-item">
-              <div><strong>Against Class ${tgt}</strong>: <span class="tag ${tagClass}">${label}</span></div>
-              <div style="font-size:0.75rem; color:var(--g-text-secondary);">${note}</div>
-            </div>
-          `;
-        });
-        document.getElementById('roadAudit').innerHTML = roadHTML;
-
-        // Maritime Rules
-        let seaHTML = "";
-        targets.filter(t => t !== "1.1").forEach(tgt => {
-          let code = (IMDG_MATRIX[pClass] && IMDG_MATRIX[pClass][tgt]) ? IMDG_MATRIX[pClass][tgt] : "X";
-          let desc = "Check DGL";
-          let tagClass = "tag-sep";
-          if (code === "1") desc = "1 - Away from (Min 3m in vessel space)";
-          if (code === "2") { desc = "2 - Separated from (Banned in same freight container)"; tagClass = "tag-prohibit"; }
-          if (code === "X") { desc = "X - Allowed in same container"; tagClass = "tag-allow"; }
-
-          seaHTML += `
-            <div class="rule-item">
-              <div><strong>Against Class ${tgt}</strong>: <span class="tag ${tagClass}">${code}</span></div>
-              <div style="font-size:0.75rem; color:var(--g-text-secondary);">${desc}</div>
-            </div>
-          `;
-        });
-        document.getElementById('seaAudit').innerHTML = seaHTML;
-
-        document.getElementById('inspectorPlaceholder').style.display = 'none';
-        document.getElementById('inspectorResults').style.display = 'block';
-      }
-
-      document.getElementById('btnEvaluate').addEventListener('click', runEvaluation);
-
-      // Add to Manifest
-      function addToManifest() {
-        const inputVal = unInput.value.trim();
-        const code = inputVal.replace(/^UN\s*/i, '');
-        const pClass = document.getElementById('primaryClass').value;
-        const sub = document.getElementById('subRisk').value;
-        const haz = document.getElementById('hazchemCode').value.trim();
-        const pg = document.getElementById('packingGroup').value;
-        const drop = document.getElementById('routeDrop').value;
-        const qty = parseFloat(document.getElementById('pkgQty').value) || 0;
-        const isLq = document.getElementById('isLq').value === 'lq';
-
-        const itemData = UN_DATABASE[code] || {};
-        const sgg = itemData.sgg || "None";
-        const stow = itemData.stow || (pClass === "2.1" || pClass === "3" ? "B" : "A");
-        const label = itemData.name ? (`UN ${code} (${itemData.name.slice(0, 18)})`) : (code ? `UN ${code}` : `Class ${pClass}`);
-
-        manifest.push({ label, un: code, pClass, sub, sgg, haz, stow, pg, drop, qty, isLq });
-        saveManifest();
-        alert(`Added ${label} to manifest (${manifest.length} items total)`);
-      }
-      document.getElementById('btnAddManifest').addEventListener('click', addToManifest);
-
-      window.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && e.target.tagName !== 'BUTTON') runEvaluation();
-        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'm') { e.preventDefault(); addToManifest(); }
-        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'p') { e.preventDefault(); printDeclaration(); }
-      });
-
-      // Manifest Rendering
-      function renderManifest() {
-        const list = document.getElementById('manifestList');
-        if (manifest.length === 0) {
-          list.innerHTML = '<div style="color:var(--g-text-secondary); font-size:0.84rem; padding:16px 0;">No items loaded. Inspect items to build a manifest.</div>';
-          document.getElementById('dgdFormCard').style.display = 'none';
-          return;
-        }
-        list.innerHTML = manifest.map((item, i) => {
-          let ferryTag = item.stow === 'D' || item.stow === 'E' 
-            ? `<span class="tag tag-prohibit">FREIGHT ONLY</span>` 
-            : (item.stow === 'B' || item.stow === 'C' ? `<span class="tag tag-sep">WEATHER DECK</span>` : `<span class="tag tag-allow">PAX OK</span>`);
-
-          return `
-            <div style="padding:12px; background:var(--g-surface-variant); border-radius:8px; margin-bottom:8px; border:1px solid var(--g-border); font-size:0.82rem;">
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <strong>${item.label}</strong>
-                <button type="button" data-del="${i}" style="background:none; border:none; color:var(--g-red); font-weight:bold; cursor:pointer;">Remove</button>
-              </div>
-              <div style="margin-top:6px; display:flex; flex-wrap:wrap; gap:4px; align-items:center;">
-                <span class="g-chip chip-class">Class ${item.pClass}</span>
-                ${item.sub ? `<span class="g-chip chip-sub">Sub ${item.sub}</span>` : ''}
-                <span class="g-chip chip-sgg">${item.sgg}</span>
-                <span class="g-chip" style="background:var(--g-border); color:var(--g-text-primary);">${item.drop}</span>
-                ${ferryTag}
-                <span style="color:var(--g-text-secondary); font-size:0.75rem; margin-left:4px;">${item.qty ? item.qty + ' units' : ''} ${item.isLq ? '[LQ]' : ''}</span>
-              </div>
-            </div>
-          `;
-        }).join('');
-
-        list.querySelectorAll('button[data-del]').forEach(btn => {
-          btn.addEventListener('click', function() {
-            manifest.splice(parseInt(this.getAttribute('data-del'), 10), 1);
-            saveManifest();
-            renderManifest();
-          });
-        });
-
-        generateDGDPreview();
-      }
-
-      document.getElementById('btnClearManifest').addEventListener('click', () => {
-        if (confirm("Clear all items from this manifest?")) {
-          manifest = [];
-          saveManifest();
-          renderManifest();
-          document.getElementById('manifestAuditOutput').style.display = 'none';
-          document.getElementById('manifestAuditPlaceholder').style.display = 'block';
-        }
-      });
-
-      // Placarding Multiplier Meter
-      function updatePlacardMeter() {
-        let points = 0;
-        let requiresPlacards = false;
-        let mandatoryClasses = new Set();
-
-        manifest.forEach(item => {
-          if (item.isLq) return;
-          let qty = item.qty || 0;
-          let multiplier = 1;
-          if (item.pClass.startsWith("1.") || item.pClass === "5.2") multiplier = 10;
-          else if (item.pClass === "2.1" || item.pClass === "2.3" || (item.pClass === "3" && item.pg !== "III")) multiplier = 2;
-
-          let itemPoints = qty * multiplier;
-          points += itemPoints;
-          if (qty > 0) mandatoryClasses.add(item.pClass);
-        });
-
-        document.getElementById('meterPoints').innerText = points;
-        const fill = document.getElementById('placardMeterFill');
-        const pct = Math.min(100, (points / 500) * 100);
-        fill.style.width = pct + '%';
-
-        const statusBanner = document.getElementById('placardStatusBanner');
-        if (points >= 500) {
-          fill.style.backgroundColor = 'var(--g-red)';
-          statusBanner.innerHTML = `
-            <div class="g-alert g-alert-error">
-              <div style="font-size:1.3rem;">🚨</div>
-              <div>
-                <strong>DIAMOND PLACARDS MANDATED (Score ≥ 500 Points):</strong><br>
-                Vehicle must display front, rear, and side placards for: <strong>Class ${Array.from(mandatoryClasses).join(', ')}</strong> plus emergency Hazchem identification panels.
-              </div>
-            </div>
-          `;
-        } else {
-          fill.style.backgroundColor = 'var(--g-green)';
-          statusBanner.innerHTML = `
-            <div class="g-alert g-alert-success">
-              <div>🟢</div>
-              <div><strong>UNDER PLACARDING LIMIT:</strong> Placards not legally mandated under NZS 5433 (Load score: ${points} / 500 points).</div>
-            </div>
-          `;
-        }
-      }
-
-      // Generate & Print Multimodal DGD
-      function generateDGDPreview() {
-        if (manifest.length === 0) return;
-        let dgd = "MULTIMODAL DANGEROUS GOODS DECLARATION (NZS 5433 / MARITIME NZ PART 24B)\n";
-        dgd += "========================================================================================\n";
-        dgd += "1. SHIPPER / CONSIGNOR: Commercial Logistics NZ   | 2. TRANSPORT DOC NO: DGD-" + Math.floor(100000 + Math.random() * 900000) + "\n";
-        dgd += "3. CARRIER / VESSEL: Cook Strait Inter-Island Ro-Ro | 4. VEHICLE REGO / TRAILER: [ENTER REGO]\n";
-        dgd += "----------------------------------------------------------------------------------------\n";
-        dgd += "5. DESCRIPTION OF DANGEROUS GOODS (UN Number, Proper Shipping Name, Class, PG, Quantity)\n";
-        manifest.forEach((m, idx) => {
-          dgd += ` [${idx + 1}] UN ${m.un || '----'} | ${m.label} | Class ${m.pClass}${m.sub ? ' (' + m.sub + ')' : ''} | PG ${m.pg} | Qty: ${m.qty} ${m.isLq ? '[LQ]' : 'Std'} | Drop: ${m.drop}\n`;
-        });
-        dgd += "----------------------------------------------------------------------------------------\n";
-        dgd += "6. CONTAINER / VEHICLE PACKING CERTIFICATE:\n";
-        dgd += "I hereby declare that the goods mentioned above have been loaded and segregated in\n";
-        dgd += "accordance with NZS 5433:2020 for land transport and IMDG Code Chapter 7.2 for sea transit.\n\n";
-        dgd += "Driver / Supervisor Signature: _______________________ Date: " + new Date().toLocaleDateString() + "\n";
-        dgd += "========================================================================================";
-
-        document.getElementById('dgdPrintContent').innerText = dgd;
-        document.getElementById('dgdFormCard').style.display = 'block';
-      }
-
-      function printDeclaration() {
-        if (manifest.length === 0) return alert("Manifest is empty.");
-        window.print();
-      }
-      document.getElementById('btnPrintDGD').addEventListener('click', printDeclaration);
-
-      // Clipboard & Sharing
-      function getManifestText() {
-        let txt = "DANGEROUS GOODS FREIGHT MANIFEST\nNZS 5433 / IMDG COMPLIANCE VERIFIED\n------------------------------------\n";
-        manifest.forEach((m, idx) => {
-          let fStatus = m.stow === 'D' || m.stow === 'E' ? 'FREIGHT ONLY' : 'PAX PERMITTED';
-          txt += `${idx + 1}. ${m.label} | Class: ${m.pClass}${m.sub ? ' (' + m.sub + ')' : ''} | PG: ${m.pg} | Ferry: ${fStatus} | EAC: ${m.haz || 'N/A'} | Qty: ${m.qty || 'N/A'}${m.isLq ? ' [LQ]' : ''} | ${m.drop}\n`;
-        });
-        txt += "------------------------------------\nStatus: Verified Complete";
-        return txt;
-      }
-
-      document.getElementById('btnCopyManifest').addEventListener('click', () => {
-        if (manifest.length === 0) return alert("Manifest is empty.");
-        navigator.clipboard.writeText(getManifestText()).then(() => alert("Manifest copied to clipboard!"));
-      });
-      document.getElementById('btnShareWhatsApp').addEventListener('click', () => {
-        if (manifest.length === 0) return alert("Manifest is empty.");
-        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(getManifestText())}`, '_blank');
-      });
-
-      // Manifest Audit Engine
-      document.getElementById('btnAuditManifest').addEventListener('click', () => {
-        if (manifest.length < 2) return alert("Add at least 2 items to run a mixed-load audit.");
-
-        const banners = [];
-        let roadBlocked = false;
-        let seaBlocked = false;
-        let freightOnlyItems = [];
-
-        for (let i = 0; i < manifest.length; i++) {
-          if (manifest[i].stow === 'D' || manifest[i].stow === 'E') freightOnlyItems.push(manifest[i].label);
-          for (let j = i + 1; j < manifest.length; j++) {
-            const a = manifest[i];
-            const b = manifest[j];
-
-            const baseA = getBaseClass(a.pClass);
-            const baseB = getBaseClass(b.pClass);
-            const roadRule = (ROAD_MATRIX[baseA] && ROAD_MATRIX[baseA][baseB]) || "A";
-
-            if (roadRule === 'P') {
-              roadBlocked = true;
-              banners.push(`🚨 <strong>ROAD PROHIBITION:</strong> ${a.label} (Class ${a.pClass}) & ${b.label} (Class ${b.pClass}) are prohibited together on the same vehicle.`);
-            } else if (roadRule === 'S') {
-              banners.push(`⚠️ <strong>ROAD SEPARATION:</strong> ${a.label} & ${b.label} require <strong>3 Metres distance</strong> or an approved Segregation Device.`);
-            }
-
-            if ((a.sgg.includes("SGG1") && b.sgg.includes("SGG18")) || (a.sgg.includes("SGG18") && b.sgg.includes("SGG1"))) {
-              roadBlocked = true;
-              seaBlocked = true;
-              banners.push(`💥 <strong>CHEMICAL REACTION HAZARD:</strong> ${a.label} (${a.sgg}) + ${b.label} (${b.sgg}) - Violent exothermic reaction between Acid and Base.`);
-            }
-            if ((a.sgg.includes("SGG6") && b.sgg.includes("SGG1")) || (a.sgg.includes("SGG1") && b.sgg.includes("SGG6"))) {
-              roadBlocked = true;
-              seaBlocked = true;
-              banners.push(`☠️ <strong>LETHAL CYANIDE GAS:</strong> Acid + Cyanide releases deadly HCN gas. Absolute ban.`);
-            }
-
-            const imdgCode = (IMDG_MATRIX[a.pClass] && IMDG_MATRIX[a.pClass][b.pClass]) || "X";
-            if (imdgCode === '2' || imdgCode === '3' || imdgCode === '4') {
-              seaBlocked = true;
-              banners.push(`🌊 <strong>IMDG CONTAINER PROHIBITION:</strong> ${a.label} & ${b.label} have maritime segregation code <strong>${imdgCode}</strong>. Banned in the same container.`);
-            }
-          }
-        }
-
-        let summary = "";
-        if (freightOnlyItems.length > 0) {
-          summary += `
-            <div class="g-alert g-alert-error" style="margin-bottom:12px;">
-              <div style="font-size:1.3rem;">🛑</div>
-              <div>
-                <strong>MUST BOOK FREIGHT ONLY SAILING:</strong><br>
-                Manifest contains commodities banned from passenger ferries (${freightOnlyItems.join(', ')}). The entire vehicle combination <strong>must sail on a dedicated freight vessel</strong> under Maritime NZ Part 24B.
-              </div>
-            </div>
-          `;
-        }
-
-        if (banners.length === 0) {
-          summary += `<div class="g-alert g-alert-success"><div style="font-size:1.2rem;">✅</div><div><strong>LOAD COMPLIANT:</strong> All items in this manifest are mutually compatible for co-loading.</div></div>`;
-        } else {
-          summary += `
-            <div class="g-alert ${roadBlocked || seaBlocked ? 'g-alert-error' : 'g-alert-warn'}">
-              <div style="font-size:1.2rem;">${roadBlocked || seaBlocked ? '❌' : '⚠️'}</div>
-              <div>${roadBlocked || seaBlocked ? '<strong>COMPLIANCE ALERT:</strong> Segregation collisions detected.' : '<strong>NOTICE:</strong> Separation distance required.'}</div>
-            </div>
-            ${banners.map(b => `<div class="rule-item" style="background:var(--g-surface-variant); padding:10px; border-radius:6px; margin-bottom:6px;">${b}</div>`).join('')}
-          `;
-        }
-
-        document.getElementById('manifestAuditPlaceholder').style.display = 'none';
-        const out = document.getElementById('manifestAuditOutput');
-        document.getElementById('manifestBanners').innerHTML = summary;
-        out.style.display = 'block';
-      });
-
-      // Bay Assignment
-      document.getElementById('btnAssignBay').addEventListener('click', () => {
-        if (manifest.length === 0) return alert("Manifest is empty. Add items first.");
-        const slotId = document.getElementById('assignSelect').value;
-        const target = document.getElementById(slotId);
-        target.innerHTML = `<b>${manifest[0].label}</b><br><span class="g-chip chip-class" style="margin-top:4px;">Cl ${manifest[0].pClass}</span>`;
-        alert(`Assigned ${manifest[0].label} to ${document.getElementById('assignSelect').options[document.getElementById('assignSelect').selectedIndex].text}`);
-      });
-    });
-  </script>
-</body>
-</html>
+                    <option value="4.
