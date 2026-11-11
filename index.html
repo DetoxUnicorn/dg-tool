@@ -490,8 +490,9 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+      // Service worker version bumped to avoid stale asset serving
       if ('serviceWorker' in navigator) {
-        const swScript = "const CACHE_NAME='dg-pro-v1';self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(['./'])));self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));});";
+        const swScript = "const CACHE_NAME='dg-pro-v3';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
         navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(swScript)).catch(()=>{});
       }
 
@@ -526,7 +527,7 @@
         });
       }
 
-      // High-volume and representative UN items
+      // Curated Master Registry for High-Consequence Freight
       const MASTER_CURATED = {
         "0004": { name: "AMMONIUM PICRATE <10% water", class: "1.1D", sub: "", sgg: "None", stow: "D", haz: "1E", pg: "N/A", tunnel: "BANNED (Lyttelton Daytime)", spill: "EXPLOSIVE. Evacuate 800m. Avoid friction/heat.", fire: "Evacuate 800m. Do not fight fire." },
         "0027": { name: "BLACK POWDER (GUNPOWDER)", class: "1.1D", sub: "", sgg: "None", stow: "D", haz: "1E", pg: "N/A", tunnel: "BANNED (Lyttelton Daytime)", spill: "Blast hazard. Ground equipment.", fire: "Evacuate 800m." },
@@ -544,7 +545,7 @@
 
       let UN_DATABASE = {};
 
-      // Seamless JSON Merge with Baseline Fallback
+      // Enhanced loader: Cache-busting fetch prioritized over local storage
       async function buildFullRegistry() {
         const fullDB = {};
 
@@ -559,20 +560,25 @@
           fullDB[unStr] = { name: `DG COMMODITY (UN ${unStr})`, class: pClass, sub, sgg, stow, haz, pg, tunnel, spill, fire };
         }
 
-        // Fetch un_data.json and overwrite generic placeholder names
+        // Always fetch fresh un_data.json and overwrite placeholders
         try {
-          const res = await fetch('un_data.json?v=' + Date.now());
+          const res = await fetch('un_data.json?cachebust=' + Date.now());
           if (res.ok) {
             const externalData = await res.json();
             Object.assign(fullDB, externalData);
+          } else {
+            console.warn('un_data.json status:', res.status);
           }
         } catch (e) {
-          console.warn('Could not fetch un_data.json, using baseline', e);
+          console.warn('Could not fetch un_data.json, checking fallback cache', e);
+          try {
+            const cached = localStorage.getItem("dg_unified_un_registry_v2");
+            if (cached) Object.assign(fullDB, JSON.parse(cached));
+          } catch(err) {}
         }
 
         UN_DATABASE = fullDB;
-
-        try { localStorage.setItem("dg_unified_un_registry", JSON.stringify(fullDB)); } catch (e) {}
+        try { localStorage.setItem("dg_unified_un_registry_v2", JSON.stringify(fullDB)); } catch (e) {}
         activateDatabaseStatus(Object.keys(UN_DATABASE).length);
       }
 
@@ -747,7 +753,7 @@
 
       function applyItem(code, item) {
         document.getElementById('primaryClass').value = item.class.startsWith("1.") ? item.class.slice(0, 3) : item.class;
-        document.getElementById('subRisk').value = item.sub;
+        document.getElementById('subRisk').value = item.sub || "";
         document.getElementById('hazchemCode').value = item.haz || "";
         if (item.pg) document.getElementById('packingGroup').value = item.pg;
       }
@@ -817,7 +823,7 @@
           let rule = getRoadSegregation(pClass, sub, tgt, "");
           let note = "";
           if (sgg.includes("SGG1") && tgt === "8") note = " (PROHIBITED with Alkalis & Cyanides)";
-          if ((pClass === "5.2" || tgt === "5.2") && (pClass === "4.1" || tgt === "4.1")) rule = "P"; // Desensitized/Self-reactive ban
+          if ((pClass === "5.2" || tgt === "5.2") && (pClass === "4.1" || tgt === "4.1")) rule = "P";
           
           let tagClass = rule === 'P' ? 'tag-prohibit' : (rule === 'S' ? 'tag-sep' : 'tag-allow');
           let label = rule === 'P' ? 'PROHIBITED (NZS 5433)' : (rule === 'S' ? '3m SEPARATION' : 'COMPATIBLE');
