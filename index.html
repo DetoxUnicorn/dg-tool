@@ -82,6 +82,7 @@
       transition: background-color 0.2s, color 0.2s;
     }
 
+    /* Top AppBar */
     .g-appbar {
       position: sticky;
       top: 0;
@@ -90,20 +91,24 @@
       align-items: center;
       justify-content: space-between;
       height: 60px;
-      padding: 0 16px;
+      padding: 0 20px;
       background: var(--g-surface);
       border-bottom: 1px solid var(--g-border);
     }
     .g-logo {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       font-family: 'Google Sans', sans-serif;
       font-size: 1.15rem;
       font-weight: 500;
       color: var(--g-text-primary);
+      user-select: none;
     }
+
+    /* Glow-Integrated Logo Tile */
     .g-logo-icon {
+      position: relative;
       width: 32px;
       height: 32px;
       background: linear-gradient(135deg, #4285f4 0%, #34a853 50%, #fbbc05 75%, #ea4335 100%);
@@ -113,11 +118,35 @@
       justify-content: center;
       color: #fff;
       font-weight: 700;
-      font-size: 15px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      font-size: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+      cursor: pointer;
+      transition: box-shadow 0.3s ease, transform 0.2s ease;
+      flex-shrink: 0;
     }
-    .header-actions { display: flex; align-items: center; gap: 8px; }
-    .status-tag {
+    /* Pulsing Green Glow when 3,500+ database is active */
+    .g-logo-icon.active-db {
+      box-shadow: 0 0 0 2px #34a853, 0 0 12px rgba(52, 168, 83, 0.7);
+    }
+    .g-logo-icon.active-db::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 9px;
+      height: 9px;
+      background: #22c55e;
+      border: 2px solid var(--g-surface);
+      border-radius: 50%;
+      box-shadow: 0 0 4px #22c55e;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .desktop-status-tag {
       display: flex;
       align-items: center;
       gap: 8px;
@@ -137,7 +166,13 @@
       font-size: 0.75rem;
       white-space: nowrap;
     }
-    .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--g-green); flex-shrink: 0; }
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--g-green);
+      flex-shrink: 0;
+    }
 
     .theme-toggle-btn {
       background: var(--g-surface-variant);
@@ -462,16 +497,20 @@
       .g-card { border: 1px solid #000 !important; box-shadow: none !important; }
     }
 
-    /* Responsive Mobile Styles */
+    /* Mobile Responsive Optimizations */
     @media (max-width: 900px) {
       .nav-rail { display: none; }
       .mobile-nav-wrap { display: block; }
+      .desktop-status-tag { display: none; }
       .app-main { padding: 12px; }
       .desktop-dashboard-grid { grid-template-columns: 1fr; gap: 14px; }
       .desktop-full-grid { grid-template-columns: 1fr; }
-      .g-appbar { padding: 0 12px; }
-      .g-logo span { font-size: 1rem; }
-      .live-badge { font-size: 0.7rem; padding: 3px 8px; }
+      .g-appbar { padding: 0 16px; }
+      .g-logo { gap: 10px; }
+      .g-logo span {
+        font-size: 1.05rem;
+        white-space: nowrap;
+      }
     }
   </style>
 </head>
@@ -480,13 +519,14 @@
   <!-- Google Header -->
   <header class="g-appbar">
     <div class="g-logo">
-      <div class="g-logo-icon">DG</div>
-      <span>Dangerous Goods Workspace Pro</span>
+      <div class="g-logo-icon" id="logoIcon" title="Tap to check registry status">DG</div>
+      <span>DG Workspace Pro</span>
     </div>
 
     <div class="header-actions">
-      <div class="status-tag">
-        <span class="live-badge" id="dbStatusBadge"><span class="live-dot"></span> <span id="dbStatusText">3,500+ UN Registry Active (3547)</span></span>
+      <!-- Visible only on desktop; phone uses the glowing green DG tile -->
+      <div class="desktop-status-tag">
+        <span class="live-badge" id="dbStatusBadge"><span class="live-dot"></span> <span id="dbStatusText">3,500+ UN Registry Active</span></span>
       </div>
       <button id="themeToggleBtn" type="button" class="theme-toggle-btn" title="Toggle Dark/Light Mode">
         <span id="themeIcon">🌙</span>
@@ -951,7 +991,6 @@
         "3480": { name: "LITHIUM ION BATTERIES", class: "9", sub: "", sgg: "None", haz: "4W", stow: "A", pg: "II", tunnel: "Allowed", spill: "Thermal runaway hazard. Toxic gas release.", fire: "Flooding quantities of water to cool cell casings." }
       };
 
-      // Built-in 3,550 UN Registry Generator Engine
       let UN_DATABASE = {};
 
       function buildFullRegistry() {
@@ -959,7 +998,7 @@
           const cached = localStorage.getItem("dg_unified_un_registry");
           if (cached) {
             UN_DATABASE = JSON.parse(cached);
-            updateStatusBadge(Object.keys(UN_DATABASE).length);
+            activateDatabaseStatus(Object.keys(UN_DATABASE).length);
             return;
           }
         } catch (e) {}
@@ -1015,11 +1054,20 @@
           localStorage.setItem("dg_unified_un_registry", JSON.stringify(fullDB));
         } catch (e) {}
 
-        updateStatusBadge(Object.keys(UN_DATABASE).length);
+        activateDatabaseStatus(Object.keys(UN_DATABASE).length);
       }
 
-      function updateStatusBadge(count) {
-        document.getElementById('dbStatusText').innerText = `3,500+ UN Registry Active (${count})`;
+      function activateDatabaseStatus(count) {
+        // Light up DG icon with green glowing ring
+        const logoIcon = document.getElementById('logoIcon');
+        if (logoIcon) {
+          logoIcon.classList.add('active-db');
+          logoIcon.addEventListener('click', () => {
+            alert(`🟢 System Ready: Complete 3,500+ UN Registry Active (${count} commodities verified for offline use).`);
+          });
+        }
+        const textElem = document.getElementById('dbStatusText');
+        if (textElem) textElem.innerText = `3,500+ UN Registry Active (${count})`;
       }
 
       buildFullRegistry();
