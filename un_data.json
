@@ -1,0 +1,14 @@
+{
+  "1018": {
+    "name": "CHLORODIFLUOROMETHANE (REFRIGERANT GAS R 22)",
+    "class": "2.2",
+    "sub": "",
+    "sgg": "None",
+    "stow": "A",
+    "haz": "2RE",
+    "pg": "N/A",
+    "tunnel": "Allowed",
+    "spill": "Ventilate area. Asphyxiation risk in confined or low-lying spaces.",
+    "fire": "Non-flammable gas. Keep cylinders cool with water spray from a protected position."
+  }
+}
