@@ -139,7 +139,7 @@
     .tag-sep { background: var(--g-yellow-surface); color: var(--g-yellow); }
     .tag-allow { background: var(--g-green-surface); color: var(--g-green); }
 
-    .search-hits { max-height: 220px; overflow-y: auto; background: var(--g-surface); border: 1px solid var(--g-border); border-radius: var(--g-radius-sm); margin-top: 4px; margin-bottom: 14px; display: none; width: 100%; position: absolute; z-index: 150; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .search-hits { max-height: 220px; overflow-y: auto; background: var(--g-surface); border: 1px solid var(--g-border); border-radius: var(--g-radius-sm); margin-top: -8px; margin-bottom: 14px; display: none; width: 100%; }
     .hit-item { padding: 10px 14px; border-bottom: 1px solid var(--g-border-subtle); font-size: 0.84rem; cursor: pointer; word-break: break-word; transition: background-color 0.1s; }
     .hit-item:active { background-color: var(--g-surface-variant); }
 
@@ -217,17 +217,17 @@
 
   <div class="mobile-nav-wrap">
     <div class="mobile-pill-bar">
-      <div class="mobile-pill active" id="mTab1" data-tab="0">Inspector</div>
-      <div class="mobile-pill" id="mTab2" data-tab="1">Manifest & DGD</div>
-      <div class="mobile-pill" id="mTab3" data-tab="2">Placards</div>
+      <div class="mobile-pill active" id="mTab1">Inspector</div>
+      <div class="mobile-pill" id="mTab2">Manifest & DGD</div>
+      <div class="mobile-pill" id="mTab3">Placards</div>
     </div>
   </div>
 
   <div class="app-frame">
     <nav class="nav-rail">
-      <div class="nav-item active" id="dTab1" data-tab="0"><span class="nav-icon">🔍</span><span>Inspector</span></div>
-      <div class="nav-item" id="dTab2" data-tab="1"><span class="nav-icon">📋</span><span>Manifest & Logbook</span></div>
-      <div class="nav-item" id="dTab3" data-tab="2"><span class="nav-icon">🏷️</span><span>Placard & Bays</span></div>
+      <div class="nav-item active" id="dTab1"><span class="nav-icon">🔍</span><span>Inspector</span></div>
+      <div class="nav-item" id="dTab2"><span class="nav-icon">📋</span><span>Manifest & Logbook</span></div>
+      <div class="nav-item" id="dTab3"><span class="nav-icon">🏷️</span><span>Placard & Bays</span></div>
     </nav>
 
     <main class="app-main">
@@ -247,13 +247,11 @@
                 <button id="btnCloseScan" type="button" class="g-btn g-btn-danger" style="border-radius:0; height:34px;">Close Camera</button>
               </div>
 
-              <div style="position:relative;">
-                <div class="g-searchbar">
-                  <svg width="20" height="20" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-                  <input type="text" id="unInput" placeholder="Enter UN number or chemical..." autocomplete="off">
-                </div>
-                <div id="searchHits" class="search-hits"></div>
+              <div class="g-searchbar">
+                <svg width="20" height="20" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                <input type="text" id="unInput" placeholder="Enter UN number or chemical..." autocomplete="off">
               </div>
+              <div id="searchHits" class="search-hits"></div>
 
               <div class="grid-2">
                 <div class="g-input-group">
@@ -462,7 +460,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       if ('serviceWorker' in navigator) {
-        const swScript = "const CACHE_NAME='dg-pro-v31';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
+        const swScript = "const CACHE_NAME='dg-pro-v16';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
         navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(swScript)).catch(()=>{});
       }
 
@@ -488,7 +486,7 @@
         themeBtn.addEventListener('click', () => setTheme(!document.body.classList.contains('dark-mode')));
       }
 
-      // Master Curated High-Consequence Freight
+      // Master Curated High-Consequence Freight (Explicitly including UN 2032 Nitric Acid, Red Fuming)
       const MASTER_CURATED = {
         "0004": { name: "AMMONIUM PICRATE, dry or wetted <10% water", class: "1.1D", sub: "", sgg: "None", stow: "D", haz: "1E", pg: "N/A", tunnel: "BANNED (Lyttelton Daytime)", spill: "EXPLOSIVE. Evacuate 800m. Avoid friction/heat.", fire: "Evacuate 800m. Do not fight fire." },
         "0027": { name: "BLACK POWDER (GUNPOWDER), granular or meal", class: "1.1D", sub: "", sgg: "None", stow: "D", haz: "1E", pg: "N/A", tunnel: "BANNED (Lyttelton Daytime)", spill: "Blast hazard. Ground equipment.", fire: "Evacuate 800m." },
@@ -501,7 +499,6 @@
         "1230": { name: "METHANOL", class: "3", sub: "6.1", sgg: "None", haz: "•2WE", stow: "B", pg: "II", tunnel: "Allowed", spill: "Toxic vapor. Breathing apparatus required.", fire: "Alcohol-resistant foam. Invisible flame." },
         "1428": { name: "SODIUM", class: "4.3", sub: "", sgg: "None", stow: "D", haz: "4W", pg: "I", tunnel: "BANNED (Lyttelton Escort Only)", spill: "NEVER USE WATER. Violent hydrogen release.", fire: "Dry soda ash or graphite powder ONLY." },
         "1830": { name: "SULPHURIC ACID (>51%)", class: "8", sub: "", sgg: "SGG1 (Acids)", haz: "2P", stow: "C", pg: "II", tunnel: "Allowed", spill: "VIOLENT SPRAY WITH WATER. Dry earth/lime.", fire: "Dry powder. Avoid direct water." },
-        "1950": { name: "AEROSOLS", class: "2.1", sub: "", sgg: "None", stow: "B", haz: "2YE", pg: "N/A", tunnel: "Allowed", spill: "Gas under pressure. Potential missile hazard if exposed to fire.", fire: "Keep containers cool with water spray." },
         "1993": { name: "FLAMMABLE LIQUID, N.O.S.", class: "3", sub: "", sgg: "None", stow: "A", haz: "3YE", pg: "III", tunnel: "Allowed", spill: "Absorb with inert material. Eliminate ignition sources.", fire: "Foam, dry chemical, or water fog." },
         "2031": { name: "NITRIC ACID, other than red fuming", class: "8", sub: "5.1", sgg: "SGG1 (Acids)", haz: "2P", stow: "D", pg: "II", tunnel: "RESTRICTED (Lyttelton Escort)", spill: "Deadly brown NO2 gas. Evacuate 300m.", fire: "Water fog spray." },
         "2032": { name: "NITRIC ACID, RED FUMING", class: "8", sub: "5.1", sgg: "SGG1 (Acids)", stow: "D", haz: "2P", pg: "I", tunnel: "BANNED (Lyttelton Escort Only)", spill: "DEADLY VAPOR. Evacuate 800m. Wear full breathing apparatus.", fire: "Water fog spray. Avoid solid water stream on pool." },
@@ -530,17 +527,13 @@
             pClass = "1.1D"; stow = "D"; haz = "1E"; pg = "N/A"; tunnel = "BANNED (Lyttelton Daytime)";
             spill = "EXPLOSIVE. Evacuate 800m. Prevent shock and ignition."; fire = "Do not fight fire. Evacuate zone.";
           } else if ((i >= 1001 && i <= 1089) || (i >= 1950 && i <= 1978) || (i >= 3150 && i <= 3310)) {
-            name = `COMPRESSED OR LIQUEFIED GAS, FLAMMABLE / AEROSOLS (UN ${unStr})`;
-            pClass = "2.1"; stow = "B"; haz = "2YE"; pg = "N/A"; tunnel = "Allowed";
-            spill = "Gas under pressure. Eliminate ignition sources."; fire = "Cool cylinders with water spray.";
+            name = `COMPRESSED OR LIQUEFIED GAS, FLAMMABLE / REFRIGERANT GAS (UN ${unStr})`;
+            pClass = "2.1"; stow = "E"; haz = "2YE"; pg = "N/A"; tunnel = "BANNED (Lyttelton Daytime)";
+            spill = "Flammable gas. Evacuate 100m. Eliminate ignition sources."; fire = "Stop gas flow before extinguishing.";
           } else if (i >= 1090 && i <= 1993) {
             name = `FLAMMABLE LIQUID, N.O.S. (UN ${unStr})`;
             pClass = "3"; stow = "A"; haz = "•3YE"; pg = "III";
             spill = "Flammable liquid. Absorb with inert material."; fire = "Foam, dry chemical, water fog.";
-          } else if (i >= 1994 && i <= 2035) {
-            name = `CORROSIVE LIQUID, ACIDIC, INORGANIC, N.O.S. (UN ${unStr})`;
-            pClass = "8"; sub = "5.1"; sgg = "SGG1 (Acids)"; stow = "D"; haz = "2X"; pg = "I"; tunnel = "RESTRICTED (Lyttelton Escort)";
-            spill = "Corrosive/Toxic spill. Neutralize cautiously. Evacuate 300m."; fire = "Water fog spray.";
           } else if (i >= 1309 && i <= 1387) {
             name = `FLAMMABLE SOLID, ORGANIC, N.O.S. (UN ${unStr})`;
             pClass = "4.1"; stow = "B"; haz = "1Z"; pg = "II";
@@ -567,7 +560,7 @@
         }
 
         UN_DATABASE = fullDB;
-        try { localStorage.setItem("dg_unified_un_registry_v31", JSON.stringify(fullDB)); } catch (e) {}
+        try { localStorage.setItem("dg_unified_un_registry_v16", JSON.stringify(fullDB)); } catch (e) {}
         activateDatabaseStatus(Object.keys(UN_DATABASE).length);
       }
 
@@ -614,7 +607,7 @@
         "5.1": { "1.1":"4", "1.4":"2", "2.1":"2", "2.2":"X", "2.3":"X", "3":"2", "4.1":"1", "4.2":"2", "4.3":"2", "5.1":"X", "5.2":"2", "6.1":"1", "8":"2", "9":"X" },
         "5.2": { "1.1":"4", "1.4":"2", "2.1":"2", "2.2":"1", "2.3":"2", "3":"2", "4.1":"2", "4.2":"2", "4.3":"2", "5.1":"2", "5.2":"X", "6.1":"1", "8":"2", "9":"X" },
         "6.1": { "1.1":"2", "1.4":"1", "2.1":"X", "2.2":"X", "2.3":"X", "3":"X", "4.1":"X", "4.2":"1", "4.3":"X", "5.1":"1", "5.2":"1", "6.1":"X", "8":"X", "9":"X" },
-        "8":   { "1.1":"4", "1.4":"2", "2.1":"1", "2.2":"X", "2.3":"X", "3":"X", "4.1":"1", "4.2":"1", "4.3":"1", "5.1":"2", "5.2":"2", "6.1":"X", "8":"2", "9":"X" },
+        "8":   { "1.1":"4", "1.4":"2", "2.1":"1", "2.2":"X", "2.3":"X", "3":"X", "4.1":"1", "4.2":"1", "4.3":"1", "5.1":"2", "5.2":"2", "6.1":"X", "8":"X", "9":"X" },
         "9":   { "1.1":"X", "1.4":"X", "2.1":"X", "2.2":"X", "2.3":"X", "3":"X", "4.1":"X", "4.2":"X", "4.3":"X", "5.1":"X", "5.2":"X", "6.1":"X", "8":"X", "9":"X" }
       };
 
@@ -692,38 +685,25 @@
         renderLogbook();
       }
 
-      // Navigation Sync (Robust Data Attribute Binding)
+      // Navigation Sync (3 main tabs)
       const views = [document.getElementById('view1'), document.getElementById('view2'), document.getElementById('view3')];
-      
+      const mTabs = [document.getElementById('mTab1'), document.getElementById('mTab2'), document.getElementById('mTab3')];
+      const dTabs = [document.getElementById('dTab1'), document.getElementById('dTab2'), document.getElementById('dTab3')];
+
       function selectTab(index) {
         views.forEach((v, i) => { if(v) v.style.display = i === index ? 'block' : 'none'; });
-        document.querySelectorAll('.mobile-pill, .nav-item').forEach(el => {
-          const tIdx = parseInt(el.getAttribute('data-tab'), 10);
-          el.classList.toggle('active', tIdx === index);
-        });
+        mTabs.forEach((t, i) => { if(t) t.classList.toggle('active', i === index); });
+        dTabs.forEach((t, i) => { if(t) t.classList.toggle('active', i === index); });
         if (index === 1) { renderManifest(); renderLogbook(); }
         if (index === 2) updatePlacardMeter();
       }
+      mTabs.forEach((tab, index) => { if(tab) tab.addEventListener('click', () => selectTab(index)); });
+      dTabs.forEach((tab, index) => { if(tab) tab.addEventListener('click', () => selectTab(index)); });
 
-      document.querySelectorAll('.mobile-pill, .nav-item').forEach(el => {
-        el.addEventListener('click', () => {
-          const tIdx = parseInt(el.getAttribute('data-tab'), 10);
-          if (!isNaN(tIdx)) selectTab(tIdx);
-        });
-      });
-
-      // Realtime Search & ENTER Key Support
+      // Realtime Search
       const unInput = document.getElementById('unInput');
       const searchHits = document.getElementById('searchHits');
       if(unInput) {
-        unInput.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter') {
-            e.preventDefault();
-            if(searchHits) searchHits.style.display = 'none';
-            runEvaluation();
-          }
-        });
-
         unInput.addEventListener('input', function(e) {
           const val = e.target.value.trim().toLowerCase().replace(/^un\s*/i, '');
           if (!val) { if(searchHits) searchHits.style.display = 'none'; return; }
@@ -739,7 +719,6 @@
             searchHits.querySelectorAll('.hit-item').forEach(el => {
               el.addEventListener('click', function() {
                 const code = this.getAttribute('data-un'); applyItem(code, UN_DATABASE[code]); unInput.value = code; searchHits.style.display = 'none';
-                runEvaluation();
               });
             });
           } else if(searchHits) searchHits.style.display = 'none';
