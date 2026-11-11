@@ -40,7 +40,6 @@
       --g-shadow-2: 0 2px 6px 2px rgba(60,64,67,0.15);
     }
 
-    /* Google Dark Theme Variables */
     body.dark-mode {
       --g-blue: #8ab4f8;
       --g-blue-hover: #aecbfa;
@@ -144,7 +143,6 @@
       background: var(--g-green);
     }
 
-    /* Night Mode Toggle Button */
     .theme-toggle-btn {
       background: var(--g-surface-variant);
       border: 1px solid var(--g-border);
@@ -160,9 +158,7 @@
       font-size: 1.15rem;
       padding: 0;
     }
-    .theme-toggle-btn:hover {
-      background: var(--g-border);
-    }
+    .theme-toggle-btn:hover { background: var(--g-border); }
 
     /* App Layout Frame */
     .app-frame {
@@ -282,6 +278,34 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+    }
+
+    /* Sailing Mode Segment Toggle */
+    .sailing-toggle-wrap {
+      display: flex;
+      background: var(--g-surface-variant);
+      border-radius: var(--g-radius-full);
+      padding: 4px;
+      margin-bottom: 14px;
+      border: 1px solid var(--g-border);
+    }
+    .sailing-btn {
+      flex: 1;
+      text-align: center;
+      padding: 8px 12px;
+      border-radius: var(--g-radius-full);
+      font-family: 'Google Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--g-text-secondary);
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .sailing-btn.active {
+      background: var(--g-surface);
+      color: var(--g-blue);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
     }
 
     /* Search Bar */
@@ -460,7 +484,6 @@
       font-size: 0.78rem;
     }
 
-    /* Mobile Responsive Breakpoint (<900px) */
     @media (max-width: 900px) {
       .nav-rail { display: none; }
       .mobile-nav-wrap { display: block; }
@@ -484,16 +507,15 @@
       <div class="desktop-status-tag">
         <span class="live-badge"><span class="live-dot"></span> NZS 5433 Active</span>
         <span>•</span>
-        <span>IMDG Code 41-22 / 42-24</span>
+        <span>IMDG 41-22 / 42-24</span>
       </div>
-      <!-- Theme Switcher -->
       <button id="themeToggleBtn" type="button" class="theme-toggle-btn" title="Toggle Dark/Light Mode">
         <span id="themeIcon">🌙</span>
       </button>
     </div>
   </header>
 
-  <!-- Mobile Pill Bar (Shown on small screens) -->
+  <!-- Mobile Pill Bar -->
   <div class="mobile-nav-wrap">
     <div class="mobile-pill-bar">
       <div class="mobile-pill active" id="mTab1">Inspector</div>
@@ -506,7 +528,7 @@
 
   <div class="app-frame">
 
-    <!-- Desktop Navigation Rail (Shown on desktop) -->
+    <!-- Desktop Navigation Rail -->
     <nav class="nav-rail">
       <div class="nav-item active" id="dTab1">
         <span class="nav-icon">🔍</span>
@@ -543,7 +565,6 @@
       <section id="view1">
         <div class="desktop-dashboard-grid">
           
-          <!-- Left Column: Search & Controls -->
           <div>
             <div class="g-card">
               <div class="g-card-title">
@@ -551,6 +572,13 @@
                 <button id="btnToggleScan" type="button" class="g-btn g-btn-tonal" style="width:auto; height:32px; font-size:0.75rem; margin-top:0;">
                   📷 Scan Barcode
                 </button>
+              </div>
+
+              <!-- Sailing Profile Selector -->
+              <label class="g-label">Cook Strait Sailing Type</label>
+              <div class="sailing-toggle-wrap">
+                <div class="sailing-btn active" id="btnSailingPax">👥 Passenger Sailing</div>
+                <div class="sailing-btn" id="btnSailingFreight">🚛 Dedicated Freight Sailing</div>
               </div>
 
               <!-- Camera Feed Box -->
@@ -618,23 +646,34 @@
                   </select>
                 </div>
                 <div class="g-input-group">
-                  <label class="g-label" for="hazchemCode">Hazchem EAC</label>
-                  <input type="text" id="hazchemCode" class="g-input" placeholder="e.g. 3YE, 2R">
+                  <label class="g-label" for="stowageCat">IMDG Stowage Cat</label>
+                  <select id="stowageCat" class="g-select">
+                    <option value="A">Cat A (Deck / Under Deck)</option>
+                    <option value="B">Cat B (Pax Deck Only)</option>
+                    <option value="C">Cat C (Weather Deck Only)</option>
+                    <option value="D">Cat D (Pax Banned / Freight Deck)</option>
+                    <option value="E">Cat E (Pax Banned / Freight Any)</option>
+                  </select>
                 </div>
               </div>
 
               <div class="grid-2">
                 <div class="g-input-group">
+                  <label class="g-label" for="hazchemCode">Hazchem EAC</label>
+                  <input type="text" id="hazchemCode" class="g-input" placeholder="e.g. 3YE, 2R">
+                </div>
+                <div class="g-input-group">
                   <label class="g-label" for="pkgQty">Quantity (Kg/L)</label>
                   <input type="number" id="pkgQty" class="g-input" placeholder="e.g. 500" inputmode="numeric">
                 </div>
-                <div class="g-input-group">
-                  <label class="g-label" for="isLq">Packaging Mode</label>
-                  <select id="isLq" class="g-select">
-                    <option value="standard">Standard DG</option>
-                    <option value="lq">Limited Quantity (LQ)</option>
-                  </select>
-                </div>
+              </div>
+
+              <div class="g-input-group">
+                <label class="g-label" for="isLq">Packaging Mode</label>
+                <select id="isLq" class="g-select">
+                  <option value="standard">Standard DG Freight</option>
+                  <option value="lq">Limited Quantity (LQ)</option>
+                </select>
               </div>
 
               <button id="btnEvaluate" type="button" class="g-btn g-btn-primary">Evaluate Full Compliance</button>
@@ -642,12 +681,18 @@
             </div>
           </div>
 
-          <!-- Right Column: Compliance Directives & Segregation Matrix -->
           <div>
             <div id="inspectorResults" style="display:none;">
               <div class="g-card">
                 <div id="itemOverview"></div>
               </div>
+
+              <!-- Dedicated Cook Strait Passenger vs Freight Card -->
+              <div class="g-card">
+                <div class="g-card-title">🚢 Ferry Sailing Compliance (<span id="sailingModeTitle">Passenger Sailing</span>)</div>
+                <div id="ferrySailingAudit"></div>
+              </div>
+
               <div class="g-card">
                 <div class="g-card-title">🍽️ Foodstuff & Food Packaging Protection</div>
                 <div id="foodAudit"></div>
@@ -668,7 +713,7 @@
               <div style="font-size:2.5rem; margin-bottom:12px;">📦</div>
               <h3 style="font-family:'Google Sans', sans-serif; margin:0 0 8px 0; color:var(--g-text-primary);">Awaiting Commodity Inspection</h3>
               <p style="font-size:0.86rem; color:var(--g-text-secondary); max-width:440px; margin:0 auto;">
-                Select a UN number or keyword from the search bar, then click <strong>Evaluate Full Compliance</strong> to generate road separation distances, IMDG container clearances, and foodstuff isolation mandates.
+                Select a UN number or keyword from the search bar, then click <strong>Evaluate Full Compliance</strong> to generate road separation distances, IMDG container clearances, and passenger vs. freight ferry mandates.
               </p>
             </div>
           </div>
@@ -710,36 +755,47 @@
               <div style="font-size:2.5rem; margin-bottom:12px;">📋</div>
               <h3 style="font-family:'Google Sans', sans-serif; margin:0 0 8px 0; color:var(--g-text-primary);">Load Manifest Checker</h3>
               <p style="font-size:0.86rem; color:var(--g-text-secondary); max-width:440px; margin:0 auto;">
-                Add multiple items to audit cross-compatibility across all loaded packages. Flags chemical collisions, acid/alkali reactions, and mixed-loading prohibitions automatically.
+                Add multiple items to audit cross-compatibility across all loaded packages. Flags chemical collisions, acid/alkali reactions, and passenger ferry restrictions automatically.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- TAB 3: COOK STRAIT FERRY -->
+      <!-- TAB 3: COOK STRAIT FERRY COMPARISON & DETAILS -->
       <section id="view3" style="display:none;">
         <div class="g-card">
-          <div class="g-card-title">Cook Strait Ferries (Bluebridge & Interislander • Maritime NZ Part 24B)</div>
+          <div class="g-card-title">Cook Strait Ferry Guidelines (Passenger vs. Dedicated Freight)</div>
           <div class="desktop-full-grid">
             <div>
-              <div class="g-alert g-alert-warn">
-                <div style="font-size:1.2rem;">⚠️</div>
-                <div><strong>Weather Deck Only Mandates:</strong> Class 2.1 Flammable Gases (LPG UN 1075) and high-volatility Class 3 fuels must be booked for open weather deck stowage only. Strictly prohibited in closed lower vehicle decks.</div>
-              </div>
+              <h4 style="font-family:'Google Sans', sans-serif; margin:0 0 8px 0; color:var(--g-blue);">👥 Passenger Sailings (Daytime Standard)</h4>
               <div class="g-alert g-alert-error">
-                <div style="font-size:1.2rem;">🛑</div>
-                <div><strong>Reefer & Shore Power Clearance:</strong> Flammable liquids and gases must maintain minimum 3-metre clearance from running diesel/electric refrigeration units and 415V ferry power leads.</div>
+                <div style="font-size:1.2rem;">🚫</div>
+                <div><strong>IMDG Stowage Cat D & E:</strong> Strictly prohibited on passenger sailings. High bulk flammable fuels, toxic compressed gases, and unstable peroxides must be moved to freight-only sailings.</div>
+              </div>
+              <div class="g-alert g-alert-warn">
+                <div style="font-size:1.2rem;">📐</div>
+                <div><strong>12-Metre Accommodation Buffer:</strong> Class 1 explosives, toxic gases, and toxic chemicals must maintain a 12m horizontal buffer from passenger observation decks, cabins, and lifeboats.</div>
+              </div>
+              <div class="g-alert g-alert-blue">
+                <div style="font-size:1.2rem;">🌬️</div>
+                <div><strong>Weather-Deck Mandatory:</strong> Cat B and C substances (e.g. Bulk LPG UN 1075) can only sail on passenger ferries if placed in open weather-deck slots.</div>
               </div>
             </div>
+
             <div>
+              <h4 style="font-family:'Google Sans', sans-serif; margin:0 0 8px 0; color:var(--g-green);">🚛 Dedicated Freight-Only Sailings</h4>
+              <div class="g-alert g-alert-success">
+                <div style="font-size:1.2rem;">✅</div>
+                <div><strong>Full IMDG Allocation:</strong> Authorised to carry Stowage Categories D & E. Accommodates standard Class 2.1 bulk road tankers and high-volume hazardous freight.</div>
+              </div>
+              <div class="g-alert g-alert-warn">
+                <div style="font-size:1.2rem;">🛑</div>
+                <div><strong>Reefer & Shore Power Clearance:</strong> 3-metre physical separation still mandated from running mechanical refrigeration diesel units and 415V electrical cords.</div>
+              </div>
               <div class="g-alert g-alert-blue">
                 <div style="font-size:1.2rem;">🐑</div>
-                <div><strong>Livestock & Accommodation Buffer:</strong> Units placarded with Class 6.1 (Toxic), 2.3 (Toxic Gas), or 8 (Corrosive) cannot be stowed adjacent to live livestock transporters or passenger access stairwells.</div>
-              </div>
-              <div class="g-alert g-alert-success">
-                <div style="font-size:1.2rem;">📝</div>
-                <div><strong>Stowage Declarations:</strong> Dangerous Goods Declarations must be presented and signed at vehicle check-in at least 2 hours prior to scheduled ferry departure.</div>
+                <div><strong>Livestock Buffer:</strong> Minimum longitudinal bay clearance required from live livestock trucks and driver accommodation quarters.</div>
               </div>
             </div>
           </div>
@@ -817,7 +873,7 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      // Theme / Night Mode Controller
+      // Theme Controller
       const themeBtn = document.getElementById('themeToggleBtn');
       const themeIcon = document.getElementById('themeIcon');
       const metaTheme = document.getElementById('metaThemeColor');
@@ -836,85 +892,98 @@
         }
       }
 
-      // Check Saved Preference or System Preference
       const savedTheme = localStorage.getItem('dg_workspace_theme');
-      if (savedTheme === 'dark') {
-        setTheme(true);
-      } else if (savedTheme === 'light') {
-        setTheme(false);
-      } else {
-        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        setTheme(prefersDark);
-      }
+      if (savedTheme === 'dark') setTheme(true);
+      else if (savedTheme === 'light') setTheme(false);
+      else setTheme(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
-      themeBtn.addEventListener('click', () => {
-        const currentlyDark = document.body.classList.contains('dark-mode');
-        setTheme(!currentlyDark);
+      themeBtn.addEventListener('click', () => setTheme(!document.body.classList.contains('dark-mode')));
+
+      // Sailing Mode State
+      let currentSailingMode = 'passenger'; // 'passenger' or 'freight'
+      const btnPax = document.getElementById('btnSailingPax');
+      const btnFreight = document.getElementById('btnSailingFreight');
+
+      btnPax.addEventListener('click', () => {
+        currentSailingMode = 'passenger';
+        btnPax.classList.add('active');
+        btnFreight.classList.remove('active');
+        document.getElementById('sailingModeTitle').innerText = 'Passenger Sailing';
+        if (document.getElementById('inspectorResults').style.display === 'block') runEvaluation();
       });
 
+      btnFreight.addEventListener('click', () => {
+        currentSailingMode = 'freight';
+        btnFreight.classList.add('active');
+        btnPax.classList.remove('active');
+        document.getElementById('sailingModeTitle').innerText = 'Dedicated Freight Sailing';
+        if (document.getElementById('inspectorResults').style.display === 'block') runEvaluation();
+      });
+
+      // Master UN Database with IMDG Stowage Categories (A, B, C, D, E)
       const UN_DATABASE = {
-        "1001": { name: "ACETYLENE, DISSOLVED", class: "2.1", sub: "", sgg: "None", haz: "2SE" },
-        "1005": { name: "AMMONIA, ANHYDROUS", class: "2.3", sub: "8", sgg: "SGG18", haz: "2RE" },
-        "1006": { name: "ARGON, COMPRESSED", class: "2.2", sub: "", sgg: "None", haz: "2T" },
-        "1011": { name: "BUTANE", class: "2.1", sub: "", sgg: "None", haz: "2YE" },
-        "1013": { name: "CARBON DIOXIDE", class: "2.2", sub: "", sgg: "None", haz: "2T" },
-        "1017": { name: "CHLORINE", class: "2.3", sub: "5.1", sgg: "None", haz: "2XE" },
-        "1049": { name: "HYDROGEN, COMPRESSED", class: "2.1", sub: "", sgg: "None", haz: "2SE" },
-        "1066": { name: "NITROGEN, COMPRESSED", class: "2.2", sub: "", sgg: "None", haz: "2T" },
-        "1072": { name: "OXYGEN, COMPRESSED", class: "2.2", sub: "5.1", sgg: "None", haz: "2S" },
-        "1075": { name: "PETROLEUM GASES, LIQUEFIED (LPG)", class: "2.1", sub: "", sgg: "None", haz: "2YE" },
-        "1090": { name: "ACETONE", class: "3", sub: "", sgg: "None", haz: "•2YE" },
-        "1170": { name: "ETHANOL / ETHYL ALCOHOL", class: "3", sub: "", sgg: "None", haz: "•2YE" },
-        "1202": { name: "DIESEL FUEL / GAS OIL", class: "3", sub: "", sgg: "None", haz: "3Y" },
-        "1203": { name: "MOTOR SPIRIT / PETROL", class: "3", sub: "", sgg: "None", haz: "3YE" },
-        "1219": { name: "ISOPROPANOL (IPA)", class: "3", sub: "", sgg: "None", haz: "•2YE" },
-        "1223": { name: "KEROSENE", class: "3", sub: "", sgg: "None", haz: "3Y" },
-        "1230": { name: "METHANOL", class: "3", sub: "6.1", sgg: "None", haz: "•2WE" },
-        "1263": { name: "PAINT / PAINT RELATED MATERIAL", class: "3", sub: "", sgg: "None", haz: "•3YE" },
-        "1268": { name: "PETROLEUM DISTILLATES, N.O.S.", class: "3", sub: "", sgg: "None", haz: "3YE" },
-        "1294": { name: "TOLUENE", class: "3", sub: "", sgg: "None", haz: "•3YE" },
-        "1300": { name: "TURPENTINE SUBSTITUTE", class: "3", sub: "", sgg: "None", haz: "3YE" },
-        "1307": { name: "XYLENES", class: "3", sub: "", sgg: "None", haz: "•3YE" },
-        "1325": { name: "FLAMMABLE SOLID, ORGANIC", class: "4.1", sub: "", sgg: "None", haz: "1Z" },
-        "1334": { name: "NAPHTHALENE, CRUDE", class: "4.1", sub: "", sgg: "None", haz: "1Z" },
-        "1361": { name: "CARBON or CHARCOAL", class: "4.2", sub: "", sgg: "None", haz: "1Y" },
-        "1362": { name: "CARBON, ACTIVATED", class: "4.2", sub: "", sgg: "None", haz: "1Y" },
-        "1384": { name: "SODIUM DITHIONITE", class: "4.2", sub: "", sgg: "None", haz: "1S" },
-        "1428": { name: "SODIUM", class: "4.3", sub: "", sgg: "None", haz: "4W" },
-        "1444": { name: "AMMONIUM PERSULPHATE", class: "5.1", sub: "", sgg: "SGG2", haz: "1Z" },
-        "1479": { name: "OXIDIZING SOLID, N.O.S.", class: "5.1", sub: "", sgg: "None", haz: "1Y" },
-        "1495": { name: "SODIUM CHLORATE", class: "5.1", sub: "", sgg: "None", haz: "1Y" },
-        "1498": { name: "SODIUM NITRATE", class: "5.1", sub: "", sgg: "None", haz: "1Z" },
-        "1500": { name: "SODIUM NITRITE", class: "5.1", sub: "6.1", sgg: "None", haz: "1Z" },
-        "1544": { name: "ALKALOIDS, SOLID / TOXIC", class: "6.1", sub: "", sgg: "None", haz: "2X" },
-        "1588": { name: "CYANIDES, INORGANIC, SOLID", class: "6.1", sub: "", sgg: "SGG6", haz: "2X" },
-        "1593": { name: "DICHLOROMETHANE", class: "6.1", sub: "", sgg: "None", haz: "2Z" },
-        "1719": { name: "CAUSTIC ALKALI LIQUID, N.O.S.", class: "8", sub: "", sgg: "SGG18", haz: "2R" },
-        "1760": { name: "CORROSIVE LIQUID, N.O.S.", class: "8", sub: "", sgg: "None", haz: "2X" },
-        "1789": { name: "HYDROCHLORIC ACID", class: "8", sub: "", sgg: "SGG1", haz: "2R" },
-        "1790": { name: "HYDROFLUORIC ACID", class: "8", sub: "6.1", sgg: "SGG1", haz: "2X" },
-        "1791": { name: "HYPOCHLORITE SOLUTION (BLEACH)", class: "8", sub: "", sgg: "None", haz: "2X" },
-        "1805": { name: "PHOSPHORIC ACID, SOLUTION", class: "8", sub: "", sgg: "SGG1", haz: "2R" },
-        "1814": { name: "POTASSIUM HYDROXIDE SOLUTION", class: "8", sub: "", sgg: "SGG18", haz: "2R" },
-        "1824": { name: "SODIUM HYDROXIDE SOLUTION", class: "8", sub: "", sgg: "SGG18", haz: "2R" },
-        "1830": { name: "SULPHURIC ACID (>51%)", class: "8", sub: "", sgg: "SGG1", haz: "2P" },
-        "1866": { name: "RESIN SOLUTION", class: "3", sub: "", sgg: "None", haz: "•3YE" },
-        "1942": { name: "AMMONIUM NITRATE", class: "5.1", sub: "", sgg: "SGG2", haz: "1Y" },
-        "1944": { name: "MATCHES, SAFETY", class: "4.1", sub: "", sgg: "None", haz: "1Z" },
-        "1950": { name: "AEROSOLS", class: "2.1", sub: "", sgg: "None", haz: "2YE" },
-        "1978": { name: "PROPANE", class: "2.1", sub: "", sgg: "None", haz: "2YE" },
-        "1993": { name: "FLAMMABLE LIQUID, N.O.S.", class: "3", sub: "", sgg: "None", haz: "•3YE" },
-        "2014": { name: "HYDROGEN PEROXIDE (20-60%)", class: "5.1", sub: "8", sgg: "SGG16", haz: "2P" },
-        "2031": { name: "NITRIC ACID", class: "8", sub: "5.1", sgg: "SGG1", haz: "2P" },
-        "2794": { name: "BATTERIES, WET, FILLED WITH ACID", class: "8", sub: "", sgg: "SGG1", haz: "2R" },
-        "2795": { name: "BATTERIES, WET, FILLED WITH ALKALI", class: "8", sub: "", sgg: "SGG18", haz: "2R" },
-        "2902": { name: "PESTICIDE, LIQUID, TOXIC", class: "6.1", sub: "", sgg: "None", haz: "2X" },
-        "3082": { name: "ENVIRONMENTALLY HAZARDOUS SUBSTANCE, LIQUID", class: "9", sub: "", sgg: "None", haz: "3Z" },
-        "3077": { name: "ENVIRONMENTALLY HAZARDOUS SUBSTANCE, SOLID", class: "9", sub: "", sgg: "None", haz: "2Z" },
-        "3101": { name: "ORGANIC PEROXIDE TYPE B", class: "5.2", sub: "1.1", sgg: "None", haz: "2WE" },
-        "3264": { name: "CORROSIVE LIQUID, ACIDIC", class: "8", sub: "", sgg: "SGG1", haz: "2X" },
-        "3266": { name: "CORROSIVE LIQUID, BASIC", class: "8", sub: "", sgg: "SGG18", haz: "2X" },
-        "3480": { name: "LITHIUM ION BATTERIES", class: "9", sub: "", sgg: "None", haz: "4W" }
+        "1001": { name: "ACETYLENE, DISSOLVED", class: "2.1", sub: "", sgg: "None", haz: "2SE", stow: "D" },
+        "1005": { name: "AMMONIA, ANHYDROUS", class: "2.3", sub: "8", sgg: "SGG18", haz: "2RE", stow: "D" },
+        "1006": { name: "ARGON, COMPRESSED", class: "2.2", sub: "", sgg: "None", haz: "2T", stow: "A" },
+        "1011": { name: "BUTANE", class: "2.1", sub: "", sgg: "None", haz: "2YE", stow: "E" },
+        "1013": { name: "CARBON DIOXIDE", class: "2.2", sub: "", sgg: "None", haz: "2T", stow: "A" },
+        "1017": { name: "CHLORINE", class: "2.3", sub: "5.1", sgg: "None", haz: "2XE", stow: "D" },
+        "1049": { name: "HYDROGEN, COMPRESSED", class: "2.1", sub: "", sgg: "None", haz: "2SE", stow: "E" },
+        "1066": { name: "NITROGEN, COMPRESSED", class: "2.2", sub: "", sgg: "None", haz: "2T", stow: "A" },
+        "1072": { name: "OXYGEN, COMPRESSED", class: "2.2", sub: "5.1", sgg: "None", haz: "2S", stow: "A" },
+        "1075": { name: "PETROLEUM GASES, LIQUEFIED (LPG)", class: "2.1", sub: "", sgg: "None", haz: "2YE", stow: "E" },
+        "1090": { name: "ACETONE", class: "3", sub: "", sgg: "None", haz: "•2YE", stow: "B" },
+        "1170": { name: "ETHANOL / ETHYL ALCOHOL", class: "3", sub: "", sgg: "None", haz: "•2YE", stow: "A" },
+        "1202": { name: "DIESEL FUEL / GAS OIL", class: "3", sub: "", sgg: "None", haz: "3Y", stow: "A" },
+        "1203": { name: "MOTOR SPIRIT / PETROL", class: "3", sub: "", sgg: "None", haz: "3YE", stow: "E" },
+        "1219": { name: "ISOPROPANOL (IPA)", class: "3", sub: "", sgg: "None", haz: "•2YE", stow: "B" },
+        "1223": { name: "KEROSENE", class: "3", sub: "", sgg: "None", haz: "3Y", stow: "A" },
+        "1230": { name: "METHANOL", class: "3", sub: "6.1", sgg: "None", haz: "•2WE", stow: "B" },
+        "1263": { name: "PAINT / PAINT RELATED MATERIAL", class: "3", sub: "", sgg: "None", haz: "•3YE", stow: "A" },
+        "1268": { name: "PETROLEUM DISTILLATES, N.O.S.", class: "3", sub: "", sgg: "None", haz: "3YE", stow: "B" },
+        "1294": { name: "TOLUENE", class: "3", sub: "", sgg: "None", haz: "•3YE", stow: "B" },
+        "1300": { name: "TURPENTINE SUBSTITUTE", class: "3", sub: "", sgg: "None", haz: "3YE", stow: "A" },
+        "1307": { name: "XYLENES", class: "3", sub: "", sgg: "None", haz: "•3YE", stow: "A" },
+        "1325": { name: "FLAMMABLE SOLID, ORGANIC", class: "4.1", sub: "", sgg: "None", haz: "1Z", stow: "B" },
+        "1334": { name: "NAPHTHALENE, CRUDE", class: "4.1", sub: "", sgg: "None", haz: "1Z", stow: "A" },
+        "1361": { name: "CARBON or CHARCOAL", class: "4.2", sub: "", sgg: "None", haz: "1Y", stow: "A" },
+        "1362": { name: "CARBON, ACTIVATED", class: "4.2", sub: "", sgg: "None", haz: "1Y", stow: "A" },
+        "1384": { name: "SODIUM DITHIONITE", class: "4.2", sub: "", sgg: "None", haz: "1S", stow: "B" },
+        "1428": { name: "SODIUM", class: "4.3", sub: "", sgg: "None", haz: "4W", stow: "D" },
+        "1444": { name: "AMMONIUM PERSULPHATE", class: "5.1", sub: "", sgg: "SGG2", haz: "1Z", stow: "A" },
+        "1479": { name: "OXIDIZING SOLID, N.O.S.", class: "5.1", sub: "", sgg: "None", haz: "1Y", stow: "B" },
+        "1495": { name: "SODIUM CHLORATE", class: "5.1", sub: "", sgg: "None", haz: "1Y", stow: "A" },
+        "1498": { name: "SODIUM NITRATE", class: "5.1", sub: "", sgg: "None", haz: "1Z", stow: "A" },
+        "1500": { name: "SODIUM NITRITE", class: "5.1", sub: "6.1", sgg: "None", haz: "1Z", stow: "A" },
+        "1544": { name: "ALKALOIDS, SOLID / TOXIC", class: "6.1", sub: "", sgg: "None", haz: "2X", stow: "A" },
+        "1588": { name: "CYANIDES, INORGANIC, SOLID", class: "6.1", sub: "", sgg: "SGG6", haz: "2X", stow: "A" },
+        "1593": { name: "DICHLOROMETHANE", class: "6.1", sub: "", sgg: "None", haz: "2Z", stow: "A" },
+        "1719": { name: "CAUSTIC ALKALI LIQUID, N.O.S.", class: "8", sub: "", sgg: "SGG18", haz: "2R", stow: "A" },
+        "1760": { name: "CORROSIVE LIQUID, N.O.S.", class: "8", sub: "", sgg: "None", haz: "2X", stow: "B" },
+        "1789": { name: "HYDROCHLORIC ACID", class: "8", sub: "", sgg: "SGG1", haz: "2R", stow: "C" },
+        "1790": { name: "HYDROFLUORIC ACID", class: "8", sub: "6.1", sgg: "SGG1", haz: "2X", stow: "D" },
+        "1791": { name: "HYPOCHLORITE SOLUTION (BLEACH)", class: "8", sub: "", sgg: "None", haz: "2X", stow: "B" },
+        "1805": { name: "PHOSPHORIC ACID, SOLUTION", class: "8", sub: "", sgg: "SGG1", haz: "2R", stow: "A" },
+        "1814": { name: "POTASSIUM HYDROXIDE SOLUTION", class: "8", sub: "", sgg: "SGG18", haz: "2R", stow: "A" },
+        "1824": { name: "SODIUM HYDROXIDE SOLUTION", class: "8", sub: "", sgg: "SGG18", haz: "2R", stow: "A" },
+        "1830": { name: "SULPHURIC ACID (>51%)", class: "8", sub: "", sgg: "SGG1", haz: "2P", stow: "C" },
+        "1866": { name: "RESIN SOLUTION", class: "3", sub: "", sgg: "None", haz: "•3YE", stow: "B" },
+        "1942": { name: "AMMONIUM NITRATE", class: "5.1", sub: "", sgg: "SGG2", haz: "1Y", stow: "A" },
+        "1944": { name: "MATCHES, SAFETY", class: "4.1", sub: "", sgg: "None", haz: "1Z", stow: "A" },
+        "1950": { name: "AEROSOLS", class: "2.1", sub: "", sgg: "None", haz: "2YE", stow: "B" },
+        "1978": { name: "PROPANE", class: "2.1", sub: "", sgg: "None", haz: "2YE", stow: "E" },
+        "1993": { name: "FLAMMABLE LIQUID, N.O.S.", class: "3", sub: "", sgg: "None", haz: "•3YE", stow: "B" },
+        "2014": { name: "HYDROGEN PEROXIDE (20-60%)", class: "5.1", sub: "8", sgg: "SGG16", haz: "2P", stow: "D" },
+        "2031": { name: "NITRIC ACID", class: "8", sub: "5.1", sgg: "SGG1", haz: "2P", stow: "D" },
+        "2794": { name: "BATTERIES, WET, FILLED WITH ACID", class: "8", sub: "", sgg: "SGG1", haz: "2R", stow: "A" },
+        "2795": { name: "BATTERIES, WET, FILLED WITH ALKALI", class: "8", sub: "", sgg: "SGG18", haz: "2R", stow: "A" },
+        "2902": { name: "PESTICIDE, LIQUID, TOXIC", class: "6.1", sub: "", sgg: "None", haz: "2X", stow: "B" },
+        "3082": { name: "ENVIRONMENTALLY HAZARDOUS SUBSTANCE, LIQUID", class: "9", sub: "", sgg: "None", haz: "3Z", stow: "A" },
+        "3077": { name: "ENVIRONMENTALLY HAZARDOUS SUBSTANCE, SOLID", class: "9", sub: "", sgg: "None", haz: "2Z", stow: "A" },
+        "3101": { name: "ORGANIC PEROXIDE TYPE B", class: "5.2", sub: "1.1", sgg: "None", haz: "2WE", stow: "D" },
+        "3264": { name: "CORROSIVE LIQUID, ACIDIC", class: "8", sub: "", sgg: "SGG1", haz: "2X", stow: "B" },
+        "3266": { name: "CORROSIVE LIQUID, BASIC", class: "8", sub: "", sgg: "SGG18", haz: "2X", stow: "B" },
+        "3480": { name: "LITHIUM ION BATTERIES", class: "9", sub: "", sgg: "None", haz: "4W", stow: "A" }
       };
 
       const ROAD_MATRIX = {
@@ -1022,6 +1091,7 @@
         document.getElementById('subRisk').value = item.sub;
         document.getElementById('sggGroup').value = item.sgg;
         document.getElementById('hazchemCode').value = item.haz || "";
+        document.getElementById('stowageCat').value = item.stow || "A";
       }
 
       // Camera Barcode Scanner Hook
@@ -1034,7 +1104,7 @@
           video.srcObject = videoStream;
           box.style.display = 'block';
         } catch (err) {
-          alert("Camera access unavailable or blocked: " + err.message);
+          alert("Camera access unavailable: " + err.message);
         }
       });
 
@@ -1045,7 +1115,7 @@
         document.getElementById('scannerBox').style.display = 'none';
       });
 
-      // Evaluation Engine
+      // Evaluation Engine (Includes Passenger vs Freight Sailings)
       function runEvaluation() {
         const inputVal = unInput.value.trim();
         const code = inputVal.replace(/^UN\s*/i, '');
@@ -1053,6 +1123,7 @@
         const sub = document.getElementById('subRisk').value;
         const sgg = document.getElementById('sggGroup').value;
         const haz = document.getElementById('hazchemCode').value.trim();
+        const stow = document.getElementById('stowageCat').value;
         const qty = parseFloat(document.getElementById('pkgQty').value) || 0;
         const isLq = document.getElementById('isLq').value === 'lq';
 
@@ -1069,6 +1140,7 @@
             <span class="g-chip chip-class">Class ${pClass}</span>
             ${sub ? `<span class="g-chip chip-sub">Sub ${sub}</span>` : ''}
             <span class="g-chip chip-sgg">${sgg}</span>
+            <span class="g-chip" style="background:#e0f2fe; color:#0369a1;">Stowage ${stow}</span>
             ${haz ? `<span class="g-chip chip-haz">Hazchem ${haz}</span>` : ''}
           </div>
           <div style="font-size:0.78rem; color:var(--g-text-secondary); margin-top:8px;">
@@ -1076,7 +1148,63 @@
           </div>
         `;
 
-        // Foodstuff
+        // Cook Strait Ferry Sailing Profile Logic
+        let ferryHTML = "";
+        if (currentSailingMode === 'passenger') {
+          if (stow === 'D' || stow === 'E') {
+            ferryHTML = `
+              <div class="g-alert g-alert-error">
+                <div style="font-size:1.3rem;">🚫</div>
+                <div>
+                  <strong>STRICT PASSENGER SAILING BAN (IMDG Category ${stow}):</strong><br>
+                  This item is <strong>PROHIBITED</strong> on passenger sailings. You must book this shipment on a <strong>Dedicated Freight-Only Sailing</strong> (e.g. night/freight crossing) under MNZ Part 24B.
+                </div>
+              </div>
+            `;
+          } else if (stow === 'B' || stow === 'C') {
+            ferryHTML = `
+              <div class="g-alert g-alert-warn">
+                <div style="font-size:1.3rem;">⚠️</div>
+                <div>
+                  <strong>WEATHER-DECK ONLY ON PASSENGER SAILING (IMDG Category ${stow}):</strong><br>
+                  Permitted on passenger sailings <strong>ONLY on open weather decks</strong> with natural ventilation. Prohibited in enclosed lower vehicle decks.
+                </div>
+              </div>
+            `;
+          } else {
+            ferryHTML = `
+              <div class="g-alert g-alert-success">
+                <div style="font-size:1.3rem;">✅</div>
+                <div>
+                  <strong>CLEARED FOR PASSENGER SAILINGS (Category A):</strong><br>
+                  Permitted on either upper weather deck or closed lower vehicle deck. Maintain 12m buffer from passenger stairs and cabins.
+                </div>
+              </div>
+            `;
+          }
+        } else {
+          // Freight Sailing
+          ferryHTML = `
+            <div class="g-alert g-alert-success">
+              <div style="font-size:1.3rem;">✅</div>
+              <div>
+                <strong>CLEARED FOR DEDICATED FREIGHT SAILING:</strong><br>
+                Permitted under IMDG Stowage Category ${stow}. Stowage ${stow === 'C' || stow === 'D' ? 'restricted to open deck or mechanically ventilated cargo holds' : 'allowed on all approved freight vehicle decks'}.
+              </div>
+            </div>
+          `;
+        }
+
+        // Additional Ferry Buffers
+        if (pClass === '2.1' || pClass === '3') {
+          ferryHTML += `<div class="rule-item">🔌 <strong>Reefer Isolation:</strong> Must maintain at least 3m physical clearance from active 415V ferry shore-power leads and operating diesel refrigeration units.</div>`;
+        }
+        if (pClass === '6.1' || pClass === '8' || pClass === '2.3') {
+          ferryHTML += `<div class="rule-item">🐑 <strong>Livestock Separation:</strong> Must not be loaded in bays adjacent to livestock transport units or driver berths.</div>`;
+        }
+        document.getElementById('ferrySailingAudit').innerHTML = ferryHTML;
+
+        // Foodstuff Audit
         let foodHTML = "";
         if (pClass === "6.1" || sub === "6.1" || pClass === "2.3") {
           foodHTML = `<div class="g-alert g-alert-error"><div style="font-size:1.2rem;">🛑</div><div><strong>STRICT CO-LOAD PROHIBITION:</strong> Toxic substances/gases must never share a compartment with food, beverages, animal feed, or empty food packaging.</div></div>`;
@@ -1140,11 +1268,12 @@
         const sub = document.getElementById('subRisk').value;
         const sgg = document.getElementById('sggGroup').value;
         const haz = document.getElementById('hazchemCode').value.trim();
+        const stow = document.getElementById('stowageCat').value;
         const qty = parseFloat(document.getElementById('pkgQty').value) || 0;
         const isLq = document.getElementById('isLq').value === 'lq';
         const label = UN_DATABASE[code] ? (`UN ${code} (${UN_DATABASE[code].name.slice(0, 18)})`) : (code ? `UN ${code}` : `Class ${pClass}`);
 
-        manifest.push({ label, pClass, sub, sgg, haz, qty, isLq });
+        manifest.push({ label, pClass, sub, sgg, haz, stow, qty, isLq });
         saveManifest();
         alert(`Added ${label} to manifest (${manifest.length} items total)`);
       }
@@ -1178,6 +1307,7 @@
               <span class="g-chip chip-class">Class ${item.pClass}</span>
               ${item.sub ? `<span class="g-chip chip-sub">Sub ${item.sub}</span>` : ''}
               <span class="g-chip chip-sgg">${item.sgg}</span>
+              <span class="g-chip" style="background:#e0f2fe; color:#0369a1;">Cat ${item.stow || 'A'}</span>
               ${item.haz ? `<span class="g-chip chip-haz">${item.haz}</span>` : ''}
               <span style="color:var(--g-text-secondary); font-size:0.75rem;">${item.qty ? item.qty + ' units' : ''} ${item.isLq ? '[LQ]' : ''}</span>
             </div>
@@ -1203,11 +1333,10 @@
         }
       });
 
-      // Clipboard & Sharing
       function getManifestText() {
         let txt = "DANGEROUS GOODS FREIGHT MANIFEST\nNZS 5433 / IMDG COMPLIANCE VERIFIED\n------------------------------------\n";
         manifest.forEach((m, idx) => {
-          txt += `${idx + 1}. ${m.label} | Class: ${m.pClass}${m.sub ? ' (' + m.sub + ')' : ''} | SGG: ${m.sgg} | EAC: ${m.haz || 'N/A'} | Qty: ${m.qty || 'N/A'}${m.isLq ? ' [LQ]' : ''}\n`;
+          txt += `${idx + 1}. ${m.label} | Class: ${m.pClass}${m.sub ? ' (' + m.sub + ')' : ''} | SGG: ${m.sgg} | Stow: Cat ${m.stow || 'A'} | EAC: ${m.haz || 'N/A'} | Qty: ${m.qty || 'N/A'}${m.isLq ? ' [LQ]' : ''}\n`;
         });
         txt += "------------------------------------\nStatus: Verified Complete";
         return txt;
@@ -1226,15 +1355,19 @@
         window.location.href = `mailto:?subject=${encodeURIComponent("Dangerous Goods Manifest")}&body=${encodeURIComponent(getManifestText())}`;
       });
 
-      // Manifest Audit
+      // Manifest Audit Engine
       document.getElementById('btnAuditManifest').addEventListener('click', () => {
         if (manifest.length < 2) return alert("Add at least 2 items to run a mixed-load audit.");
 
         const banners = [];
         let roadBlocked = false;
         let seaBlocked = false;
+        let paxBanned = false;
 
         for (let i = 0; i < manifest.length; i++) {
+          if (manifest[i].stow === 'D' || manifest[i].stow === 'E') {
+            paxBanned = true;
+          }
           for (let j = i + 1; j < manifest.length; j++) {
             const a = manifest[i];
             const b = manifest[j];
@@ -1270,10 +1403,19 @@
         }
 
         let summary = "";
+        if (paxBanned) {
+          summary += `
+            <div class="g-alert g-alert-warn" style="margin-bottom:10px;">
+              <div style="font-size:1.2rem;">🚢</div>
+              <div><strong>COOK STRAIT PASSENGER SAILING BAN:</strong> One or more items in this manifest require IMDG Stowage Category D or E. This entire unit <strong>MUST BE BOOKED ON A DEDICATED FREIGHT-ONLY SAILING</strong>.</div>
+            </div>
+          `;
+        }
+
         if (banners.length === 0) {
-          summary = `<div class="g-alert g-alert-success"><div style="font-size:1.2rem;">✅</div><div><strong>LOAD COMPLIANT:</strong> All items in this manifest are mutually compatible for co-loading.</div></div>`;
+          summary += `<div class="g-alert g-alert-success"><div style="font-size:1.2rem;">✅</div><div><strong>LOAD COMPLIANT:</strong> All items in this manifest are mutually compatible for co-loading.</div></div>`;
         } else {
-          summary = `
+          summary += `
             <div class="g-alert ${roadBlocked || seaBlocked ? 'g-alert-error' : 'g-alert-warn'}">
               <div style="font-size:1.2rem;">${roadBlocked || seaBlocked ? '❌' : '⚠️'}</div>
               <div>${roadBlocked || seaBlocked ? '<strong>COMPLIANCE ALERT:</strong> Segregation collisions detected.' : '<strong>NOTICE:</strong> Separation distance required.'}</div>
