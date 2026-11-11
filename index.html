@@ -460,7 +460,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       if ('serviceWorker' in navigator) {
-        const swScript = "const CACHE_NAME='dg-pro-v18';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
+        const swScript = "const CACHE_NAME='dg-pro-v19';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
         navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(swScript)).catch(()=>{});
       }
 
@@ -486,7 +486,7 @@
         themeBtn.addEventListener('click', () => setTheme(!document.body.classList.contains('dark-mode')));
       }
 
-      // Master Curated High-Consequence Freight (Fully expanded catalog)
+      // Master Curated High-Consequence Freight (Expanded & Verified)
       const MASTER_CURATED = {
         "0004": { name: "AMMONIUM PICRATE, dry or wetted <10% water", class: "1.1D", sub: "", sgg: "None", stow: "D", haz: "1E", pg: "N/A", tunnel: "BANNED (Lyttelton Daytime)", spill: "EXPLOSIVE. Evacuate 800m. Avoid friction/heat.", fire: "Evacuate 800m. Do not fight fire." },
         "0027": { name: "BLACK POWDER (GUNPOWDER), granular or meal", class: "1.1D", sub: "", sgg: "None", stow: "D", haz: "1E", pg: "N/A", tunnel: "BANNED (Lyttelton Daytime)", spill: "Blast hazard. Ground equipment.", fire: "Evacuate 800m." },
@@ -564,7 +564,7 @@
         }
 
         UN_DATABASE = fullDB;
-        try { localStorage.setItem("dg_unified_un_registry_v18", JSON.stringify(fullDB)); } catch (e) {}
+        try { localStorage.setItem("dg_unified_un_registry_v19", JSON.stringify(fullDB)); } catch (e) {}
         activateDatabaseStatus(Object.keys(UN_DATABASE).length);
       }
 
@@ -1142,7 +1142,7 @@
           const slotId = document.getElementById('assignSelect').value;
           const target = document.getElementById(slotId);
           if(target) target.innerHTML = `<b>${manifest[0].label}</b><br><span class="g-chip chip-class" style="margin-top:4px;">Cl ${manifest[0].pClass}</span>`;
-          alert(`Assigned ${manifest[0].label} to ${document.getElementById('assignSelect').options[document.getElementById('assignSelect').selectedIndex].text}`);
+          alert(`Assigned ${manifest[0].label} to ${document.getElementById('assignSelect').options[document.getElementById('assignSelect'].selectedIndex].text}`);
         });
       }
     });
