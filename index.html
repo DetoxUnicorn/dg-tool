@@ -7,10 +7,10 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="theme-color" content="#ffffff">
-  <title>DG Workspace</title>
+  <title>DG Workspace • NZS 5433 & IMDG Compliance</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --g-blue: #1a73e8;
@@ -22,6 +22,8 @@
       --g-green-surface: #e6f4ea;
       --g-yellow: #f2994a;
       --g-yellow-surface: #fef7e0;
+      --g-purple-surface: #f3e8fd;
+      --g-purple: #7627bb;
       --g-surface: #ffffff;
       --g-bg: #f8f9fa;
       --g-border: #dadce0;
@@ -32,119 +34,248 @@
       --g-radius-lg: 24px;
       --g-radius-full: 9999px;
       --g-shadow-1: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
-      --g-shadow-2: 0 1px 3px 0 rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15);
+      --g-shadow-2: 0 2px 6px 2px rgba(60,64,67,0.15);
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
       margin: 0;
-      padding: 0 0 72px 0;
+      padding: 0;
       background-color: var(--g-bg);
       font-family: 'Roboto', -apple-system, sans-serif;
       color: var(--g-text-primary);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
-    /* Google Top AppBar */
+
+    /* Google Top Header */
     .g-appbar {
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 200;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 56px;
-      padding: 0 16px;
+      height: 60px;
+      padding: 0 24px;
       background: var(--g-surface);
       border-bottom: 1px solid var(--g-border);
     }
     .g-logo {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       font-family: 'Google Sans', sans-serif;
-      font-size: 1.15rem;
+      font-size: 1.25rem;
       font-weight: 500;
       color: var(--g-text-primary);
     }
     .g-logo-icon {
-      width: 28px;
-      height: 28px;
+      width: 32px;
+      height: 32px;
       background: linear-gradient(135deg, #4285f4 0%, #34a853 50%, #fbbc05 75%, #ea4335 100%);
       border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #fff;
-      font-weight: bold;
-      font-size: 14px;
+      font-weight: 700;
+      font-size: 15px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
-    /* Google Pill Tabs */
-    .g-tabs-wrap {
+    .desktop-status-tag {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.82rem;
+      color: var(--g-text-secondary);
+      font-weight: 500;
+    }
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--g-green-surface);
+      color: var(--g-green);
+      padding: 4px 10px;
+      border-radius: var(--g-radius-full);
+      font-weight: 700;
+      font-size: 0.75rem;
+    }
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--g-green);
+    }
+
+    /* App Layout Frame */
+    .app-frame {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* Desktop Sidebar Nav Rail */
+    .nav-rail {
+      width: 240px;
+      background: var(--g-surface);
+      border-right: 1px solid var(--g-border);
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 16px;
+      border-radius: var(--g-radius-full);
+      font-family: 'Google Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--g-text-secondary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    .nav-item:hover {
+      background: #f1f3f4;
+      color: var(--g-text-primary);
+    }
+    .nav-item.active {
+      background: var(--g-blue-surface);
+      color: var(--g-blue);
+      font-weight: 700;
+    }
+    .nav-icon {
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
+    /* Mobile Pill Navigation */
+    .mobile-nav-wrap {
+      display: none;
       overflow-x: auto;
-      padding: 12px 16px 4px;
+      padding: 10px 16px 4px;
       scrollbar-width: none;
+      background: var(--g-bg);
+      border-bottom: 1px solid var(--g-border);
     }
-    .g-tabs-wrap::-webkit-scrollbar { display: none; }
-    .g-pill-bar {
+    .mobile-nav-wrap::-webkit-scrollbar { display: none; }
+    .mobile-pill-bar {
       display: inline-flex;
       background: #e9eef6;
       border-radius: var(--g-radius-full);
       padding: 4px;
       gap: 2px;
     }
-    .g-pill {
+    .mobile-pill {
       font-family: 'Google Sans', sans-serif;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 500;
-      padding: 8px 14px;
+      padding: 7px 12px;
       border-radius: var(--g-radius-full);
       color: var(--g-text-secondary);
       cursor: pointer;
       white-space: nowrap;
-      transition: all 0.2s ease;
     }
-    .g-pill.active {
+    .mobile-pill.active {
       background: var(--g-surface);
       color: var(--g-blue);
       box-shadow: 0 1px 3px rgba(0,0,0,0.12);
     }
-    /* Content Layout */
-    .g-container {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 12px 16px;
+
+    /* Main Content Area */
+    .app-main {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+      max-width: 1360px;
     }
+
+    /* Desktop Multi-Column Grids */
+    .desktop-dashboard-grid {
+      display: grid;
+      grid-template-columns: 440px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .desktop-full-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    /* Google Card */
     .g-card {
       background: var(--g-surface);
       border-radius: var(--g-radius-md);
-      padding: 18px;
-      margin-bottom: 14px;
+      padding: 22px;
+      margin-bottom: 20px;
       border: 1px solid var(--g-border);
       box-shadow: 0 1px 2px rgba(60,64,67,0.06);
     }
     .g-card-title {
       font-family: 'Google Sans', sans-serif;
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 500;
-      margin: 0 0 14px 0;
+      margin: 0 0 16px 0;
       color: var(--g-text-primary);
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-    /* Material Textfields */
+
+    /* Search Bar */
+    .g-searchbar {
+      display: flex;
+      align-items: center;
+      background: #edf2fc;
+      border-radius: var(--g-radius-full);
+      padding: 4px 16px;
+      margin-bottom: 14px;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+    .g-searchbar:focus-within {
+      background: #fff;
+      border-color: var(--g-blue);
+      box-shadow: var(--g-shadow-1);
+    }
+    .g-searchbar input {
+      flex: 1;
+      height: 42px;
+      border: none;
+      background: transparent;
+      font-size: 0.95rem;
+      outline: none;
+      color: var(--g-text-primary);
+    }
+    .g-searchbar svg {
+      fill: var(--g-text-secondary);
+      margin-right: 10px;
+    }
+
+    /* Form Controls */
     .g-input-group {
       margin-bottom: 14px;
       position: relative;
     }
     .g-label {
-      font-size: 0.75rem;
-      font-weight: 500;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
       color: var(--g-text-secondary);
-      margin-bottom: 4px;
+      margin-bottom: 6px;
       display: block;
     }
     .g-input, .g-select {
       width: 100%;
-      height: 48px;
+      height: 46px;
       padding: 0 14px;
       font-size: 0.95rem;
       font-family: 'Roboto', sans-serif;
@@ -159,441 +290,473 @@
       border-color: var(--g-blue);
       box-shadow: 0 0 0 1px var(--g-blue);
     }
-    /* Google Search Bar Pill */
-    .g-searchbar {
-      display: flex;
-      align-items: center;
-      background: #edf2fc;
-      border-radius: var(--g-radius-full);
-      padding: 4px 14px;
-      margin-bottom: 14px;
-      border: 1px solid transparent;
-    }
-    .g-searchbar:focus-within {
-      background: #fff;
-      border-color: var(--g-blue);
-      box-shadow: var(--g-shadow-1);
-    }
-    .g-searchbar input {
-      flex: 1;
-      height: 40px;
-      border: none;
-      background: transparent;
-      font-size: 0.95rem;
-      outline: none;
-      color: var(--g-text-primary);
-    }
-    .g-searchbar svg {
-      fill: var(--g-text-secondary);
-      margin-right: 8px;
-    }
-    /* Camera Scanner Box */
-    #scannerBox {
-      display: none;
-      position: relative;
-      background: #000;
-      border-radius: var(--g-radius-md);
-      overflow: hidden;
-      margin-bottom: 14px;
-    }
-    #cameraFeed {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-    }
-    .scanner-overlay {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      border: 2px dashed rgba(255,255,255,0.7);
-      margin: 20px 40px;
-      border-radius: 12px;
-      pointer-events: none;
-    }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
     /* Buttons */
     .g-btn {
       font-family: 'Google Sans', sans-serif;
       font-weight: 500;
-      font-size: 0.85rem;
-      height: 42px;
-      padding: 0 18px;
+      font-size: 0.88rem;
+      height: 44px;
+      padding: 0 20px;
       border-radius: var(--g-radius-full);
       border: none;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      transition: all 0.2s ease;
+      gap: 8px;
+      transition: all 0.15s ease;
       width: 100%;
+      user-select: none;
     }
-    .g-btn-primary {
-      background: var(--g-blue);
-      color: #fff;
-    }
-    .g-btn-primary:active { background: var(--g-blue-hover); }
-    .g-btn-tonal {
-      background: var(--g-blue-surface);
-      color: var(--g-blue);
-      margin-top: 8px;
-    }
-    .g-btn-outlined {
-      background: transparent;
-      border: 1px solid var(--g-border);
-      color: var(--g-text-primary);
-    }
-    .g-btn-danger {
-      background: var(--g-red-surface);
-      color: var(--g-red);
-    }
-    /* Chips and Badges */
+    .g-btn-primary { background: var(--g-blue); color: #fff; }
+    .g-btn-primary:hover { background: var(--g-blue-hover); box-shadow: var(--g-shadow-1); }
+    .g-btn-tonal { background: var(--g-blue-surface); color: var(--g-blue); margin-top: 8px; }
+    .g-btn-tonal:hover { background: #d2e3fc; }
+    .g-btn-outlined { background: transparent; border: 1px solid var(--g-border); color: var(--g-text-primary); }
+    .g-btn-outlined:hover { background: #f1f3f4; }
+    .g-btn-danger { background: var(--g-red-surface); color: var(--g-red); }
+    .g-btn-danger:hover { background: #fad2cf; }
+
+    /* Chips */
     .g-chip {
       display: inline-flex;
       align-items: center;
-      font-size: 0.72rem;
-      font-weight: 500;
+      font-size: 0.74rem;
+      font-weight: 700;
       padding: 3px 8px;
       border-radius: 6px;
       margin-right: 4px;
     }
     .chip-class { background: var(--g-red-surface); color: var(--g-red); }
     .chip-sub { background: var(--g-yellow-surface); color: #b06000; }
-    .chip-sgg { background: #f3e8fd; color: #7627bb; }
+    .chip-sgg { background: var(--g-purple-surface); color: var(--g-purple); }
     .chip-haz { background: var(--g-green-surface); color: var(--g-green); }
-    /* Grid system */
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-    /* Results & Alerts */
+
+    /* Alerts and Results */
     .g-alert {
-      padding: 12px 14px;
+      padding: 14px 16px;
       border-radius: var(--g-radius-sm);
-      font-size: 0.82rem;
-      line-height: 1.4;
-      margin-bottom: 10px;
+      font-size: 0.86rem;
+      line-height: 1.45;
+      margin-bottom: 12px;
       display: flex;
-      gap: 8px;
+      gap: 10px;
+      align-items: flex-start;
     }
-    .g-alert-error { background: var(--g-red-surface); color: var(--g-red); }
-    .g-alert-warn { background: var(--g-yellow-surface); color: #874900; }
-    .g-alert-success { background: var(--g-green-surface); color: var(--g-green); }
-    .g-alert-blue { background: var(--g-blue-surface); color: var(--g-blue); }
+    .g-alert-error { background: var(--g-red-surface); color: var(--g-red); border: 1px solid #f8b4af; }
+    .g-alert-warn { background: var(--g-yellow-surface); color: #874900; border: 1px solid #fcdb77; }
+    .g-alert-success { background: var(--g-green-surface); color: var(--g-green); border: 1px solid #a8dab5; }
+    .g-alert-blue { background: var(--g-blue-surface); color: var(--g-blue); border: 1px solid #b5d1fa; }
+
     .rule-item {
       padding: 10px 0;
       border-bottom: 1px solid #f1f3f4;
-      font-size: 0.82rem;
-      line-height: 1.35;
+      font-size: 0.84rem;
+      line-height: 1.4;
     }
     .rule-item:last-child { border-bottom: none; }
-    .tag {
-      font-weight: 700;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 0.7rem;
-    }
+    .tag { font-weight: 700; padding: 2px 7px; border-radius: 4px; font-size: 0.72rem; }
     .tag-prohibit { background: var(--g-red-surface); color: var(--g-red); }
     .tag-sep { background: var(--g-yellow-surface); color: #874900; }
     .tag-allow { background: var(--g-green-surface); color: var(--g-green); }
-    /* Trailer Bays */
-    .trailer-box {
-      background: #f1f3f4;
-      border-radius: 12px;
-      padding: 12px;
-      border: 1px dashed var(--g-border);
-      margin-bottom: 14px;
-    }
-    .trailer-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 6px;
-      margin-top: 8px;
-    }
-    .trailer-bay {
-      background: #fff;
-      border: 1px solid var(--g-border);
-      border-radius: 8px;
-      padding: 8px;
-      min-height: 70px;
-      font-size: 0.72rem;
-    }
+
+    /* Search Hits */
     .search-hits {
-      max-height: 180px;
+      max-height: 220px;
       overflow-y: auto;
       background: #fff;
       border: 1px solid var(--g-border);
       border-radius: var(--g-radius-sm);
       margin-top: -8px;
       margin-bottom: 14px;
-      box-shadow: var(--g-shadow-1);
+      box-shadow: var(--g-shadow-2);
       display: none;
     }
     .hit-item {
       padding: 10px 14px;
       border-bottom: 1px solid #f1f3f4;
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       cursor: pointer;
     }
-    .hit-item:hover { background: #f8f9fa; }
+    .hit-item:hover { background: #f8f9fa; color: var(--g-blue); }
+
+    /* Trailer Bay Graphics */
+    .trailer-box {
+      background: #f1f3f4;
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px dashed var(--g-border);
+      margin-bottom: 16px;
+    }
+    .trailer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .trailer-bay {
+      background: #fff;
+      border: 1px solid var(--g-border);
+      border-radius: 8px;
+      padding: 12px;
+      min-height: 80px;
+      font-size: 0.78rem;
+    }
+
+    /* Mobile Responsive Breakpoint (<900px) */
+    @media (max-width: 900px) {
+      .nav-rail { display: none; }
+      .mobile-nav-wrap { display: block; }
+      .desktop-status-tag { display: none; }
+      .app-main { padding: 12px; }
+      .desktop-dashboard-grid { grid-template-columns: 1fr; gap: 14px; }
+      .desktop-full-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Google AppBar -->
+  <!-- Google Header -->
   <header class="g-appbar">
     <div class="g-logo">
       <div class="g-logo-icon">DG</div>
-      <span>Dangerous Goods</span>
+      <span>Dangerous Goods Workspace</span>
     </div>
-    <span style="font-size: 0.75rem; color: var(--g-text-secondary); font-weight: 500;">NZS 5433 • IMDG 7.2</span>
+    <div class="desktop-status-tag">
+      <span class="live-badge"><span class="live-dot"></span> NZS 5433:2020 Active</span>
+      <span>•</span>
+      <span>IMDG Code Amdt 41-22 / 42-24</span>
+      <span>•</span>
+      <span>Ro-Ro Maritime Part 24B</span>
+    </div>
   </header>
 
-  <!-- Google Tabs -->
-  <div class="g-tabs-wrap">
-    <div class="g-pill-bar">
-      <div class="g-pill active" id="tabBtn1">Inspector</div>
-      <div class="g-pill" id="tabBtn2">Load Manifest</div>
-      <div class="g-pill" id="tabBtn3">Cook Strait Ferry</div>
-      <div class="g-pill" id="tabBtn4">Bay Planner</div>
-      <div class="g-pill" id="tabBtn5">Hazchem & PPE</div>
+  <!-- Mobile Pill Bar (Shown on small screens) -->
+  <div class="mobile-nav-wrap">
+    <div class="mobile-pill-bar">
+      <div class="mobile-pill active" id="mTab1">Inspector</div>
+      <div class="mobile-pill" id="mTab2">Manifest</div>
+      <div class="mobile-pill" id="mTab3">Cook Strait</div>
+      <div class="mobile-pill" id="mTab4">Bay Planner</div>
+      <div class="mobile-pill" id="mTab5">Hazchem & PPE</div>
     </div>
   </div>
 
-  <main class="g-container">
+  <div class="app-frame">
 
-    <!-- TAB 1: INSPECTOR -->
-    <div id="view1">
-      <div class="g-card">
-        <div class="g-card-title">
-          <span>Search or Scan DG Item</span>
-          <button id="btnToggleScan" type="button" class="g-btn g-btn-tonal" style="width:auto; height:32px; font-size:0.75rem; margin-top:0;">
-            📷 Camera Scan
-          </button>
-        </div>
-
-        <div id="scannerBox">
-          <video id="cameraFeed" playsinline autoplay></video>
-          <div class="scanner-overlay"></div>
-          <button id="btnCloseScan" type="button" class="g-btn g-btn-danger" style="border-radius:0; height:36px;">Close Camera</button>
-        </div>
-
-        <div class="g-searchbar">
-          <svg width="20" height="20" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-          <input type="text" id="unInput" placeholder="Enter UN number or product name..." autocomplete="off">
-        </div>
-        <div id="searchHits" class="search-hits"></div>
-
-        <div class="grid-2">
-          <div class="g-input-group">
-            <label class="g-label" for="primaryClass">Primary Hazard Class</label>
-            <select id="primaryClass" class="g-select">
-              <option value="1.1">1.1 - Explosives (Mass)</option>
-              <option value="1.2">1.2 - Explosives (Proj)</option>
-              <option value="1.3">1.3 - Explosives (Fire)</option>
-              <option value="1.4">1.4 - Explosives (Minor)</option>
-              <option value="2.1">2.1 - Flammable Gas</option>
-              <option value="2.2">2.2 - Non-Flam Gas</option>
-              <option value="2.3">2.3 - Toxic Gas</option>
-              <option value="3" selected>3 - Flammable Liquid</option>
-              <option value="4.1">4.1 - Flammable Solid</option>
-              <option value="4.2">4.2 - Spont. Combustible</option>
-              <option value="4.3">4.3 - Dangerous When Wet</option>
-              <option value="5.1">5.1 - Oxidizing Agent</option>
-              <option value="5.2">5.2 - Organic Peroxide</option>
-              <option value="6.1">6.1 - Toxic</option>
-              <option value="6.2">6.2 - Infectious</option>
-              <option value="7">7 - Radioactive</option>
-              <option value="8">8 - Corrosive</option>
-              <option value="9">9 - Miscellaneous DG</option>
-            </select>
-          </div>
-          <div class="g-input-group">
-            <label class="g-label" for="subRisk">Subsidiary Hazard</label>
-            <select id="subRisk" class="g-select">
-              <option value="">None</option>
-              <option value="2.1">2.1</option>
-              <option value="3">3</option>
-              <option value="4.1">4.1</option>
-              <option value="4.2">4.2</option>
-              <option value="4.3">4.3</option>
-              <option value="5.1">5.1</option>
-              <option value="6.1">6.1</option>
-              <option value="8">8</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="grid-2">
-          <div class="g-input-group">
-            <label class="g-label" for="sggGroup">IMDG Segregation Group</label>
-            <select id="sggGroup" class="g-select">
-              <option value="None">None</option>
-              <option value="SGG1">SGG1 - Acids</option>
-              <option value="SGG18">SGG18 - Alkalis</option>
-              <option value="SGG6">SGG6 - Cyanides</option>
-              <option value="SGG2">SGG2 - Ammonium</option>
-              <option value="SGG16">SGG16 - Peroxides</option>
-            </select>
-          </div>
-          <div class="g-input-group">
-            <label class="g-label" for="hazchemCode">Hazchem EAC</label>
-            <input type="text" id="hazchemCode" class="g-input" placeholder="e.g. 3YE, 2R">
-          </div>
-        </div>
-
-        <div class="grid-2">
-          <div class="g-input-group">
-            <label class="g-label" for="pkgQty">Quantity (Kg or Litres)</label>
-            <input type="number" id="pkgQty" class="g-input" placeholder="e.g. 500" inputmode="numeric">
-          </div>
-          <div class="g-input-group">
-            <label class="g-label" for="isLq">Packaging Mode</label>
-            <select id="isLq" class="g-select">
-              <option value="standard">Standard DG Package</option>
-              <option value="lq">Limited Quantity (LQ)</option>
-            </select>
-          </div>
-        </div>
-
-        <button id="btnEvaluate" type="button" class="g-btn g-btn-primary">Evaluate Full Rules</button>
-        <button id="btnAddManifest" type="button" class="g-btn g-btn-tonal">+ Add to Load Manifest</button>
+    <!-- Desktop Navigation Rail (Shown on desktop) -->
+    <nav class="nav-rail">
+      <div class="nav-item active" id="dTab1">
+        <span class="nav-icon">🔍</span>
+        <span>Inspector</span>
+      </div>
+      <div class="nav-item" id="dTab2">
+        <span class="nav-icon">📋</span>
+        <span>Load Manifest</span>
+      </div>
+      <div class="nav-item" id="dTab3">
+        <span class="nav-icon">🚢</span>
+        <span>Cook Strait Ferries</span>
+      </div>
+      <div class="nav-item" id="dTab4">
+        <span class="nav-icon">🚛</span>
+        <span>Bay Planner</span>
+      </div>
+      <div class="nav-item" id="dTab5">
+        <span class="nav-icon">🦺</span>
+        <span>Hazchem & PPE</span>
       </div>
 
-      <!-- Results Display -->
-      <div id="inspectorResults" style="display:none;">
+      <div style="margin-top:auto; padding:14px 12px; background:#f8f9fa; border-radius:12px; border:1px solid var(--g-border); font-size:0.75rem; color:var(--g-text-secondary); line-height:1.4;">
+        <strong style="color:var(--g-text-primary); display:block; margin-bottom:4px;">Desktop Shortcuts</strong>
+        • <code style="font-family:'Roboto Mono';">Enter</code>: Evaluate DG<br>
+        • <code style="font-family:'Roboto Mono';">Ctrl/Cmd + M</code>: Add to Manifest
+      </div>
+    </nav>
+
+    <!-- Main Workspace -->
+    <main class="app-main">
+
+      <!-- TAB 1: INSPECTOR -->
+      <section id="view1">
+        <div class="desktop-dashboard-grid">
+          
+          <!-- Left Column: Search & Controls -->
+          <div>
+            <div class="g-card">
+              <div class="g-card-title">
+                <span>Commodity Inspector</span>
+                <button id="btnToggleScan" type="button" class="g-btn g-btn-tonal" style="width:auto; height:32px; font-size:0.75rem; margin-top:0;">
+                  📷 Scan Barcode
+                </button>
+              </div>
+
+              <!-- Camera Feed Box -->
+              <div id="scannerBox" style="display:none; position:relative; background:#000; border-radius:12px; overflow:hidden; margin-bottom:14px;">
+                <video id="cameraFeed" playsinline autoplay style="width:100%; height:200px; object-fit:cover;"></video>
+                <button id="btnCloseScan" type="button" class="g-btn g-btn-danger" style="border-radius:0; height:34px;">Close Camera</button>
+              </div>
+
+              <div class="g-searchbar">
+                <svg width="20" height="20" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                <input type="text" id="unInput" placeholder="Enter UN number (e.g. 1203) or commodity keyword..." autocomplete="off">
+              </div>
+              <div id="searchHits" class="search-hits"></div>
+
+              <div class="grid-2">
+                <div class="g-input-group">
+                  <label class="g-label" for="primaryClass">Hazard Class</label>
+                  <select id="primaryClass" class="g-select">
+                    <option value="1.1">1.1 - Explosives (Mass)</option>
+                    <option value="1.2">1.2 - Explosives (Proj)</option>
+                    <option value="1.3">1.3 - Explosives (Fire)</option>
+                    <option value="1.4">1.4 - Explosives (Minor)</option>
+                    <option value="2.1">2.1 - Flammable Gas</option>
+                    <option value="2.2">2.2 - Non-Flam Gas</option>
+                    <option value="2.3">2.3 - Toxic Gas</option>
+                    <option value="3" selected>3 - Flammable Liquid</option>
+                    <option value="4.1">4.1 - Flammable Solid</option>
+                    <option value="4.2">4.2 - Spont. Combustible</option>
+                    <option value="4.3">4.3 - Dangerous When Wet</option>
+                    <option value="5.1">5.1 - Oxidizing Agent</option>
+                    <option value="5.2">5.2 - Organic Peroxide</option>
+                    <option value="6.1">6.1 - Toxic</option>
+                    <option value="6.2">6.2 - Infectious</option>
+                    <option value="7">7 - Radioactive</option>
+                    <option value="8">8 - Corrosive</option>
+                    <option value="9">9 - Miscellaneous DG</option>
+                  </select>
+                </div>
+                <div class="g-input-group">
+                  <label class="g-label" for="subRisk">Subsidiary Risk</label>
+                  <select id="subRisk" class="g-select">
+                    <option value="">None</option>
+                    <option value="2.1">2.1</option>
+                    <option value="3">3</option>
+                    <option value="4.1">4.1</option>
+                    <option value="4.2">4.2</option>
+                    <option value="4.3">4.3</option>
+                    <option value="5.1">5.1</option>
+                    <option value="6.1">6.1</option>
+                    <option value="8">8</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="grid-2">
+                <div class="g-input-group">
+                  <label class="g-label" for="sggGroup">IMDG Seg Group</label>
+                  <select id="sggGroup" class="g-select">
+                    <option value="None">None</option>
+                    <option value="SGG1">SGG1 - Acids</option>
+                    <option value="SGG18">SGG18 - Alkalis</option>
+                    <option value="SGG6">SGG6 - Cyanides</option>
+                    <option value="SGG2">SGG2 - Ammonium</option>
+                    <option value="SGG16">SGG16 - Peroxides</option>
+                  </select>
+                </div>
+                <div class="g-input-group">
+                  <label class="g-label" for="hazchemCode">Hazchem EAC</label>
+                  <input type="text" id="hazchemCode" class="g-input" placeholder="e.g. 3YE, 2R">
+                </div>
+              </div>
+
+              <div class="grid-2">
+                <div class="g-input-group">
+                  <label class="g-label" for="pkgQty">Quantity (Kg/L)</label>
+                  <input type="number" id="pkgQty" class="g-input" placeholder="e.g. 500" inputmode="numeric">
+                </div>
+                <div class="g-input-group">
+                  <label class="g-label" for="isLq">Packaging Mode</label>
+                  <select id="isLq" class="g-select">
+                    <option value="standard">Standard DG</option>
+                    <option value="lq">Limited Quantity (LQ)</option>
+                  </select>
+                </div>
+              </div>
+
+              <button id="btnEvaluate" type="button" class="g-btn g-btn-primary">Evaluate Full Compliance</button>
+              <button id="btnAddManifest" type="button" class="g-btn g-btn-tonal">+ Add to Load Manifest</button>
+            </div>
+          </div>
+
+          <!-- Right Column: Compliance Directives & Segregation Matrix -->
+          <div>
+            <div id="inspectorResults" style="display:none;">
+              <div class="g-card">
+                <div id="itemOverview"></div>
+              </div>
+              <div class="g-card">
+                <div class="g-card-title">🍽️ Foodstuff & Food Packaging Protection</div>
+                <div id="foodAudit"></div>
+              </div>
+              <div class="desktop-full-grid">
+                <div class="g-card">
+                  <div class="g-card-title">🚛 Road Segregation (NZS 5433)</div>
+                  <div id="roadAudit"></div>
+                </div>
+                <div class="g-card">
+                  <div class="g-card-title">🌊 Maritime Segregation (IMDG 7.2)</div>
+                  <div id="seaAudit"></div>
+                </div>
+              </div>
+            </div>
+
+            <div id="inspectorPlaceholder" class="g-card" style="text-align:center; padding:48px 24px;">
+              <div style="font-size:2.5rem; margin-bottom:12px;">📦</div>
+              <h3 style="font-family:'Google Sans', sans-serif; margin:0 0 8px 0; color:var(--g-text-primary);">Awaiting Commodity Inspection</h3>
+              <p style="font-size:0.86rem; color:var(--g-text-secondary); max-width:440px; margin:0 auto;">
+                Select a UN number or keyword from the search bar, then click <strong>Evaluate Full Compliance</strong> to generate road separation distances, IMDG container clearances, and foodstuff isolation mandates.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- TAB 2: MANIFEST & DISPATCH -->
+      <section id="view2" style="display:none;">
+        <div class="desktop-dashboard-grid">
+          <div>
+            <div class="g-card">
+              <div class="g-card-title">
+                <span>Shipment Freight Manifest</span>
+                <span style="font-size:0.82rem; color:var(--g-text-secondary);"><b id="manifestCount">0</b> items</span>
+              </div>
+
+              <div style="display:flex; gap:8px; margin-bottom:14px;">
+                <button id="btnCopyManifest" type="button" class="g-btn g-btn-outlined" style="height:36px; font-size:0.75rem;">📋 Copy Text</button>
+                <button id="btnShareWhatsApp" type="button" class="g-btn g-btn-outlined" style="height:36px; font-size:0.75rem;">💬 WhatsApp</button>
+                <button id="btnShareEmail" type="button" class="g-btn g-btn-outlined" style="height:36px; font-size:0.75rem;">✉️ Email</button>
+              </div>
+
+              <div id="manifestList"></div>
+
+              <button id="btnAuditManifest" type="button" class="g-btn g-btn-primary" style="margin-top:12px;">Audit Entire Manifest</button>
+              <button id="btnClearManifest" type="button" class="g-btn g-btn-danger" style="margin-top:8px;">Clear Manifest</button>
+            </div>
+          </div>
+
+          <div>
+            <div id="manifestAuditOutput" style="display:none;">
+              <div class="g-card">
+                <div class="g-card-title">Manifest Compatibility Findings</div>
+                <div id="manifestBanners"></div>
+              </div>
+            </div>
+            <div id="manifestAuditPlaceholder" class="g-card" style="text-align:center; padding:48px 24px;">
+              <div style="font-size:2.5rem; margin-bottom:12px;">📋</div>
+              <h3 style="font-family:'Google Sans', sans-serif; margin:0 0 8px 0; color:var(--g-text-primary);">Load Manifest Checker</h3>
+              <p style="font-size:0.86rem; color:var(--g-text-secondary); max-width:440px; margin:0 auto;">
+                Add multiple items to audit cross-compatibility across all loaded packages. Flags chemical collisions, acid/alkali reactions, and mixed-loading prohibitions automatically.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: COOK STRAIT FERRY -->
+      <section id="view3" style="display:none;">
         <div class="g-card">
-          <div id="itemOverview"></div>
-        </div>
-        <div class="g-card">
-          <div class="g-card-title">🍽️ Foodstuff & Food Packaging Protection</div>
-          <div id="foodAudit"></div>
-        </div>
-        <div class="g-card">
-          <div class="g-card-title">🚛 Road Segregation (NZS 5433 Table 6)</div>
-          <div id="roadAudit"></div>
-        </div>
-        <div class="g-card">
-          <div class="g-card-title">🌊 Maritime Segregation (IMDG Code 7.2)</div>
-          <div id="seaAudit"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 2: MANIFEST & DISPATCH -->
-    <div id="view2" style="display:none;">
-      <div class="g-card">
-        <div class="g-card-title">
-          <span>Active Shipment Manifest</span>
-          <span style="font-size:0.8rem; color:var(--g-text-secondary);"><b id="manifestCount">0</b> items</span>
-        </div>
-        
-        <div style="display:flex; gap:8px; margin-bottom:12px;">
-          <button id="btnCopyManifest" type="button" class="g-btn g-btn-outlined" style="height:36px; font-size:0.75rem;">📋 Copy Text</button>
-          <button id="btnShareWhatsApp" type="button" class="g-btn g-btn-outlined" style="height:36px; font-size:0.75rem;">💬 WhatsApp</button>
-          <button id="btnShareEmail" type="button" class="g-btn g-btn-outlined" style="height:36px; font-size:0.75rem;">✉️ Email</button>
-        </div>
-
-        <div id="manifestList"></div>
-
-        <button id="btnAuditManifest" type="button" class="g-btn g-btn-primary" style="margin-top:10px;">Audit Full Load Compatibility</button>
-        <button id="btnClearManifest" type="button" class="g-btn g-btn-danger" style="margin-top:8px;">Clear Manifest</button>
-      </div>
-
-      <div id="manifestAuditOutput" style="display:none;">
-        <div class="g-card">
-          <div class="g-card-title">Cross-Load Audit Findings</div>
-          <div id="manifestBanners"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 3: COOK STRAIT FERRY -->
-    <div id="view3" style="display:none;">
-      <div class="g-card">
-        <div class="g-card-title">Cook Strait Ferries (Bluebridge / Interislander)</div>
-        <p style="font-size:0.82rem; color:var(--g-text-secondary); line-height:1.4;">
-          Inter-island Ro-Ro transport is governed strictly by <strong>Maritime New Zealand Part 24B</strong> and vessel safety management plans.
-        </p>
-
-        <div class="g-alert g-alert-warn">
-          <div>⚠️</div>
-          <div><strong>Weather Deck Only Directives:</strong> Class 2.1 Flammable Gases (LPG UN 1075) and high-volatility Class 3 fuels must be booked for open weather deck stowage only. Strictly prohibited in closed lower vehicle decks.</div>
-        </div>
-
-        <div class="g-alert g-alert-error">
-          <div>🛑</div>
-          <div><strong>Reefer & Power Lines:</strong> Flammable gases and liquids must maintain minimum 3-metre clearance from operating mechanical refrigeration units and 415V ferry shore-power lines.</div>
-        </div>
-
-        <div class="g-alert g-alert-blue">
-          <div>🐑</div>
-          <div><strong>Livestock & Accommodation Buffer:</strong> Units placarded with Class 6.1 (Toxic), 2.3 (Toxic Gas), or 8 (Corrosive) cannot be stowed adjacent to live livestock transporters or passenger access ladders.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 4: BAY PLANNER -->
-    <div id="view4" style="display:none;">
-      <div class="g-card">
-        <div class="g-card-title">B-Train / Trailer Bay Planner</div>
-        <p style="font-size:0.82rem; color:var(--g-text-secondary);">
-          NZS 5433 permits co-loading certain incompatible goods if separated by at least <strong>3 Metres physical space</strong> along the vehicle length.
-        </p>
-
-        <div class="trailer-box">
-          <strong style="font-size:0.8rem; color:var(--g-text-primary);">Front Unit / Lead Trailer</strong>
-          <div class="trailer-grid">
-            <div class="trailer-bay" id="bayFront"><b>Bay A (Front)</b><br><span id="slotA" style="color:var(--g-text-secondary);">Empty</span></div>
-            <div class="trailer-bay" id="bayMid1"><b>Bay B (Middle)</b><br><span id="slotB" style="color:var(--g-text-secondary);">Empty</span></div>
-            <div class="trailer-bay" id="bayRear1"><b>Bay C (Rear)</b><br><span id="slotC" style="color:var(--g-text-secondary);">Empty</span></div>
+          <div class="g-card-title">Cook Strait Ferries (Bluebridge & Interislander • Maritime NZ Part 24B)</div>
+          <div class="desktop-full-grid">
+            <div>
+              <div class="g-alert g-alert-warn">
+                <div style="font-size:1.2rem;">⚠️</div>
+                <div><strong>Weather Deck Only Mandates:</strong> Class 2.1 Flammable Gases (LPG UN 1075) and high-volatility Class 3 fuels must be booked for open weather deck stowage only. Strictly prohibited in closed lower vehicle decks.</div>
+              </div>
+              <div class="g-alert g-alert-error">
+                <div style="font-size:1.2rem;">🛑</div>
+                <div><strong>Reefer & Shore Power Clearance:</strong> Flammable liquids and gases must maintain minimum 3-metre clearance from running diesel/electric refrigeration units and 415V ferry power leads.</div>
+              </div>
+            </div>
+            <div>
+              <div class="g-alert g-alert-blue">
+                <div style="font-size:1.2rem;">🐑</div>
+                <div><strong>Livestock & Accommodation Buffer:</strong> Units placarded with Class 6.1 (Toxic), 2.3 (Toxic Gas), or 8 (Corrosive) cannot be stowed adjacent to live livestock transporters or passenger access stairwells.</div>
+              </div>
+              <div class="g-alert g-alert-success">
+                <div style="font-size:1.2rem;">📝</div>
+                <div><strong>Stowage Declarations:</strong> Dangerous Goods Declarations must be presented and signed at vehicle check-in at least 2 hours prior to scheduled ferry departure.</div>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div class="trailer-box">
-          <strong style="font-size:0.8rem; color:var(--g-text-primary);">Rear Unit / Pup Trailer</strong>
-          <div class="trailer-grid">
-            <div class="trailer-bay" id="bayFront2"><b>Bay D (Front)</b><br><span id="slotD" style="color:var(--g-text-secondary);">Empty</span></div>
-            <div class="trailer-bay" id="bayMid2"><b>Bay E (Middle)</b><br><span id="slotE" style="color:var(--g-text-secondary);">Empty</span></div>
-            <div class="trailer-bay" id="bayRear2"><b>Bay F (Rear)</b><br><span id="slotF" style="color:var(--g-text-secondary);">Empty</span></div>
+      <!-- TAB 4: BAY PLANNER -->
+      <section id="view4" style="display:none;">
+        <div class="g-card">
+          <div class="g-card-title">B-Train / Trailer Bay Planner (NZS 5433 Physical Separation)</div>
+          <p style="font-size:0.86rem; color:var(--g-text-secondary);">
+            Certain incompatible dangerous goods may be transported on the same vehicle combination if separated by at least <strong>3 Metres physical longitudinal air distance</strong>.
+          </p>
+
+          <div class="desktop-full-grid" style="margin-top:16px;">
+            <div class="trailer-box">
+              <strong style="font-size:0.85rem; color:var(--g-text-primary);">Front Unit / Lead Trailer</strong>
+              <div class="trailer-grid">
+                <div class="trailer-bay" id="bayFront"><b>Bay A (Front)</b><br><span id="slotA" style="color:var(--g-text-secondary);">Empty</span></div>
+                <div class="trailer-bay" id="bayMid1"><b>Bay B (Middle)</b><br><span id="slotB" style="color:var(--g-text-secondary);">Empty</span></div>
+                <div class="trailer-bay" id="bayRear1"><b>Bay C (Rear)</b><br><span id="slotC" style="color:var(--g-text-secondary);">Empty</span></div>
+              </div>
+            </div>
+
+            <div class="trailer-box">
+              <strong style="font-size:0.85rem; color:var(--g-text-primary);">Rear Unit / Pup Trailer</strong>
+              <div class="trailer-grid">
+                <div class="trailer-bay" id="bayFront2"><b>Bay D (Front)</b><br><span id="slotD" style="color:var(--g-text-secondary);">Empty</span></div>
+                <div class="trailer-bay" id="bayMid2"><b>Bay E (Middle)</b><br><span id="slotE" style="color:var(--g-text-secondary);">Empty</span></div>
+                <div class="trailer-bay" id="bayRear2"><b>Bay F (Rear)</b><br><span id="slotF" style="color:var(--g-text-secondary);">Empty</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div style="max-width:440px; margin-top:12px;">
+            <label class="g-label" for="assignSelect">Assign First Manifest Item to Bay:</label>
+            <div style="display:flex; gap:8px;">
+              <select id="assignSelect" class="g-select">
+                <option value="slotA">Bay A (Lead Front)</option>
+                <option value="slotB">Bay B (Lead Middle)</option>
+                <option value="slotC">Bay C (Lead Rear)</option>
+                <option value="slotD">Bay D (Rear Front)</option>
+                <option value="slotE">Bay E (Rear Middle)</option>
+                <option value="slotF">Bay F (Rear Rear)</option>
+              </select>
+              <button id="btnAssignBay" type="button" class="g-btn g-btn-tonal" style="width:auto; white-space:nowrap;">Assign to Bay</button>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div class="g-input-group">
-          <label class="g-label" for="assignSelect">Assign First Manifest Item to Bay:</label>
-          <select id="assignSelect" class="g-select">
-            <option value="slotA">Bay A (Lead Front)</option>
-            <option value="slotB">Bay B (Lead Middle)</option>
-            <option value="slotC">Bay C (Lead Rear)</option>
-            <option value="slotD">Bay D (Rear Front)</option>
-            <option value="slotE">Bay E (Rear Middle)</option>
-            <option value="slotF">Bay F (Rear Rear)</option>
-          </select>
-          <button id="btnAssignBay" type="button" class="g-btn g-btn-tonal">Assign Item into Bay</button>
+      <!-- TAB 5: HAZCHEM & PPE -->
+      <section id="view5" style="display:none;">
+        <div class="desktop-full-grid">
+          <div class="g-card">
+            <div class="g-card-title">Hazchem Emergency Action Code Reference</div>
+            <div class="rule-item"><strong>1st Character (Number)</strong>: Firefighting agent (1=Coarse spray, 2=Fine spray, 3=Foam, 4=Dry agent).</div>
+            <div class="rule-item"><strong>2nd Character (Letter)</strong>: Violent reaction risk, breathing apparatus mandate, and spill response (Dilute vs. Contain).</div>
+            <div class="rule-item"><strong>Letter 'E'</strong>: Public safety evacuation consideration is critical and urgent.</div>
+          </div>
+
+          <div class="g-card">
+            <div class="g-card-title">Driver Vehicle Emergency Kit Checklist</div>
+            <div class="rule-item">✅ Compliant Emergency Procedure Guide (EPG) in cab door pocket</div>
+            <div class="rule-item">✅ Chemical-resistant overalls & rubber boots</div>
+            <div class="rule-item">✅ Eye-wash bottle (minimum 250ml full, in date)</div>
+            <div class="rule-item">✅ Chemical spill response absorbent pads</div>
+            <div class="rule-item">✅ 30B dry chemical fire extinguisher (charged, inspected)</div>
+          </div>
         </div>
-      </div>
-    </div>
+      </section>
 
-    <!-- TAB 5: HAZCHEM & PPE -->
-    <div id="view5" style="display:none;">
-      <div class="g-card">
-        <div class="g-card-title">Emergency Action Code (Hazchem) Reference</div>
-        <div class="rule-item"><strong>1st Character (Number)</strong>: Firefighting medium (1=Coarse spray, 2=Fine spray, 3=Foam, 4=Dry agent).</div>
-        <div class="rule-item"><strong>2nd Character (Letter)</strong>: Risk of violent reaction, breathing apparatus requirement, and spill approach (Dilute vs. Contain).</div>
-        <div class="rule-item"><strong>Letter 'E'</strong>: Public safety evacuation must be considered immediately.</div>
-      </div>
-
-      <div class="g-card">
-        <div class="g-card-title">Driver Vehicle Emergency Kit Checklist</div>
-        <div class="rule-item">✅ Compliant Emergency Procedure Guide (EPG) in cab door pocket</div>
-        <div class="rule-item">✅ Chemical-resistant overalls & rubber boots</div>
-        <div class="rule-item">✅ Eye-wash bottle (minimum 250ml full, in date)</div>
-        <div class="rule-item">✅ Chemical spill response absorbent pads</div>
-        <div class="rule-item">✅ 30B dry chemical fire extinguisher (charged, inspected)</div>
-      </div>
-    </div>
-
-  </main>
+    </main>
+  </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      // Extensive UN Master Database (100+ items)
       const UN_DATABASE = {
         "1001": { name: "ACETYLENE, DISSOLVED", class: "2.1", sub: "", sgg: "None", haz: "2SE" },
         "1005": { name: "AMMONIA, ANHYDROUS", class: "2.3", sub: "8", sgg: "SGG18", haz: "2RE" },
@@ -708,21 +871,22 @@
         return cls && cls.startsWith("1.") ? "1.1" : cls;
       }
 
-      // Tab Navigator
+      // Unified Navigation Sync (Mobile Pills + Desktop Rail)
       const views = [document.getElementById('view1'), document.getElementById('view2'), document.getElementById('view3'), document.getElementById('view4'), document.getElementById('view5')];
-      const tabs = [document.getElementById('tabBtn1'), document.getElementById('tabBtn2'), document.getElementById('tabBtn3'), document.getElementById('tabBtn4'), document.getElementById('tabBtn5')];
+      const mTabs = [document.getElementById('mTab1'), document.getElementById('mTab2'), document.getElementById('mTab3'), document.getElementById('mTab4'), document.getElementById('mTab5')];
+      const dTabs = [document.getElementById('dTab1'), document.getElementById('dTab2'), document.getElementById('dTab3'), document.getElementById('dTab4'), document.getElementById('dTab5')];
 
-      tabs.forEach((tab, index) => {
-        tab.addEventListener('click', () => {
-          tabs.forEach(t => t.classList.remove('active'));
-          views.forEach(v => v.style.display = 'none');
-          tab.classList.add('active');
-          views[index].style.display = 'block';
-          if (index === 1) renderManifest();
-        });
-      });
+      function selectTab(index) {
+        views.forEach((v, i) => v.style.display = i === index ? 'block' : 'none');
+        mTabs.forEach((t, i) => t.classList.toggle('active', i === index));
+        dTabs.forEach((t, i) => t.classList.toggle('active', i === index));
+        if (index === 1) renderManifest();
+      }
 
-      // Search and Autocomplete
+      mTabs.forEach((tab, index) => tab.addEventListener('click', () => selectTab(index)));
+      dTabs.forEach((tab, index) => tab.addEventListener('click', () => selectTab(index)));
+
+      // Search & Autocomplete
       const unInput = document.getElementById('unInput');
       const searchHits = document.getElementById('searchHits');
 
@@ -765,7 +929,7 @@
         document.getElementById('hazchemCode').value = item.haz || "";
       }
 
-      // Camera Barcode Scanner Simulator/WebRTC Hook
+      // Camera Barcode Scanner Hook
       let videoStream = null;
       document.getElementById('btnToggleScan').addEventListener('click', async () => {
         const box = document.getElementById('scannerBox');
@@ -775,7 +939,7 @@
           video.srcObject = videoStream;
           box.style.display = 'block';
         } catch (err) {
-          alert("Camera access not available or blocked: " + err.message);
+          alert("Camera access unavailable or blocked: " + err.message);
         }
       });
 
@@ -786,8 +950,8 @@
         document.getElementById('scannerBox').style.display = 'none';
       });
 
-      // Evaluation Action
-      document.getElementById('btnEvaluate').addEventListener('click', () => {
+      // Evaluation Engine
+      function runEvaluation() {
         const inputVal = unInput.value.trim();
         const code = inputVal.replace(/^UN\s*/i, '');
         const pClass = document.getElementById('primaryClass').value;
@@ -805,26 +969,26 @@
         const placardText = qty >= threshold ? `<span class="tag tag-prohibit">PLACARDS MANDATED</span>` : `<span class="tag tag-allow">UNDER PLACARD LIMIT</span>`;
 
         document.getElementById('itemOverview').innerHTML = `
-          <h2 style="margin:0 0 6px 0; font-size:1.05rem;">${title}</h2>
+          <h2 style="margin:0 0 8px 0; font-size:1.15rem; font-family:'Google Sans', sans-serif;">${title}</h2>
           <div>
             <span class="g-chip chip-class">Class ${pClass}</span>
             ${sub ? `<span class="g-chip chip-sub">Sub ${sub}</span>` : ''}
             <span class="g-chip chip-sgg">${sgg}</span>
             ${haz ? `<span class="g-chip chip-haz">Hazchem ${haz}</span>` : ''}
           </div>
-          <div style="font-size:0.75rem; color:var(--g-text-secondary); margin-top:8px;">
-            Load: <b>${qty || 'Unspecified'}</b> ${isLq ? '(LQ Pack)' : '(Standard DG)'} | ${placardText}
+          <div style="font-size:0.78rem; color:var(--g-text-secondary); margin-top:8px;">
+            Quantity: <b>${qty || 'Unspecified'}</b> ${isLq ? '(LQ Pack)' : '(Standard DG)'} | ${placardText}
           </div>
         `;
 
-        // Food Protection
+        // Foodstuff
         let foodHTML = "";
         if (pClass === "6.1" || sub === "6.1" || pClass === "2.3") {
-          foodHTML = `<div class="g-alert g-alert-error">🛑 <strong>STRICT CO-LOAD BAN:</strong> Toxic substances/gases must never share a vehicle space with food, drinks, feed, or empty food packaging.</div>`;
+          foodHTML = `<div class="g-alert g-alert-error"><div style="font-size:1.2rem;">🛑</div><div><strong>STRICT CO-LOAD PROHIBITION:</strong> Toxic substances/gases must never share a compartment with food, beverages, animal feed, or empty food packaging.</div></div>`;
         } else if (pClass === "8" || sub === "8") {
-          foodHTML = `<div class="g-alert g-alert-warn">⚠️ <strong>CORROSIVE ISOLATION:</strong> Banned directly above or against food items. 1m clearance or liquid-tight bulkhead required.</div>`;
+          foodHTML = `<div class="g-alert g-alert-warn"><div style="font-size:1.2rem;">⚠️</div><div><strong>CORROSIVE ISOLATION:</strong> Banned directly above or adjacent to food packaging. 1m clearance or liquid-tight bulkhead required.</div></div>`;
         } else {
-          foodHTML = `<div class="g-alert g-alert-success">✅ <strong>CLEARED:</strong> Standard general dry food loading allowed if packaging is intact.</div>`;
+          foodHTML = `<div class="g-alert g-alert-success"><div style="font-size:1.2rem;">✅</div><div><strong>COMPLIANT:</strong> General food co-loading permitted provided packaging is intact and properly secured.</div></div>`;
         }
         document.getElementById('foodAudit').innerHTML = foodHTML;
 
@@ -837,7 +1001,7 @@
           let note = "";
           if (sgg === "SGG1" && tgt === "8") note = " (PROHIBITED with Alkalis & Cyanides)";
           let tagClass = rule === 'P' ? 'tag-prohibit' : (rule === 'S' ? 'tag-sep' : 'tag-allow');
-          let label = rule === 'P' ? 'PROHIBITED' : (rule === 'S' ? '3m SEPARATION / Device' : 'COMPATIBLE');
+          let label = rule === 'P' ? 'PROHIBITED' : (rule === 'S' ? '3m SEPARATION' : 'COMPATIBLE');
 
           roadHTML += `
             <div class="rule-item">
@@ -854,7 +1018,7 @@
           let code = (IMDG_MATRIX[pClass] && IMDG_MATRIX[pClass][tgt]) ? IMDG_MATRIX[pClass][tgt] : "X";
           let desc = "Check DGL";
           let tagClass = "tag-sep";
-          if (code === "1") desc = "1 - Away from (Min 3m spacing in ship hold)";
+          if (code === "1") desc = "1 - Away from (Min 3m in vessel space)";
           if (code === "2") { desc = "2 - Separated from (Banned in same freight container)"; tagClass = "tag-prohibit"; }
           if (code === "X") { desc = "X - Allowed in same container"; tagClass = "tag-allow"; }
 
@@ -867,13 +1031,14 @@
         });
         document.getElementById('seaAudit').innerHTML = seaHTML;
 
-        const resultsCard = document.getElementById('inspectorResults');
-        resultsCard.style.display = 'block';
-        window.scrollTo({ top: resultsCard.offsetTop - 20, behavior: 'smooth' });
-      });
+        document.getElementById('inspectorPlaceholder').style.display = 'none';
+        document.getElementById('inspectorResults').style.display = 'block';
+      }
 
-      // Manifest Controls
-      document.getElementById('btnAddManifest').addEventListener('click', () => {
+      document.getElementById('btnEvaluate').addEventListener('click', runEvaluation);
+
+      // Add to Manifest
+      function addToManifest() {
         const inputVal = unInput.value.trim();
         const code = inputVal.replace(/^UN\s*/i, '');
         const pClass = document.getElementById('primaryClass').value;
@@ -882,26 +1047,39 @@
         const haz = document.getElementById('hazchemCode').value.trim();
         const qty = parseFloat(document.getElementById('pkgQty').value) || 0;
         const isLq = document.getElementById('isLq').value === 'lq';
-        const label = UN_DATABASE[code] ? (`UN ${code} (${UN_DATABASE[code].name.slice(0, 16)})`) : (code ? `UN ${code}` : `Class ${pClass}`);
+        const label = UN_DATABASE[code] ? (`UN ${code} (${UN_DATABASE[code].name.slice(0, 18)})`) : (code ? `UN ${code}` : `Class ${pClass}`);
 
         manifest.push({ label, pClass, sub, sgg, haz, qty, isLq });
         saveManifest();
         alert(`Added ${label} to manifest (${manifest.length} items total)`);
+      }
+      document.getElementById('btnAddManifest').addEventListener('click', addToManifest);
+
+      // Desktop Keyboard Shortcuts
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && e.target.tagName !== 'BUTTON') {
+          runEvaluation();
+        }
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'm') {
+          e.preventDefault();
+          addToManifest();
+        }
       });
 
+      // Manifest Rendering
       function renderManifest() {
         const list = document.getElementById('manifestList');
         if (manifest.length === 0) {
-          list.innerHTML = '<div style="color:var(--g-text-secondary); font-size:0.82rem; padding:12px 0;">No items loaded yet.</div>';
+          list.innerHTML = '<div style="color:var(--g-text-secondary); font-size:0.84rem; padding:16px 0;">No items loaded. Inspect items to build a manifest.</div>';
           return;
         }
         list.innerHTML = manifest.map((item, i) => `
-          <div style="padding:10px; background:#f8f9fa; border-radius:8px; margin-bottom:6px; border:1px solid var(--g-border); font-size:0.8rem;">
+          <div style="padding:12px; background:#f8f9fa; border-radius:8px; margin-bottom:8px; border:1px solid var(--g-border); font-size:0.82rem;">
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <strong>${item.label}</strong>
               <button type="button" data-del="${i}" style="background:none; border:none; color:var(--g-red); font-weight:bold; cursor:pointer;">Remove</button>
             </div>
-            <div style="margin-top:4px;">
+            <div style="margin-top:6px;">
               <span class="g-chip chip-class">Class ${item.pClass}</span>
               ${item.sub ? `<span class="g-chip chip-sub">Sub ${item.sub}</span>` : ''}
               <span class="g-chip chip-sgg">${item.sgg}</span>
@@ -926,16 +1104,17 @@
           saveManifest();
           renderManifest();
           document.getElementById('manifestAuditOutput').style.display = 'none';
+          document.getElementById('manifestAuditPlaceholder').style.display = 'block';
         }
       });
 
       // Clipboard & Sharing
       function getManifestText() {
-        let txt = "DANGEROUS GOODS LOAD MANIFEST\nNZS 5433 / IMDG VERIFIED\n-------------------------------\n";
+        let txt = "DANGEROUS GOODS FREIGHT MANIFEST\nNZS 5433 / IMDG COMPLIANCE VERIFIED\n------------------------------------\n";
         manifest.forEach((m, idx) => {
           txt += `${idx + 1}. ${m.label} | Class: ${m.pClass}${m.sub ? ' (' + m.sub + ')' : ''} | SGG: ${m.sgg} | EAC: ${m.haz || 'N/A'} | Qty: ${m.qty || 'N/A'}${m.isLq ? ' [LQ]' : ''}\n`;
         });
-        txt += "-------------------------------\nAudit: Passed Road & Sea Check";
+        txt += "------------------------------------\nStatus: Verified Complete";
         return txt;
       }
 
@@ -943,18 +1122,16 @@
         if (manifest.length === 0) return alert("Manifest is empty.");
         navigator.clipboard.writeText(getManifestText()).then(() => alert("Manifest copied to clipboard!"));
       });
-
       document.getElementById('btnShareWhatsApp').addEventListener('click', () => {
         if (manifest.length === 0) return alert("Manifest is empty.");
         window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(getManifestText())}`, '_blank');
       });
-
       document.getElementById('btnShareEmail').addEventListener('click', () => {
         if (manifest.length === 0) return alert("Manifest is empty.");
         window.location.href = `mailto:?subject=${encodeURIComponent("Dangerous Goods Manifest")}&body=${encodeURIComponent(getManifestText())}`;
       });
 
-      // Manifest Audit Engine
+      // Manifest Audit
       document.getElementById('btnAuditManifest').addEventListener('click', () => {
         if (manifest.length < 2) return alert("Add at least 2 items to run a mixed-load audit.");
 
@@ -981,7 +1158,7 @@
             if ((a.sgg === "SGG1" && b.sgg === "SGG18") || (a.sgg === "SGG18" && b.sgg === "SGG1")) {
               roadBlocked = true;
               seaBlocked = true;
-              banners.push(`💥 <strong>REACTION HAZARD:</strong> ${a.label} (${a.sgg}) + ${b.label} (${b.sgg}) - Violent exothermic reaction between Acid and Base.`);
+              banners.push(`💥 <strong>CHEMICAL REACTION HAZARD:</strong> ${a.label} (${a.sgg}) + ${b.label} (${b.sgg}) - Violent exothermic reaction between Acid and Base.`);
             }
             if ((a.sgg === "SGG6" && b.sgg === "SGG1") || (a.sgg === "SGG1" && b.sgg === "SGG6")) {
               roadBlocked = true;
@@ -999,20 +1176,21 @@
 
         let summary = "";
         if (banners.length === 0) {
-          summary = `<div class="g-alert g-alert-success">✅ <strong>LOAD COMPLIANT:</strong> All items in this manifest are mutually compatible for co-loading.</div>`;
+          summary = `<div class="g-alert g-alert-success"><div style="font-size:1.2rem;">✅</div><div><strong>LOAD COMPLIANT:</strong> All items in this manifest are mutually compatible for co-loading.</div></div>`;
         } else {
           summary = `
             <div class="g-alert ${roadBlocked || seaBlocked ? 'g-alert-error' : 'g-alert-warn'}">
-              ${roadBlocked || seaBlocked ? '❌ <strong>COMPLIANCE ALERT:</strong> Segregation collisions detected.' : '⚠️ <strong>NOTICE:</strong> Separation distance required.'}
+              <div style="font-size:1.2rem;">${roadBlocked || seaBlocked ? '❌' : '⚠️'}</div>
+              <div>${roadBlocked || seaBlocked ? '<strong>COMPLIANCE ALERT:</strong> Segregation collisions detected.' : '<strong>NOTICE:</strong> Separation distance required.'}</div>
             </div>
-            ${banners.map(b => `<div class="rule-item" style="background:#f8f9fa; padding:8px; border-radius:6px; margin-bottom:4px;">${b}</div>`).join('')}
+            ${banners.map(b => `<div class="rule-item" style="background:#f8f9fa; padding:10px; border-radius:6px; margin-bottom:6px;">${b}</div>`).join('')}
           `;
         }
 
+        document.getElementById('manifestAuditPlaceholder').style.display = 'none';
         const out = document.getElementById('manifestAuditOutput');
         document.getElementById('manifestBanners').innerHTML = summary;
         out.style.display = 'block';
-        window.scrollTo({ top: out.offsetTop - 20, behavior: 'smooth' });
       });
 
       // Bay Assignment
@@ -1020,7 +1198,7 @@
         if (manifest.length === 0) return alert("Manifest is empty. Add items first.");
         const slotId = document.getElementById('assignSelect').value;
         const target = document.getElementById(slotId);
-        target.innerHTML = `<b>${manifest[0].label}</b><br><span class="g-chip chip-class" style="margin-top:2px;">Cl ${manifest[0].pClass}</span>`;
+        target.innerHTML = `<b>${manifest[0].label}</b><br><span class="g-chip chip-class" style="margin-top:4px;">Cl ${manifest[0].pClass}</span>`;
         alert(`Assigned ${manifest[0].label} to ${document.getElementById('assignSelect').options[document.getElementById('assignSelect').selectedIndex].text}`);
       });
     });
