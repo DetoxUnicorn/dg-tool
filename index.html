@@ -7,7 +7,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="theme-color" content="#ffffff" id="metaThemeColor">
-  <title>DG Workspace • NZS 5433 & IMDG Compliance</title>
+  <title>DG Workspace Pro • NZS 5433 & IMDG Compliance</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -111,11 +111,7 @@
       font-size: 15px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .header-actions { display: flex; align-items: center; gap: 12px; }
     .desktop-status-tag {
       display: flex;
       align-items: center;
@@ -135,12 +131,7 @@
       font-weight: 700;
       font-size: 0.75rem;
     }
-    .live-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--g-green);
-    }
+    .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--g-green); }
 
     .theme-toggle-btn {
       background: var(--g-surface-variant);
@@ -159,14 +150,10 @@
     }
     .theme-toggle-btn:hover { background: var(--g-border); }
 
-    .app-frame {
-      display: flex;
-      flex: 1;
-      overflow: hidden;
-    }
+    .app-frame { display: flex; flex: 1; overflow: hidden; }
 
     .nav-rail {
-      width: 240px;
+      width: 250px;
       background: var(--g-surface);
       border-right: 1px solid var(--g-border);
       padding: 16px 12px;
@@ -189,19 +176,9 @@
       transition: all 0.15s ease;
       user-select: none;
     }
-    .nav-item:hover {
-      background: var(--g-surface-variant);
-      color: var(--g-text-primary);
-    }
-    .nav-item.active {
-      background: var(--g-blue-surface);
-      color: var(--g-blue);
-      font-weight: 700;
-    }
-    .nav-icon {
-      font-size: 1.15rem;
-      line-height: 1;
-    }
+    .nav-item:hover { background: var(--g-surface-variant); color: var(--g-text-primary); }
+    .nav-item.active { background: var(--g-blue-surface); color: var(--g-blue); font-weight: 700; }
+    .nav-icon { font-size: 1.15rem; line-height: 1; }
 
     .mobile-nav-wrap {
       display: none;
@@ -297,15 +274,9 @@
       outline: none;
       color: var(--g-text-primary);
     }
-    .g-searchbar svg {
-      fill: var(--g-text-secondary);
-      margin-right: 10px;
-    }
+    .g-searchbar svg { fill: var(--g-text-secondary); margin-right: 10px; }
 
-    .g-input-group {
-      margin-bottom: 14px;
-      position: relative;
-    }
+    .g-input-group { margin-bottom: 14px; position: relative; }
     .g-label {
       font-size: 0.72rem;
       font-weight: 700;
@@ -333,6 +304,7 @@
       box-shadow: 0 0 0 1px var(--g-blue);
     }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 
     .g-btn {
       font-family: 'Google Sans', sans-serif;
@@ -375,7 +347,6 @@
     .chip-sgg { background: var(--g-purple-surface); color: var(--g-purple); }
     .chip-haz { background: var(--g-green-surface); color: var(--g-green); }
 
-    /* Ferry Sailing Specific Indicator Badges */
     .ferry-indicator-banner {
       display: flex;
       align-items: center;
@@ -387,20 +358,23 @@
       font-weight: 700;
       margin-top: 10px;
     }
-    .ferry-banned {
-      background: var(--g-red-surface);
-      color: var(--g-red);
-      border: 1px solid var(--g-red);
+    .ferry-banned { background: var(--g-red-surface); color: var(--g-red); border: 1px solid var(--g-red); }
+    .ferry-weather-deck { background: var(--g-yellow-surface); color: var(--g-yellow); border: 1px solid var(--g-yellow); }
+    .ferry-allowed { background: var(--g-green-surface); color: var(--g-green); border: 1px solid var(--g-green); }
+
+    .meter-container {
+      background: var(--g-surface-variant);
+      border-radius: var(--g-radius-full);
+      height: 14px;
+      overflow: hidden;
+      margin: 10px 0 6px;
+      border: 1px solid var(--g-border);
     }
-    .ferry-weather-deck {
-      background: var(--g-yellow-surface);
-      color: var(--g-yellow);
-      border: 1px solid var(--g-yellow);
-    }
-    .ferry-allowed {
-      background: var(--g-green-surface);
-      color: var(--g-green);
-      border: 1px solid var(--g-green);
+    .meter-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--g-green);
+      transition: width 0.3s ease, background-color 0.3s ease;
     }
 
     .g-alert {
@@ -471,6 +445,17 @@
       font-size: 0.78rem;
     }
 
+    /* Print Declarations Styling */
+    @media print {
+      body { background: #fff !important; color: #000 !important; }
+      .g-appbar, .nav-rail, .mobile-nav-wrap, .g-btn, .theme-toggle-btn, .header-actions { display: none !important; }
+      .app-frame { display: block !important; }
+      .app-main { padding: 0 !important; }
+      .print-area { display: block !important; }
+      .no-print { display: none !important; }
+      .g-card { border: 1px solid #000 !important; box-shadow: none !important; }
+    }
+
     @media (max-width: 900px) {
       .nav-rail { display: none; }
       .mobile-nav-wrap { display: block; }
@@ -487,14 +472,14 @@
   <header class="g-appbar">
     <div class="g-logo">
       <div class="g-logo-icon">DG</div>
-      <span>Dangerous Goods Workspace</span>
+      <span>Dangerous Goods Workspace Pro</span>
     </div>
 
     <div class="header-actions">
       <div class="desktop-status-tag">
-        <span class="live-badge"><span class="live-dot"></span> NZS 5433 Active</span>
+        <span class="live-badge"><span class="live-dot"></span> NZS 5433 • Part 24B</span>
         <span>•</span>
-        <span>IMDG 41-22 / 42-24</span>
+        <span>PWA Ready</span>
       </div>
       <button id="themeToggleBtn" type="button" class="theme-toggle-btn" title="Toggle Dark/Light Mode">
         <span id="themeIcon">🌙</span>
@@ -506,10 +491,10 @@
   <div class="mobile-nav-wrap">
     <div class="mobile-pill-bar">
       <div class="mobile-pill active" id="mTab1">Inspector</div>
-      <div class="mobile-pill" id="mTab2">Manifest</div>
-      <div class="mobile-pill" id="mTab3">Cook Strait</div>
-      <div class="mobile-pill" id="mTab4">Bay Planner</div>
-      <div class="mobile-pill" id="mTab5">Hazchem & PPE</div>
+      <div class="mobile-pill" id="mTab2">Manifest & DGD</div>
+      <div class="mobile-pill" id="mTab3">Placarding Meter</div>
+      <div class="mobile-pill" id="mTab4">Tunnels & Ferries</div>
+      <div class="mobile-pill" id="mTab5">Bay & Route Planner</div>
     </div>
   </div>
 
@@ -523,25 +508,26 @@
       </div>
       <div class="nav-item" id="dTab2">
         <span class="nav-icon">📋</span>
-        <span>Load Manifest</span>
+        <span>Manifest & DGD Form</span>
       </div>
       <div class="nav-item" id="dTab3">
-        <span class="nav-icon">🚢</span>
-        <span>Cook Strait Ferries</span>
+        <span class="nav-icon">🏷️</span>
+        <span>Hazard Placarding Meter</span>
       </div>
       <div class="nav-item" id="dTab4">
-        <span class="nav-icon">🚛</span>
-        <span>Bay Planner</span>
+        <span class="nav-icon">🚢</span>
+        <span>Tunnels & Cook Strait</span>
       </div>
       <div class="nav-item" id="dTab5">
-        <span class="nav-icon">🦺</span>
-        <span>Hazchem & PPE</span>
+        <span class="nav-icon">🚛</span>
+        <span>Bay & Route Planner</span>
       </div>
 
       <div style="margin-top:auto; padding:14px 12px; background:var(--g-surface-variant); border-radius:12px; border:1px solid var(--g-border); font-size:0.75rem; color:var(--g-text-secondary); line-height:1.4;">
-        <strong style="color:var(--g-text-primary); display:block; margin-bottom:4px;">Desktop Shortcuts</strong>
+        <strong style="color:var(--g-text-primary); display:block; margin-bottom:4px;">Keyboard Shortcuts</strong>
         • <code style="font-family:'Roboto Mono';">Enter</code>: Evaluate DG<br>
-        • <code style="font-family:'Roboto Mono';">Ctrl/Cmd + M</code>: Add to Manifest
+        • <code style="font-family:'Roboto Mono';">Ctrl/Cmd + M</code>: Add to Manifest<br>
+        • <code style="font-family:'Roboto Mono';">Ctrl/Cmd + P</code>: Print Declaration
       </div>
     </nav>
 
@@ -628,7 +614,7 @@
                 <div class="g-input-group">
                   <label class="g-label" for="stowageCat">IMDG Stowage Cat</label>
                   <select id="stowageCat" class="g-select">
-                    <option value="A">Cat A (Pax Cleared / Any Deck)</option>
+                    <option value="A">Cat A (Pax Ok / Any Deck)</option>
                     <option value="B">Cat B (Pax Weather Deck Only)</option>
                     <option value="C">Cat C (Weather Deck Only)</option>
                     <option value="D">Cat D (FREIGHT ONLY SAILING)</option>
@@ -637,23 +623,42 @@
                 </div>
               </div>
 
-              <div class="grid-2">
+              <div class="grid-3">
                 <div class="g-input-group">
                   <label class="g-label" for="hazchemCode">Hazchem EAC</label>
-                  <input type="text" id="hazchemCode" class="g-input" placeholder="e.g. 3YE, 2R">
+                  <input type="text" id="hazchemCode" class="g-input" placeholder="e.g. 3YE">
                 </div>
                 <div class="g-input-group">
                   <label class="g-label" for="pkgQty">Quantity (Kg/L)</label>
                   <input type="number" id="pkgQty" class="g-input" placeholder="e.g. 500" inputmode="numeric">
                 </div>
+                <div class="g-input-group">
+                  <label class="g-label" for="packingGroup">Packing Group</label>
+                  <select id="packingGroup" class="g-select">
+                    <option value="II">PG II</option>
+                    <option value="I">PG I</option>
+                    <option value="III">PG III</option>
+                    <option value="N/A">N/A (Gases)</option>
+                  </select>
+                </div>
               </div>
 
-              <div class="g-input-group">
-                <label class="g-label" for="isLq">Packaging Mode</label>
-                <select id="isLq" class="g-select">
-                  <option value="standard">Standard DG Freight</option>
-                  <option value="lq">Limited Quantity (LQ)</option>
-                </select>
+              <div class="grid-2">
+                <div class="g-input-group">
+                  <label class="g-label" for="routeDrop">Delivery Drop</label>
+                  <select id="routeDrop" class="g-select">
+                    <option value="Drop 1">Drop 1</option>
+                    <option value="Drop 2">Drop 2</option>
+                    <option value="Final Destination" selected>Final Destination</option>
+                  </select>
+                </div>
+                <div class="g-input-group">
+                  <label class="g-label" for="isLq">Packaging Mode</label>
+                  <select id="isLq" class="g-select">
+                    <option value="standard">Standard DG</option>
+                    <option value="lq">Limited Quantity (LQ)</option>
+                  </select>
+                </div>
               </div>
 
               <button id="btnEvaluate" type="button" class="g-btn g-btn-primary">Evaluate Full Compliance</button>
@@ -665,14 +670,21 @@
             <div id="inspectorResults" style="display:none;">
               <div class="g-card">
                 <div id="itemOverview"></div>
-                <!-- Ferry Sailing Indicator Target -->
                 <div id="ferryIndicatorBox"></div>
+                <div id="tunnelIndicatorBox"></div>
+              </div>
+
+              <!-- Emergency Response Card -->
+              <div class="g-card">
+                <div class="g-card-title">🚨 First-Hour Emergency & First Aid Procedures</div>
+                <div id="emergencyGuidance"></div>
               </div>
 
               <div class="g-card">
                 <div class="g-card-title">🍽️ Foodstuff & Food Packaging Protection</div>
                 <div id="foodAudit"></div>
               </div>
+
               <div class="desktop-full-grid">
                 <div class="g-card">
                   <div class="g-card-title">🚛 Road Segregation (NZS 5433)</div>
@@ -689,7 +701,7 @@
               <div style="font-size:2.5rem; margin-bottom:12px;">📦</div>
               <h3 style="font-family:'Google Sans', sans-serif; margin:0 0 8px 0; color:var(--g-text-primary);">Awaiting Commodity Inspection</h3>
               <p style="font-size:0.86rem; color:var(--g-text-secondary); max-width:440px; margin:0 auto;">
-                Select a UN number or keyword from the search bar, then click <strong>Evaluate Full Compliance</strong> to generate road separation distances, IMDG container clearances, and Cook Strait ferry sailing requirements.
+                Select a UN number or keyword from the search bar, then click <strong>Evaluate Full Compliance</strong> to generate road separation distances, IMDG container clearances, tunnel bylaws, and emergency actions.
               </p>
             </div>
           </div>
@@ -697,7 +709,7 @@
         </div>
       </section>
 
-      <!-- TAB 2: MANIFEST & DISPATCH -->
+      <!-- TAB 2: MANIFEST & DGD FORM -->
       <section id="view2" style="display:none;">
         <div class="desktop-dashboard-grid">
           <div>
@@ -707,10 +719,10 @@
                 <span style="font-size:0.82rem; color:var(--g-text-secondary);"><b id="manifestCount">0</b> items</span>
               </div>
 
-              <div style="display:flex; gap:8px; margin-bottom:14px;">
-                <button id="btnCopyManifest" type="button" class="g-btn g-btn-outlined" style="height:36px; font-size:0.75rem;">📋 Copy Text</button>
+              <div class="grid-3" style="margin-bottom:14px;">
+                <button id="btnCopyManifest" type="button" class="g-btn g-btn-outlined" style="height:36px; font-size:0.75rem;">📋 Copy</button>
                 <button id="btnShareWhatsApp" type="button" class="g-btn g-btn-outlined" style="height:36px; font-size:0.75rem;">💬 WhatsApp</button>
-                <button id="btnShareEmail" type="button" class="g-btn g-btn-outlined" style="height:36px; font-size:0.75rem;">✉️ Email</button>
+                <button id="btnPrintDGD" type="button" class="g-btn g-btn-primary" style="height:36px; font-size:0.75rem;">🖨️ Print DGD</button>
               </div>
 
               <div id="manifestList"></div>
@@ -727,49 +739,87 @@
                 <div id="manifestBanners"></div>
               </div>
             </div>
+
+            <!-- DGD Printable Form Preview -->
+            <div id="dgdFormCard" class="g-card" style="display:none;">
+              <div class="g-card-title">
+                <span>Multimodal Dangerous Goods Form (NZS 5433 / MNZ)</span>
+                <span style="font-size:0.75rem; color:var(--g-text-secondary);">Ready to Print</span>
+              </div>
+              <div id="dgdPrintContent" style="font-size:0.78rem; font-family:'Roboto Mono', monospace; line-height:1.45; background:var(--g-surface-variant); padding:16px; border-radius:8px; border:1px solid var(--g-border); white-space:pre-wrap;"></div>
+            </div>
+
             <div id="manifestAuditPlaceholder" class="g-card" style="text-align:center; padding:48px 24px;">
               <div style="font-size:2.5rem; margin-bottom:12px;">📋</div>
-              <h3 style="font-family:'Google Sans', sans-serif; margin:0 0 8px 0; color:var(--g-text-primary);">Load Manifest Checker</h3>
+              <h3 style="font-family:'Google Sans', sans-serif; margin:0 0 8px 0; color:var(--g-text-primary);">Load Manifest & DGD Engine</h3>
               <p style="font-size:0.86rem; color:var(--g-text-secondary); max-width:440px; margin:0 auto;">
-                Add multiple items to audit cross-compatibility across all loaded packages. Automatically flags chemical collisions and warns if any commodity triggers a <strong>Freight-Only Sailing Requirement</strong> for the entire unit.
+                Build multi-package consignments to audit load compatibility, tunnel restrictions, and ferry requirements, or generate a certified Multimodal Dangerous Goods Declaration form ready for transport check-in.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- TAB 3: COOK STRAIT FERRY COMPARISON -->
+      <!-- TAB 3: PLACARDING METER -->
       <section id="view3" style="display:none;">
         <div class="g-card">
-          <div class="g-card-title">Cook Strait Ferries (Bluebridge & Interislander • Maritime NZ Part 24B)</div>
-          <div class="desktop-full-grid">
-            <div>
-              <h4 style="font-family:'Google Sans', sans-serif; margin:0 0 8px 0; color:var(--g-red);">🛑 Freight-Only Sailing Mandate (Cat D & E)</h4>
-              <p style="font-size:0.82rem; color:var(--g-text-secondary); line-height:1.4;">
-                Under Maritime NZ Rule Part 24B and IMDG 7.1.4, substances with <strong>Stowage Category D or E</strong> cannot sail on any ferry carrying fare-paying passengers. This includes bulk road tankers of Class 2.1 gases (LPG UN 1075), flammable fuels (Petrol UN 1203), and toxic compressed gases. These vehicles must be booked on <strong>dedicated commercial freight sailings</strong> (typically night runs).
-              </p>
-              <div class="g-alert g-alert-warn">
-                <div>⚠️</div>
-                <div><strong>Weather-Deck (Cat B & C):</strong> Permitted on passenger sailings provided the vehicle is placed on open weather decks with natural ventilation. Prohibited under-deck.</div>
-              </div>
-            </div>
+          <div class="g-card-title">Vehicle Placarding Load Score (NZS 5433 Aggregate Multipliers)</div>
+          <p style="font-size:0.86rem; color:var(--g-text-secondary);">
+            Under NZS 5433, placarding mandates are calculated across mixed loads using risk multipliers against a <strong>500-factor limit</strong>:
+          </p>
 
-            <div>
-              <h4 style="font-family:'Google Sans', sans-serif; margin:0 0 8px 0; color:var(--g-blue);">⚓ Vessel Physical Separation Buffers</h4>
-              <div class="rule-item"><strong>Accommodation Buffer</strong>: Minimum 12-metre horizontal clearance required from passenger observation areas, cabins, and life-saving appliances.</div>
-              <div class="rule-item"><strong>Reefer Units</strong>: Minimum 3-metre physical clearance from operating refrigeration motors and 415V ferry shore-power cables.</div>
-              <div class="rule-item"><strong>Livestock Units</strong>: Corrosive liquids (Class 8) and toxic goods (Class 6.1/2.3) cannot share adjacent vehicle bays with livestock transporters.</div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px;">
+            <strong style="font-size:0.95rem;">Current Load Aggregate Factor:</strong>
+            <span style="font-size:1.1rem; font-weight:700;"><span id="meterPoints">0</span> / 500 Factor Points</span>
+          </div>
+          <div class="meter-container">
+            <div class="meter-fill" id="placardMeterFill"></div>
+          </div>
+
+          <div id="placardStatusBanner" style="margin-top:12px;">
+            <div class="g-alert g-alert-success">
+              <div>🟢</div>
+              <div><strong>UNDER PLACARDING LIMIT:</strong> Placards not legally mandated under NZS 5433 (Load score &lt; 500 points).</div>
             </div>
+          </div>
+
+          <div class="rule-item"><strong>Class 1 Explosives / 5.2 Peroxides</strong>: Factor $\times 10$ (Threshold 50 kg)</div>
+          <div class="rule-item"><strong>Class 2.1 / 2.3 Gases & Class 3 PG I/II</strong>: Factor $\times 2$ (Threshold 250 units)</div>
+          <div class="rule-item"><strong>Class 8 / Class 9 / All PG III Goods</strong>: Factor $\times 1$ (Threshold 500 units)</div>
+          <div class="rule-item"><strong>Limited Quantities (LQ)</strong>: Excluded from general placard score up to 1,000 kg total gross mass.</div>
+        </div>
+      </section>
+
+      <!-- TAB 4: TUNNELS & COOK STRAIT -->
+      <section id="view4" style="display:none;">
+        <div class="desktop-full-grid">
+          <div class="g-card">
+            <div class="g-card-title">Lyttelton & Homer Tunnel Bylaws</div>
+            <div class="g-alert g-alert-error">
+              <div>🛑</div>
+              <div><strong>Lyttelton Port Tunnel Bylaw:</strong> Bulk Class 2.1 Flammable Gas tankers (UN 1075 LPG) and Class 1 Explosives are strictly prohibited during normal daytime traffic. Vehicles must travel via Evans Pass or utilize scheduled nighttime escort transits.</div>
+            </div>
+            <div class="g-alert g-alert-warn">
+              <div>⚠️</div>
+              <div><strong>Homer Tunnel (Milford Sound Highway):</strong> Bulk placarded fuel tankers and dangerous goods loads exceeding placard thresholds require pre-notified transit escort by Waka Kotahi NZTA contractors.</div>
+            </div>
+          </div>
+
+          <div class="g-card">
+            <div class="g-card-title">Cook Strait Ferries (Maritime NZ Part 24B)</div>
+            <div class="rule-item"><strong>Freight-Only Sailing Mandate (Cat D & E)</strong>: High-bulk flammable fuels, bulk LPG, and toxic compressed gases cannot sail with fare-paying passengers. Must book dedicated freight sailings.</div>
+            <div class="rule-item"><strong>Accommodation Clearance</strong>: Minimum 12m horizontal buffer from passenger observation decks, cabins, and life-saving gear.</div>
+            <div class="rule-item"><strong>Reefer Clearance</strong>: Minimum 3m physical clearance from 415V ferry shore-power cables and running diesel units.</div>
           </div>
         </div>
       </section>
 
-      <!-- TAB 4: BAY PLANNER -->
-      <section id="view4" style="display:none;">
+      <!-- TAB 5: BAY & ROUTE PLANNER -->
+      <section id="view5" style="display:none;">
         <div class="g-card">
-          <div class="g-card-title">B-Train / Trailer Bay Planner (NZS 5433 Physical Separation)</div>
+          <div class="g-card-title">Multi-Drop Route & Trailer Bay Auditor</div>
           <p style="font-size:0.86rem; color:var(--g-text-secondary);">
-            Certain incompatible dangerous goods may be transported on the same vehicle combination if separated by at least <strong>3 Metres physical longitudinal air distance</strong>.
+            Verify that your vehicle retains the mandatory <strong>3-metre longitudinal physical separation</strong> after early delivery drops are unloaded.
           </p>
 
           <div class="desktop-full-grid" style="margin-top:16px;">
@@ -809,32 +859,17 @@
         </div>
       </section>
 
-      <!-- TAB 5: HAZCHEM & PPE -->
-      <section id="view5" style="display:none;">
-        <div class="desktop-full-grid">
-          <div class="g-card">
-            <div class="g-card-title">Hazchem Emergency Action Code Reference</div>
-            <div class="rule-item"><strong>1st Character (Number)</strong>: Firefighting agent (1=Coarse spray, 2=Fine spray, 3=Foam, 4=Dry agent).</div>
-            <div class="rule-item"><strong>2nd Character (Letter)</strong>: Violent reaction risk, breathing apparatus mandate, and spill response (Dilute vs. Contain).</div>
-            <div class="rule-item"><strong>Letter 'E'</strong>: Public safety evacuation consideration is critical and urgent.</div>
-          </div>
-
-          <div class="g-card">
-            <div class="g-card-title">Driver Vehicle Emergency Kit Checklist</div>
-            <div class="rule-item">✅ Compliant Emergency Procedure Guide (EPG) in cab door pocket</div>
-            <div class="rule-item">✅ Chemical-resistant overalls & rubber boots</div>
-            <div class="rule-item">✅ Eye-wash bottle (minimum 250ml full, in date)</div>
-            <div class="rule-item">✅ Chemical spill response absorbent pads</div>
-            <div class="rule-item">✅ 30B dry chemical fire extinguisher (charged, inspected)</div>
-          </div>
-        </div>
-      </section>
-
     </main>
   </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+      // 1. Built-in PWA Service Worker (Data URI Auto-registration)
+      if ('serviceWorker' in navigator) {
+        const swScript = "const CACHE_NAME='dg-pro-v1';self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(['./'])));self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));});";
+        navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(swScript)).catch(()=>{});
+      }
+
       // Theme Controller
       const themeBtn = document.getElementById('themeToggleBtn');
       const themeIcon = document.getElementById('themeIcon');
@@ -861,70 +896,70 @@
 
       themeBtn.addEventListener('click', () => setTheme(!document.body.classList.contains('dark-mode')));
 
-      // UN Database with IMDG Stowage Categories (A, B, C, D, E)
+      // UN Database with Emergency Guidance & Tunnel Restrictions
       const UN_DATABASE = {
-        "1001": { name: "ACETYLENE, DISSOLVED", class: "2.1", sub: "", sgg: "None", haz: "2SE", stow: "D" },
-        "1005": { name: "AMMONIA, ANHYDROUS", class: "2.3", sub: "8", sgg: "SGG18", haz: "2RE", stow: "D" },
-        "1006": { name: "ARGON, COMPRESSED", class: "2.2", sub: "", sgg: "None", haz: "2T", stow: "A" },
-        "1011": { name: "BUTANE", class: "2.1", sub: "", sgg: "None", haz: "2YE", stow: "E" },
-        "1013": { name: "CARBON DIOXIDE", class: "2.2", sub: "", sgg: "None", haz: "2T", stow: "A" },
-        "1017": { name: "CHLORINE", class: "2.3", sub: "5.1", sgg: "None", haz: "2XE", stow: "D" },
-        "1049": { name: "HYDROGEN, COMPRESSED", class: "2.1", sub: "", sgg: "None", haz: "2SE", stow: "E" },
-        "1066": { name: "NITROGEN, COMPRESSED", class: "2.2", sub: "", sgg: "None", haz: "2T", stow: "A" },
-        "1072": { name: "OXYGEN, COMPRESSED", class: "2.2", sub: "5.1", sgg: "None", haz: "2S", stow: "A" },
-        "1075": { name: "PETROLEUM GASES, LIQUEFIED (LPG)", class: "2.1", sub: "", sgg: "None", haz: "2YE", stow: "E" },
-        "1090": { name: "ACETONE", class: "3", sub: "", sgg: "None", haz: "•2YE", stow: "B" },
-        "1170": { name: "ETHANOL / ETHYL ALCOHOL", class: "3", sub: "", sgg: "None", haz: "•2YE", stow: "A" },
-        "1202": { name: "DIESEL FUEL / GAS OIL", class: "3", sub: "", sgg: "None", haz: "3Y", stow: "A" },
-        "1203": { name: "MOTOR SPIRIT / PETROL", class: "3", sub: "", sgg: "None", haz: "3YE", stow: "E" },
-        "1219": { name: "ISOPROPANOL (IPA)", class: "3", sub: "", sgg: "None", haz: "•2YE", stow: "B" },
-        "1223": { name: "KEROSENE", class: "3", sub: "", sgg: "None", haz: "3Y", stow: "A" },
-        "1230": { name: "METHANOL", class: "3", sub: "6.1", sgg: "None", haz: "•2WE", stow: "B" },
-        "1263": { name: "PAINT / PAINT RELATED MATERIAL", class: "3", sub: "", sgg: "None", haz: "•3YE", stow: "A" },
-        "1268": { name: "PETROLEUM DISTILLATES, N.O.S.", class: "3", sub: "", sgg: "None", haz: "3YE", stow: "B" },
-        "1294": { name: "TOLUENE", class: "3", sub: "", sgg: "None", haz: "•3YE", stow: "B" },
-        "1300": { name: "TURPENTINE SUBSTITUTE", class: "3", sub: "", sgg: "None", haz: "3YE", stow: "A" },
-        "1307": { name: "XYLENES", class: "3", sub: "", sgg: "None", haz: "•3YE", stow: "A" },
-        "1325": { name: "FLAMMABLE SOLID, ORGANIC", class: "4.1", sub: "", sgg: "None", haz: "1Z", stow: "B" },
-        "1334": { name: "NAPHTHALENE, CRUDE", class: "4.1", sub: "", sgg: "None", haz: "1Z", stow: "A" },
-        "1361": { name: "CARBON or CHARCOAL", class: "4.2", sub: "", sgg: "None", haz: "1Y", stow: "A" },
-        "1362": { name: "CARBON, ACTIVATED", class: "4.2", sub: "", sgg: "None", haz: "1Y", stow: "A" },
-        "1384": { name: "SODIUM DITHIONITE", class: "4.2", sub: "", sgg: "None", haz: "1S", stow: "B" },
-        "1428": { name: "SODIUM", class: "4.3", sub: "", sgg: "None", haz: "4W", stow: "D" },
-        "1444": { name: "AMMONIUM PERSULPHATE", class: "5.1", sub: "", sgg: "SGG2", haz: "1Z", stow: "A" },
-        "1479": { name: "OXIDIZING SOLID, N.O.S.", class: "5.1", sub: "", sgg: "None", haz: "1Y", stow: "B" },
-        "1495": { name: "SODIUM CHLORATE", class: "5.1", sub: "", sgg: "None", haz: "1Y", stow: "A" },
-        "1498": { name: "SODIUM NITRATE", class: "5.1", sub: "", sgg: "None", haz: "1Z", stow: "A" },
-        "1500": { name: "SODIUM NITRITE", class: "5.1", sub: "6.1", sgg: "None", haz: "1Z", stow: "A" },
-        "1544": { name: "ALKALOIDS, SOLID / TOXIC", class: "6.1", sub: "", sgg: "None", haz: "2X", stow: "A" },
-        "1588": { name: "CYANIDES, INORGANIC, SOLID", class: "6.1", sub: "", sgg: "SGG6", haz: "2X", stow: "A" },
-        "1593": { name: "DICHLOROMETHANE", class: "6.1", sub: "", sgg: "None", haz: "2Z", stow: "A" },
-        "1719": { name: "CAUSTIC ALKALI LIQUID, N.O.S.", class: "8", sub: "", sgg: "SGG18", haz: "2R", stow: "A" },
-        "1760": { name: "CORROSIVE LIQUID, N.O.S.", class: "8", sub: "", sgg: "None", haz: "2X", stow: "B" },
-        "1789": { name: "HYDROCHLORIC ACID", class: "8", sub: "", sgg: "SGG1", haz: "2R", stow: "C" },
-        "1790": { name: "HYDROFLUORIC ACID", class: "8", sub: "6.1", sgg: "SGG1", haz: "2X", stow: "D" },
-        "1791": { name: "HYPOCHLORITE SOLUTION (BLEACH)", class: "8", sub: "", sgg: "None", haz: "2X", stow: "B" },
-        "1805": { name: "PHOSPHORIC ACID, SOLUTION", class: "8", sub: "", sgg: "SGG1", haz: "2R", stow: "A" },
-        "1814": { name: "POTASSIUM HYDROXIDE SOLUTION", class: "8", sub: "", sgg: "SGG18", haz: "2R", stow: "A" },
-        "1824": { name: "SODIUM HYDROXIDE SOLUTION", class: "8", sub: "", sgg: "SGG18", haz: "2R", stow: "A" },
-        "1830": { name: "SULPHURIC ACID (>51%)", class: "8", sub: "", sgg: "SGG1", haz: "2P", stow: "C" },
-        "1866": { name: "RESIN SOLUTION", class: "3", sub: "", sgg: "None", haz: "•3YE", stow: "B" },
-        "1942": { name: "AMMONIUM NITRATE", class: "5.1", sub: "", sgg: "SGG2", haz: "1Y", stow: "A" },
-        "1944": { name: "MATCHES, SAFETY", class: "4.1", sub: "", sgg: "None", haz: "1Z", stow: "A" },
-        "1950": { name: "AEROSOLS", class: "2.1", sub: "", sgg: "None", haz: "2YE", stow: "B" },
-        "1978": { name: "PROPANE", class: "2.1", sub: "", sgg: "None", haz: "2YE", stow: "E" },
-        "1993": { name: "FLAMMABLE LIQUID, N.O.S.", class: "3", sub: "", sgg: "None", haz: "•3YE", stow: "B" },
-        "2014": { name: "HYDROGEN PEROXIDE (20-60%)", class: "5.1", sub: "8", sgg: "SGG16", haz: "2P", stow: "D" },
-        "2031": { name: "NITRIC ACID", class: "8", sub: "5.1", sgg: "SGG1", haz: "2P", stow: "D" },
-        "2794": { name: "BATTERIES, WET, FILLED WITH ACID", class: "8", sub: "", sgg: "SGG1", haz: "2R", stow: "A" },
-        "2795": { name: "BATTERIES, WET, FILLED WITH ALKALI", class: "8", sub: "", sgg: "SGG18", haz: "2R", stow: "A" },
-        "2902": { name: "PESTICIDE, LIQUID, TOXIC", class: "6.1", sub: "", sgg: "None", haz: "2X", stow: "B" },
-        "3082": { name: "ENVIRONMENTALLY HAZARDOUS SUBSTANCE, LIQUID", class: "9", sub: "", sgg: "None", haz: "3Z", stow: "A" },
-        "3077": { name: "ENVIRONMENTALLY HAZARDOUS SUBSTANCE, SOLID", class: "9", sub: "", sgg: "None", haz: "2Z", stow: "A" },
-        "3101": { name: "ORGANIC PEROXIDE TYPE B", class: "5.2", sub: "1.1", sgg: "None", haz: "2WE", stow: "D" },
-        "3264": { name: "CORROSIVE LIQUID, ACIDIC", class: "8", sub: "", sgg: "SGG1", haz: "2X", stow: "B" },
-        "3266": { name: "CORROSIVE LIQUID, BASIC", class: "8", sub: "", sgg: "SGG18", haz: "2X", stow: "B" },
-        "3480": { name: "LITHIUM ION BATTERIES", class: "9", sub: "", sgg: "None", haz: "4W", stow: "A" }
+        "1001": { name: "ACETYLENE, DISSOLVED", class: "2.1", sub: "", sgg: "None", haz: "2SE", stow: "D", tunnel: "BANNED (Lyttelton Daytime)", spill: "Evacuate 100m. Eliminate ignition sources.", fire: "Water fog spray. Stop gas flow before extinguishing." },
+        "1005": { name: "AMMONIA, ANHYDROUS", class: "2.3", sub: "8", sgg: "SGG18", haz: "2RE", stow: "D", tunnel: "RESTRICTED (Lyttelton Escort)", spill: "Evacuate 200m downwind. Fine water spray to knock down vapor.", fire: "Fine water spray; do not spray directly into liquid pool." },
+        "1006": { name: "ARGON, COMPRESSED", class: "2.2", sub: "", sgg: "None", haz: "2T", stow: "A", tunnel: "Allowed", spill: "Ventilate area. Asphyxiation hazard in enclosed holds.", fire: "Cool cylinders from maximum distance with water spray." },
+        "1011": { name: "BUTANE", class: "2.1", sub: "", sgg: "None", haz: "2YE", stow: "E", tunnel: "BANNED (Lyttelton Daytime)", spill: "Vapor cloud explosion hazard. Evacuate 100m.", fire: "Do not extinguish until flow stopped. Water spray to cool tanks." },
+        "1013": { name: "CARBON DIOXIDE", class: "2.2", sub: "", sgg: "None", haz: "2T", stow: "A", tunnel: "Allowed", spill: "Heavy gas collects in low areas. Ventilate space.", fire: "Use water spray to keep packaging cool." },
+        "1017": { name: "CHLORINE", class: "2.3", sub: "5.1", sgg: "None", haz: "2XE", stow: "D", tunnel: "BANNED (Lyttelton Escort Only)", spill: "LETHAL VAPOR. Immediate 800m evacuation. Do not apply water to liquid.", fire: "Use water fog to disperse gas plume only." },
+        "1049": { name: "HYDROGEN, COMPRESSED", class: "2.1", sub: "", sgg: "None", haz: "2SE", stow: "E", tunnel: "BANNED (Lyttelton Daytime)", spill: "Extremely flammable. Invisible flame risk.", fire: "Shut off supply. Cool cylinder walls." },
+        "1066": { name: "NITROGEN, COMPRESSED", class: "2.2", sub: "", sgg: "None", haz: "2T", stow: "A", tunnel: "Allowed", spill: "Ventilate enclosed trailer or container.", fire: "Non-flammable. Cool container with water." },
+        "1072": { name: "OXYGEN, COMPRESSED", class: "2.2", sub: "5.1", sgg: "None", haz: "2S", stow: "A", tunnel: "Allowed", spill: "Vigorously accelerates combustion. Keep oils/grease away.", fire: "Stop flow. Use water spray." },
+        "1075": { name: "PETROLEUM GASES, LIQUEFIED (LPG)", class: "2.1", sub: "", sgg: "None", haz: "2YE", stow: "E", tunnel: "BANNED (Lyttelton Daytime)", spill: "BLEVE risk. Evacuate 800m if tank exposed to heat.", fire: "Do not extinguish burning gas unless leak can be plugged." },
+        "1090": { name: "ACETONE", class: "3", sub: "", sgg: "None", haz: "•2YE", stow: "B", tunnel: "Allowed", spill: "Absorb with inert soil/pads. Alcohol-resistant foam.", fire: "Alcohol-resistant foam, dry powder, water fog." },
+        "1170": { name: "ETHANOL / ETHYL ALCOHOL", class: "3", sub: "", sgg: "None", haz: "•2YE", stow: "A", tunnel: "Allowed", spill: "Prevent runoff entering waterways. Alcohol-resistant foam.", fire: "Alcohol-resistant foam, fine water spray." },
+        "1202": { name: "DIESEL FUEL / GAS OIL", class: "3", sub: "", sgg: "None", haz: "3Y", stow: "A", tunnel: "Allowed", spill: "Contain spill with booms/earth. Absorb residue.", fire: "Foam, dry chemical, water fog." },
+        "1203": { name: "MOTOR SPIRIT / PETROL", class: "3", sub: "", sgg: "None", haz: "3YE", stow: "E", tunnel: "Allowed (Bulk Tanker Escort in Homer)", spill: "Highly flammable vapor. Foam blanketing required.", fire: "Foam or dry chemical. Never use solid water stream." },
+        "1219": { name: "ISOPROPANOL (IPA)", class: "3", sub: "", sgg: "None", haz: "•2YE", stow: "B", tunnel: "Allowed", spill: "Dilute small spills with water. Foam for large pools.", fire: "Alcohol-resistant foam, dry chemical." },
+        "1223": { name: "KEROSENE", class: "3", sub: "", sgg: "None", haz: "3Y", stow: "A", tunnel: "Allowed", spill: "Contain spill. Absorb with inert material.", fire: "Standard foam, dry chemical, carbon dioxide." },
+        "1230": { name: "METHANOL", class: "3", sub: "6.1", sgg: "None", haz: "•2WE", stow: "B", tunnel: "Allowed", spill: "Toxic vapor. Full chemical suit & breathing apparatus.", fire: "Alcohol-resistant foam. Invisible flame in daylight." },
+        "1263": { name: "PAINT / PAINT RELATED MATERIAL", class: "3", sub: "", sgg: "None", haz: "•3YE", stow: "A", tunnel: "Allowed", spill: "Absorb with chemical pads. Ventilate hold.", fire: "Foam, dry chemical, water fog." },
+        "1268": { name: "PETROLEUM DISTILLATES, N.O.S.", class: "3", sub: "", sgg: "None", haz: "3YE", stow: "B", tunnel: "Allowed", spill: "Eliminate ignition sources. Foam blanket.", fire: "Foam, dry powder, water fog." },
+        "1294": { name: "TOLUENE", class: "3", sub: "", sgg: "None", haz: "•3YE", stow: "B", tunnel: "Allowed", spill: "Toxic and flammable vapor. Prevent drain entry.", fire: "Foam, water fog, dry chemical." },
+        "1300": { name: "TURPENTINE SUBSTITUTE", class: "3", sub: "", sgg: "None", haz: "3YE", stow: "A", tunnel: "Allowed", spill: "Absorb with vermiculite or dry sand.", fire: "Standard foam, dry chemical." },
+        "1307": { name: "XYLENES", class: "3", sub: "", sgg: "None", haz: "•3YE", stow: "A", tunnel: "Allowed", spill: "Flammable liquid. Prevent sewer contamination.", fire: "Foam or dry powder extinguisher." },
+        "1325": { name: "FLAMMABLE SOLID, ORGANIC", class: "4.1", sub: "", sgg: "None", haz: "1Z", stow: "B", tunnel: "Allowed", spill: "Sweep up gently without creating dust clouds.", fire: "Coarse water spray. Do not scatter burning powder." },
+        "1334": { name: "NAPHTHALENE, CRUDE", class: "4.1", sub: "", sgg: "None", haz: "1Z", stow: "A", tunnel: "Allowed", spill: "Toxic fumes on heating. Shovel into clean drum.", fire: "Coarse water spray or foam." },
+        "1361": { name: "CARBON or CHARCOAL", class: "4.2", sub: "", sgg: "None", haz: "1Y", stow: "A", tunnel: "Allowed", spill: "Keep dry. Spontaneous heating hazard.", fire: "Smother with dry sand or fine water spray." },
+        "1362": { name: "CARBON, ACTIVATED", class: "4.2", sub: "", sgg: "None", haz: "1Y", stow: "A", tunnel: "Allowed", spill: "Spontaneously combustible when wet or compressed.", fire: "Water fog to saturate bulk mass." },
+        "1384": { name: "SODIUM DITHIONITE", class: "4.2", sub: "", sgg: "None", haz: "1S", stow: "B", tunnel: "Allowed", spill: "Reacts violently with moist air. Keep completely dry.", fire: "Smother with dry powder. Avoid water." },
+        "1428": { name: "SODIUM", class: "4.3", sub: "", sgg: "None", haz: "4W", stow: "D", tunnel: "BANNED (Lyttelton Escort Only)", spill: "NEVER USE WATER. Violent hydrogen explosion hazard.", fire: "Dry soda ash, graphite powder or Class D agent ONLY." },
+        "1444": { name: "AMMONIUM PERSULPHATE", class: "5.1", sub: "", sgg: "SGG2", haz: "1Z", stow: "A", tunnel: "Allowed", spill: "Keep away from organics, fuel, and combustibles.", fire: "Flooding quantities of coarse water spray." },
+        "1479": { name: "OXIDIZING SOLID, N.O.S.", class: "5.1", sub: "", sgg: "None", haz: "1Y", stow: "B", tunnel: "Allowed", spill: "Isolate from flammables and lubricants.", fire: "Large amounts of water." },
+        "1495": { name: "SODIUM CHLORATE", class: "5.1", sub: "", sgg: "None", haz: "1Y", stow: "A", tunnel: "Allowed", spill: "Explosion hazard if mixed with organic material.", fire: "Drench with water." },
+        "1498": { name: "SODIUM NITRATE", class: "5.1", sub: "", sgg: "None", haz: "1Z", stow: "A", tunnel: "Allowed", spill: "Sweep up into clean containers.", fire: "Coarse water spray." },
+        "1500": { name: "SODIUM NITRITE", class: "5.1", sub: "6.1", sgg: "None", haz: "1Z", stow: "A", tunnel: "Allowed", spill: "Toxic and oxidizing. Prevent water table entry.", fire: "Coarse water spray." },
+        "1544": { name: "ALKALOIDS, SOLID / TOXIC", class: "6.1", sub: "", sgg: "None", haz: "2X", stow: "A", tunnel: "Allowed", spill: "DEADLY TOXIC. Wear full breathing apparatus.", fire: "Water fog or dry powder." },
+        "1588": { name: "CYANIDES, INORGANIC, SOLID", class: "6.1", sub: "", sgg: "SGG6", haz: "2X", stow: "A", tunnel: "Allowed", spill: "DEADLY. Do not touch. Keep acids away.", fire: "Dry chemical. NEVER allow contact with acid." },
+        "1593": { name: "DICHLOROMETHANE", class: "6.1", sub: "", sgg: "None", haz: "2Z", stow: "A", tunnel: "Allowed", spill: "Heavy toxic vapor. Ventilate low areas.", fire: "Water spray or foam." },
+        "1719": { name: "CAUSTIC ALKALI LIQUID, N.O.S.", class: "8", sub: "", sgg: "SGG18", haz: "2R", stow: "A", tunnel: "Allowed", spill: "Corrosive liquid. Neutralize cautiously with weak acid.", fire: "Fine water spray." },
+        "1760": { name: "CORROSIVE LIQUID, N.O.S.", class: "8", sub: "", sgg: "None", haz: "2X", stow: "B", tunnel: "Allowed", spill: "Contain with chemical absorbent booms.", fire: "Fine water spray." },
+        "1789": { name: "HYDROCHLORIC ACID", class: "8", sub: "", sgg: "SGG1", haz: "2R", stow: "C", tunnel: "Allowed", spill: "Corrosive gas fumes. Neutralize with lime/soda ash.", fire: "Fine water spray." },
+        "1790": { name: "HYDROFLUORIC ACID", class: "8", sub: "6.1", sgg: "SGG1", haz: "2X", stow: "D", tunnel: "RESTRICTED (Lyttelton Escort)", spill: "FATAL SKIN ABSORPTION. Calcium gluconate gel required.", fire: "Water spray from protected position." },
+        "1791": { name: "HYPOCHLORITE SOLUTION (BLEACH)", class: "8", sub: "", sgg: "None", haz: "2X", stow: "B", tunnel: "Allowed", spill: "Releases toxic chlorine gas if in contact with acids.", fire: "Fine water spray." },
+        "1805": { name: "PHOSPHORIC ACID, SOLUTION", class: "8", sub: "", sgg: "SGG1", haz: "2R", stow: "A", tunnel: "Allowed", spill: "Contain and neutralize with basic material.", fire: "Fine water spray." },
+        "1814": { name: "POTASSIUM HYDROXIDE SOLUTION", class: "8", sub: "", sgg: "SGG18", haz: "2R", stow: "A", tunnel: "Allowed", spill: "Strong base. Reacts with aluminum to form hydrogen.", fire: "Fine water spray." },
+        "1824": { name: "SODIUM HYDROXIDE SOLUTION", class: "8", sub: "", sgg: "SGG18", haz: "2R", stow: "A", tunnel: "Allowed", spill: "Extremely corrosive to skin and eyes. Flush area.", fire: "Fine water spray." },
+        "1830": { name: "SULPHURIC ACID (>51%)", class: "8", sub: "", sgg: "SGG1", haz: "2P", stow: "C", tunnel: "Allowed", spill: "VIOLENT SPRAY WITH WATER. Absorb with dry earth/lime.", fire: "Dry powder. Avoid direct water on concentrated acid." },
+        "1866": { name: "RESIN SOLUTION", class: "3", sub: "", sgg: "None", haz: "•3YE", stow: "B", tunnel: "Allowed", spill: "Flammable liquid. Absorb with inert material.", fire: "Foam, dry chemical, water fog." },
+        "1942": { name: "AMMONIUM NITRATE", class: "5.1", sub: "", sgg: "SGG2", haz: "1Y", stow: "A", tunnel: "Allowed", spill: "Major blast risk if contaminated with fuel or enclosed.", fire: "Flooding amounts of water. Evacuate 800m if fire in bulk." },
+        "1944": { name: "MATCHES, SAFETY", class: "4.1", sub: "", sgg: "None", haz: "1Z", stow: "A", tunnel: "Allowed", spill: "Collect unbroken packages. Wet down spilled items.", fire: "Coarse water spray." },
+        "1950": { name: "AEROSOLS", class: "2.1", sub: "", sgg: "None", haz: "2YE", stow: "B", tunnel: "Allowed", spill: "Ventilate area. Exploding can shrapnel risk.", fire: "Water spray from shielded position." },
+        "1978": { name: "PROPANE", class: "2.1", sub: "", sgg: "None", haz: "2YE", stow: "E", tunnel: "BANNED (Lyttelton Daytime)", spill: "Vapor cloud explosion risk. Eliminate sparks.", fire: "Stop flow. Water spray to keep tanks cool." },
+        "1993": { name: "FLAMMABLE LIQUID, N.O.S.", class: "3", sub: "", sgg: "None", haz: "•3YE", stow: "B", tunnel: "Allowed", spill: "Eliminate ignition sources. Foam blanket.", fire: "Foam, dry powder, fine water spray." },
+        "2014": { name: "HYDROGEN PEROXIDE (20-60%)", class: "5.1", sub: "8", sgg: "SGG16", haz: "2P", stow: "D", tunnel: "Allowed", spill: "Vigorous decomposition. Flush with大量 water.", fire: "Water spray in large quantities." },
+        "2031": { name: "NITRIC ACID", class: "8", sub: "5.1", sgg: "SGG1", haz: "2P", stow: "D", tunnel: "RESTRICTED (Lyttelton Escort)", spill: "Deadly brown nitrogen dioxide gas fumes. Evacuate 300m.", fire: "Water fog. Do not use organic absorbents." },
+        "2794": { name: "BATTERIES, WET, FILLED WITH ACID", class: "8", sub: "", sgg: "SGG1", haz: "2R", stow: "A", tunnel: "Allowed", spill: "Battery acid spill. Neutralize with baking soda.", fire: "Dry powder or fine water spray." },
+        "2795": { name: "BATTERIES, WET, FILLED WITH ALKALI", class: "8", sub: "", sgg: "SGG18", haz: "2R", stow: "A", tunnel: "Allowed", spill: "Corrosive electrolyte liquid. Contain spill.", fire: "Dry powder or water spray." },
+        "2902": { name: "PESTICIDE, LIQUID, TOXIC", class: "6.1", sub: "", sgg: "None", haz: "2X", stow: "B", tunnel: "Allowed", spill: "DEADLY TO WATERWAYS. Full barrier containment.", fire: "Water fog or dry powder." },
+        "3082": { name: "ENVIRONMENTALLY HAZARDOUS SUBSTANCE, LIQUID", class: "9", sub: "", sgg: "None", haz: "3Z", stow: "A", tunnel: "Allowed", spill: "Contain to prevent stream/marine contamination.", fire: "Standard foam, dry chemical." },
+        "3077": { name: "ENVIRONMENTALLY HAZARDOUS SUBSTANCE, SOLID", class: "9", sub: "", sgg: "None", haz: "2Z", stow: "A", tunnel: "Allowed", spill: "Sweep up and drum. Prevent drainage entry.", fire: "Water spray." },
+        "3101": { name: "ORGANIC PEROXIDE TYPE B", class: "5.2", sub: "1.1", sgg: "None", haz: "2WE", stow: "D", tunnel: "BANNED (Lyttelton Escort Only)", spill: "EXTREME EXPLOSION RISK. Immediate 500m evacuation.", fire: "Fight fire from maximum distance with water fog." },
+        "3264": { name: "CORROSIVE LIQUID, ACIDIC", class: "8", sub: "", sgg: "SGG1", haz: "2X", stow: "B", tunnel: "Allowed", spill: "Neutralize with lime. Do not touch.", fire: "Fine water spray." },
+        "3266": { name: "CORROSIVE LIQUID, BASIC", class: "8", sub: "", sgg: "SGG18", haz: "2X", stow: "B", tunnel: "Allowed", spill: "Corrosive alkali. Contain with chemical pads.", fire: "Fine water spray." },
+        "3480": { name: "LITHIUM ION BATTERIES", class: "9", sub: "", sgg: "None", haz: "4W", stow: "A", tunnel: "Allowed", spill: "Thermal runaway hazard. Toxic gas release.", fire: "Flooding quantities of water to cool cell casings." }
       };
 
       const ROAD_MATRIX = {
@@ -969,8 +1004,8 @@
           localStorage.setItem("nz_dg_manifest", JSON.stringify(manifest));
         } catch (e) {}
         document.getElementById('manifestCount').innerText = manifest.length;
+        updatePlacardMeter();
       }
-      saveManifest();
 
       function getBaseClass(cls) {
         return cls && cls.startsWith("1.") ? "1.1" : cls;
@@ -986,6 +1021,7 @@
         mTabs.forEach((t, i) => t.classList.toggle('active', i === index));
         dTabs.forEach((t, i) => t.classList.toggle('active', i === index));
         if (index === 1) renderManifest();
+        if (index === 2) updatePlacardMeter();
       }
 
       mTabs.forEach((tab, index) => tab.addEventListener('click', () => selectTab(index)));
@@ -1050,13 +1086,11 @@
       });
 
       document.getElementById('btnCloseScan').addEventListener('click', () => {
-        if (videoStream) {
-          videoStream.getTracks().forEach(track => track.stop());
-        }
+        if (videoStream) videoStream.getTracks().forEach(track => track.stop());
         document.getElementById('scannerBox').style.display = 'none';
       });
 
-      // Evaluation Engine with Dedicated Freight Sailing Indicator
+      // Evaluation Engine (Full NZS 5433, IMDG, Tunnels, Ferries, Emergencies)
       function runEvaluation() {
         const inputVal = unInput.value.trim();
         const code = inputVal.replace(/^UN\s*/i, '');
@@ -1065,15 +1099,13 @@
         const sgg = document.getElementById('sggGroup').value;
         const haz = document.getElementById('hazchemCode').value.trim();
         const stow = document.getElementById('stowageCat').value;
+        const pg = document.getElementById('packingGroup').value;
+        const drop = document.getElementById('routeDrop').value;
         const qty = parseFloat(document.getElementById('pkgQty').value) || 0;
         const isLq = document.getElementById('isLq').value === 'lq';
 
-        const title = UN_DATABASE[code] ? (`UN ${code} - ${UN_DATABASE[code].name}`) : (code ? `UN ${code}` : `Class ${pClass}`);
-
-        let threshold = 500;
-        if (pClass.startsWith("1.")) threshold = 50;
-        else if (pClass === "2.1" || pClass === "2.3" || pClass === "3") threshold = 250;
-        const placardText = qty >= threshold ? `<span class="tag tag-prohibit">PLACARDS MANDATED</span>` : `<span class="tag tag-allow">UNDER PLACARD LIMIT</span>`;
+        const itemData = UN_DATABASE[code] || {};
+        const title = itemData.name ? (`UN ${code} - ${itemData.name}`) : (code ? `UN ${code}` : `Class ${pClass}`);
 
         document.getElementById('itemOverview').innerHTML = `
           <h2 style="margin:0 0 8px 0; font-size:1.15rem; font-family:'Google Sans', sans-serif;">${title}</h2>
@@ -1081,15 +1113,16 @@
             <span class="g-chip chip-class">Class ${pClass}</span>
             ${sub ? `<span class="g-chip chip-sub">Sub ${sub}</span>` : ''}
             <span class="g-chip chip-sgg">${sgg}</span>
-            <span class="g-chip" style="background:var(--g-surface-variant); color:var(--g-text-primary);">IMDG Cat ${stow}</span>
+            <span class="g-chip" style="background:var(--g-surface-variant); color:var(--g-text-primary);">PG ${pg}</span>
+            <span class="g-chip" style="background:var(--g-surface-variant); color:var(--g-text-primary);">Stow Cat ${stow}</span>
             ${haz ? `<span class="g-chip chip-haz">Hazchem ${haz}</span>` : ''}
           </div>
           <div style="font-size:0.78rem; color:var(--g-text-secondary); margin-top:8px;">
-            Quantity: <b>${qty || 'Unspecified'}</b> ${isLq ? '(LQ Pack)' : '(Standard DG)'} | ${placardText}
+            Quantity: <b>${qty || 'Unspecified'}</b> ${isLq ? '(LQ Pack)' : '(Standard DG)'} | Assigned: <b>${drop}</b>
           </div>
         `;
 
-        // Direct Ferry Sailing Requirement Indicator
+        // Ferry Sailing Indicator
         let indicatorHTML = "";
         if (stow === 'D' || stow === 'E') {
           indicatorHTML = `
@@ -1098,7 +1131,7 @@
               <div>
                 <strong>FREIGHT ONLY SAILING REQUIRED</strong>
                 <div style="font-size:0.75rem; font-weight:400; opacity:0.9;">
-                  IMDG Stowage Category ${stow} • Strictly prohibited on passenger ferries. Must book on a commercial freight-only crossing.
+                  IMDG Stowage Category ${stow} • Strictly prohibited on passenger ferries. Must book on a dedicated commercial freight crossing.
                 </div>
               </div>
             </div>
@@ -1110,7 +1143,7 @@
               <div>
                 <strong>PASSENGER SAILING: WEATHER DECK ONLY</strong>
                 <div style="font-size:0.75rem; font-weight:400; opacity:0.9;">
-                  IMDG Stowage Category ${stow} • Allowed on passenger sailings ONLY in open, naturally ventilated deck bays (prohibited under-deck).
+                  IMDG Stowage Category ${stow} • Allowed on passenger sailings ONLY in naturally ventilated open deck bays.
                 </div>
               </div>
             </div>
@@ -1129,6 +1162,22 @@
           `;
         }
         document.getElementById('ferryIndicatorBox').innerHTML = indicatorHTML;
+
+        // Tunnel Bylaw Indicator
+        let tunnelMsg = itemData.tunnel || (pClass === "2.1" || pClass.startsWith("1.") ? "BANNED (Lyttelton Port Daytime)" : "Allowed in normal traffic");
+        let tunnelColor = tunnelMsg.includes("BANNED") ? "g-alert-error" : (tunnelMsg.includes("RESTRICTED") ? "g-alert-warn" : "g-alert-blue");
+        document.getElementById('tunnelIndicatorBox').innerHTML = `
+          <div class="g-alert ${tunnelColor}" style="margin-top:10px; margin-bottom:0;">
+            <div>🚇</div>
+            <div><strong>Tunnel Bylaw Check:</strong> ${tunnelMsg}</div>
+          </div>
+        `;
+
+        // Emergency Response Guidance
+        document.getElementById('emergencyGuidance').innerHTML = `
+          <div class="rule-item"><strong>Spill Exclusion & Immediate Actions:</strong> ${itemData.spill || 'Evacuate area. Wear full protective kit and isolate ignition sources.'}</div>
+          <div class="rule-item"><strong>Firefighting Medium & Method:</strong> ${itemData.fire || 'Use foam, dry powder, or fine water fog as per EAC code.'}</div>
+        `;
 
         // Foodstuff Audit
         let foodHTML = "";
@@ -1195,30 +1244,30 @@
         const sgg = document.getElementById('sggGroup').value;
         const haz = document.getElementById('hazchemCode').value.trim();
         const stow = document.getElementById('stowageCat').value;
+        const pg = document.getElementById('packingGroup').value;
+        const drop = document.getElementById('routeDrop').value;
         const qty = parseFloat(document.getElementById('pkgQty').value) || 0;
         const isLq = document.getElementById('isLq').value === 'lq';
         const label = UN_DATABASE[code] ? (`UN ${code} (${UN_DATABASE[code].name.slice(0, 18)})`) : (code ? `UN ${code}` : `Class ${pClass}`);
 
-        manifest.push({ label, pClass, sub, sgg, haz, stow, qty, isLq });
+        manifest.push({ label, un: code, pClass, sub, sgg, haz, stow, pg, drop, qty, isLq });
         saveManifest();
         alert(`Added ${label} to manifest (${manifest.length} items total)`);
       }
       document.getElementById('btnAddManifest').addEventListener('click', addToManifest);
 
       window.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && e.target.tagName !== 'BUTTON') {
-          runEvaluation();
-        }
-        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'm') {
-          e.preventDefault();
-          addToManifest();
-        }
+        if (e.key === 'Enter' && e.target.tagName !== 'BUTTON') runEvaluation();
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'm') { e.preventDefault(); addToManifest(); }
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'p') { e.preventDefault(); printDeclaration(); }
       });
 
+      // Manifest Rendering
       function renderManifest() {
         const list = document.getElementById('manifestList');
         if (manifest.length === 0) {
           list.innerHTML = '<div style="color:var(--g-text-secondary); font-size:0.84rem; padding:16px 0;">No items loaded. Inspect items to build a manifest.</div>';
+          document.getElementById('dgdFormCard').style.display = 'none';
           return;
         }
         list.innerHTML = manifest.map((item, i) => {
@@ -1236,7 +1285,7 @@
                 <span class="g-chip chip-class">Class ${item.pClass}</span>
                 ${item.sub ? `<span class="g-chip chip-sub">Sub ${item.sub}</span>` : ''}
                 <span class="g-chip chip-sgg">${item.sgg}</span>
-                ${item.haz ? `<span class="g-chip chip-haz">${item.haz}</span>` : ''}
+                <span class="g-chip" style="background:var(--g-border); color:var(--g-text-primary);">${item.drop}</span>
                 ${ferryTag}
                 <span style="color:var(--g-text-secondary); font-size:0.75rem; margin-left:4px;">${item.qty ? item.qty + ' units' : ''} ${item.isLq ? '[LQ]' : ''}</span>
               </div>
@@ -1251,6 +1300,8 @@
             renderManifest();
           });
         });
+
+        generateDGDPreview();
       }
 
       document.getElementById('btnClearManifest').addEventListener('click', () => {
@@ -1263,11 +1314,87 @@
         }
       });
 
+      // Placarding Multiplier Meter
+      function updatePlacardMeter() {
+        let points = 0;
+        let requiresPlacards = false;
+        let mandatoryClasses = new Set();
+
+        manifest.forEach(item => {
+          if (item.isLq) return;
+          let qty = item.qty || 0;
+          let multiplier = 1;
+          if (item.pClass.startsWith("1.") || item.pClass === "5.2") multiplier = 10;
+          else if (item.pClass === "2.1" || item.pClass === "2.3" || (item.pClass === "3" && item.pg !== "III")) multiplier = 2;
+
+          let itemPoints = qty * multiplier;
+          points += itemPoints;
+          if (qty > 0) mandatoryClasses.add(item.pClass);
+        });
+
+        document.getElementById('meterPoints').innerText = points;
+        const fill = document.getElementById('placardMeterFill');
+        const pct = Math.min(100, (points / 500) * 100);
+        fill.style.width = pct + '%';
+
+        const statusBanner = document.getElementById('placardStatusBanner');
+        if (points >= 500) {
+          fill.style.backgroundColor = 'var(--g-red)';
+          statusBanner.innerHTML = `
+            <div class="g-alert g-alert-error">
+              <div style="font-size:1.3rem;">🚨</div>
+              <div>
+                <strong>DIAMOND PLACARDS MANDATED (Score ≥ 500 Points):</strong><br>
+                Vehicle must display front, rear, and side placards for: <strong>Class ${Array.from(mandatoryClasses).join(', ')}</strong> plus emergency Hazchem identification panels.
+              </div>
+            </div>
+          `;
+        } else {
+          fill.style.backgroundColor = 'var(--g-green)';
+          statusBanner.innerHTML = `
+            <div class="g-alert g-alert-success">
+              <div>🟢</div>
+              <div><strong>UNDER PLACARDING LIMIT:</strong> Placards not legally mandated under NZS 5433 (Load score: ${points} / 500 points).</div>
+            </div>
+          `;
+        }
+      }
+
+      // Generate & Print Multimodal DGD
+      function generateDGDPreview() {
+        if (manifest.length === 0) return;
+        let dgd = "MULTIMODAL DANGEROUS GOODS DECLARATION (NZS 5433 / MARITIME NZ PART 24B)\n";
+        dgd += "========================================================================================\n";
+        dgd += "1. SHIPPER / CONSIGNOR: Commercial Logistics NZ   | 2. TRANSPORT DOC NO: DGD-" + Math.floor(100000 + Math.random() * 900000) + "\n";
+        dgd += "3. CARRIER / VESSEL: Cook Strait Inter-Island Ro-Ro | 4. VEHICLE REGO / TRAILER: [ENTER REGO]\n";
+        dgd += "----------------------------------------------------------------------------------------\n";
+        dgd += "5. DESCRIPTION OF DANGEROUS GOODS (UN Number, Proper Shipping Name, Class, PG, Quantity)\n";
+        manifest.forEach((m, idx) => {
+          dgd += ` [${idx + 1}] UN ${m.un || '----'} | ${m.label} | Class ${m.pClass}${m.sub ? ' (' + m.sub + ')' : ''} | PG ${m.pg} | Qty: ${m.qty} ${m.isLq ? '[LQ]' : 'Std'} | Drop: ${m.drop}\n`;
+        });
+        dgd += "----------------------------------------------------------------------------------------\n";
+        dgd += "6. CONTAINER / VEHICLE PACKING CERTIFICATE:\n";
+        dgd += "I hereby declare that the goods mentioned above have been loaded and segregated in\n";
+        dgd += "accordance with NZS 5433:2020 for land transport and IMDG Code Chapter 7.2 for sea transit.\n\n";
+        dgd += "Driver / Supervisor Signature: _______________________ Date: " + new Date().toLocaleDateString() + "\n";
+        dgd += "========================================================================================";
+
+        document.getElementById('dgdPrintContent').innerText = dgd;
+        document.getElementById('dgdFormCard').style.display = 'block';
+      }
+
+      function printDeclaration() {
+        if (manifest.length === 0) return alert("Manifest is empty.");
+        window.print();
+      }
+      document.getElementById('btnPrintDGD').addEventListener('click', printDeclaration);
+
+      // Clipboard & Sharing
       function getManifestText() {
         let txt = "DANGEROUS GOODS FREIGHT MANIFEST\nNZS 5433 / IMDG COMPLIANCE VERIFIED\n------------------------------------\n";
         manifest.forEach((m, idx) => {
           let fStatus = m.stow === 'D' || m.stow === 'E' ? 'FREIGHT ONLY' : 'PAX PERMITTED';
-          txt += `${idx + 1}. ${m.label} | Class: ${m.pClass}${m.sub ? ' (' + m.sub + ')' : ''} | SGG: ${m.sgg} | Ferry: ${fStatus} | EAC: ${m.haz || 'N/A'} | Qty: ${m.qty || 'N/A'}${m.isLq ? ' [LQ]' : ''}\n`;
+          txt += `${idx + 1}. ${m.label} | Class: ${m.pClass}${m.sub ? ' (' + m.sub + ')' : ''} | PG: ${m.pg} | Ferry: ${fStatus} | EAC: ${m.haz || 'N/A'} | Qty: ${m.qty || 'N/A'}${m.isLq ? ' [LQ]' : ''} | ${m.drop}\n`;
         });
         txt += "------------------------------------\nStatus: Verified Complete";
         return txt;
@@ -1281,10 +1408,6 @@
         if (manifest.length === 0) return alert("Manifest is empty.");
         window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(getManifestText())}`, '_blank');
       });
-      document.getElementById('btnShareEmail').addEventListener('click', () => {
-        if (manifest.length === 0) return alert("Manifest is empty.");
-        window.location.href = `mailto:?subject=${encodeURIComponent("Dangerous Goods Manifest")}&body=${encodeURIComponent(getManifestText())}`;
-      });
 
       // Manifest Audit Engine
       document.getElementById('btnAuditManifest').addEventListener('click', () => {
@@ -1296,9 +1419,7 @@
         let freightOnlyItems = [];
 
         for (let i = 0; i < manifest.length; i++) {
-          if (manifest[i].stow === 'D' || manifest[i].stow === 'E') {
-            freightOnlyItems.push(manifest[i].label);
-          }
+          if (manifest[i].stow === 'D' || manifest[i].stow === 'E') freightOnlyItems.push(manifest[i].label);
           for (let j = i + 1; j < manifest.length; j++) {
             const a = manifest[i];
             const b = manifest[j];
@@ -1340,7 +1461,7 @@
               <div style="font-size:1.3rem;">🛑</div>
               <div>
                 <strong>MUST BOOK FREIGHT ONLY SAILING:</strong><br>
-                This manifest contains commodities banned from passenger ferries (${freightOnlyItems.join(', ')}). The entire vehicle combination <strong>must be booked on a dedicated freight sailing</strong> under Maritime NZ Part 24B.
+                Manifest contains commodities banned from passenger ferries (${freightOnlyItems.join(', ')}). The entire vehicle combination <strong>must sail on a dedicated freight vessel</strong> under Maritime NZ Part 24B.
               </div>
             </div>
           `;
