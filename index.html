@@ -139,7 +139,7 @@
     .tag-sep { background: var(--g-yellow-surface); color: var(--g-yellow); }
     .tag-allow { background: var(--g-green-surface); color: var(--g-green); }
 
-    .search-hits { max-height: 220px; overflow-y: auto; background: var(--g-surface); border: 1px solid var(--g-border); border-radius: var(--g-radius-sm); margin-top: -8px; margin-bottom: 14px; display: none; width: 100%; }
+    .search-hits { max-height: 220px; overflow-y: auto; background: var(--g-surface); border: 1px solid var(--g-border); border-radius: var(--g-radius-sm); margin-top: -8px; margin-bottom: 14px; display: none; width: 100%; position: absolute; z-index: 150; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
     .hit-item { padding: 10px 14px; border-bottom: 1px solid var(--g-border-subtle); font-size: 0.84rem; cursor: pointer; word-break: break-word; transition: background-color 0.1s; }
     .hit-item:active { background-color: var(--g-surface-variant); }
 
@@ -217,17 +217,17 @@
 
   <div class="mobile-nav-wrap">
     <div class="mobile-pill-bar">
-      <div class="mobile-pill active" id="mTab1">Inspector</div>
-      <div class="mobile-pill" id="mTab2">Manifest & DGD</div>
-      <div class="mobile-pill" id="mTab3">Placards</div>
+      <div class="mobile-pill active" id="mTab1" data-tab="0">Inspector</div>
+      <div class="mobile-pill" id="mTab2" data-tab="1">Manifest & DGD</div>
+      <div class="mobile-pill" id="mTab3" data-tab="2">Placards</div>
     </div>
   </div>
 
   <div class="app-frame">
     <nav class="nav-rail">
-      <div class="nav-item active" id="dTab1"><span class="nav-icon">🔍</span><span>Inspector</span></div>
-      <div class="nav-item" id="dTab2"><span class="nav-icon">📋</span><span>Manifest & Logbook</span></div>
-      <div class="nav-item" id="dTab3"><span class="nav-icon">🏷️</span><span>Placard & Bays</span></div>
+      <div class="nav-item active" id="dTab1" data-tab="0"><span class="nav-icon">🔍</span><span>Inspector</span></div>
+      <div class="nav-item" id="dTab2" data-tab="1"><span class="nav-icon">📋</span><span>Manifest & Logbook</span></div>
+      <div class="nav-item" id="dTab3" data-tab="2"><span class="nav-icon">🏷️</span><span>Placard & Bays</span></div>
     </nav>
 
     <main class="app-main">
@@ -247,11 +247,13 @@
                 <button id="btnCloseScan" type="button" class="g-btn g-btn-danger" style="border-radius:0; height:34px;">Close Camera</button>
               </div>
 
-              <div class="g-searchbar">
-                <svg width="20" height="20" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-                <input type="text" id="unInput" placeholder="Enter UN number or chemical..." autocomplete="off">
+              <div style="position:relative;">
+                <div class="g-searchbar">
+                  <svg width="20" height="20" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                  <input type="text" id="unInput" placeholder="Enter UN number or chemical..." autocomplete="off">
+                </div>
+                <div id="searchHits" class="search-hits"></div>
               </div>
-              <div id="searchHits" class="search-hits"></div>
 
               <div class="grid-2">
                 <div class="g-input-group">
@@ -460,7 +462,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       if ('serviceWorker' in navigator) {
-        const swScript = "const CACHE_NAME='dg-pro-v21';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
+        const swScript = "const CACHE_NAME='dg-pro-v22';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
         navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(swScript)).catch(()=>{});
       }
 
@@ -565,7 +567,7 @@
         }
 
         UN_DATABASE = fullDB;
-        try { localStorage.setItem("dg_unified_un_registry_v21", JSON.stringify(fullDB)); } catch (e) {}
+        try { localStorage.setItem("dg_unified_un_registry_v22", JSON.stringify(fullDB)); } catch (e) {}
         activateDatabaseStatus(Object.keys(UN_DATABASE).length);
       }
 
@@ -690,20 +692,25 @@
         renderLogbook();
       }
 
-      // Navigation Sync (3 main tabs)
+      // Navigation Sync (Robust Data Attribute Binding)
       const views = [document.getElementById('view1'), document.getElementById('view2'), document.getElementById('view3')];
-      const mTabs = [document.getElementById('mTab1'), document.getElementById('mTab2'), document.getElementById('mTab3')];
-      const dTabs = [document.getElementById('dTab1'), document.getElementById('dTab2'), document.getElementById('dTab3')];
-
+      
       function selectTab(index) {
         views.forEach((v, i) => { if(v) v.style.display = i === index ? 'block' : 'none'; });
-        mTabs.forEach((t, i) => { if(t) t.classList.toggle('active', i === index); });
-        dTabs.forEach((t, i) => { if(t) t.classList.toggle('active', i === index); });
+        document.querySelectorAll('.mobile-pill, .nav-item').forEach(el => {
+          const tIdx = parseInt(el.getAttribute('data-tab'), 10);
+          el.classList.toggle('active', tIdx === index);
+        });
         if (index === 1) { renderManifest(); renderLogbook(); }
         if (index === 2) updatePlacardMeter();
       }
-      mTabs.forEach((tab, index) => { if(tab) tab.addEventListener('click', () => selectTab(index)); });
-      dTabs.forEach((tab, index) => { if(tab) tab.addEventListener('click', () => selectTab(index)); });
+
+      document.querySelectorAll('.mobile-pill, .nav-item').forEach(el => {
+        el.addEventListener('click', () => {
+          const tIdx = parseInt(el.getAttribute('data-tab'), 10);
+          if (!isNaN(tIdx)) selectTab(tIdx);
+        });
+      });
 
       // Realtime Search & ENTER Key Support
       const unInput = document.getElementById('unInput');
