@@ -90,16 +90,16 @@
       align-items: center;
       justify-content: space-between;
       height: 60px;
-      padding: 0 24px;
+      padding: 0 16px;
       background: var(--g-surface);
       border-bottom: 1px solid var(--g-border);
     }
     .g-logo {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       font-family: 'Google Sans', sans-serif;
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       font-weight: 500;
       color: var(--g-text-primary);
     }
@@ -116,12 +116,12 @@
       font-size: 15px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
-    .header-actions { display: flex; align-items: center; gap: 12px; }
-    .desktop-status-tag {
+    .header-actions { display: flex; align-items: center; gap: 8px; }
+    .status-tag {
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-size: 0.82rem;
+      gap: 8px;
+      font-size: 0.8rem;
       color: var(--g-text-secondary);
       font-weight: 500;
     }
@@ -135,23 +135,25 @@
       border-radius: var(--g-radius-full);
       font-weight: 700;
       font-size: 0.75rem;
+      white-space: nowrap;
     }
-    .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--g-green); }
+    .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--g-green); flex-shrink: 0; }
 
     .theme-toggle-btn {
       background: var(--g-surface-variant);
       border: 1px solid var(--g-border);
       border-radius: var(--g-radius-full);
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       color: var(--g-text-primary);
       transition: all 0.2s ease;
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       padding: 0;
+      flex-shrink: 0;
     }
     .theme-toggle-btn:hover { background: var(--g-border); }
 
@@ -460,13 +462,16 @@
       .g-card { border: 1px solid #000 !important; box-shadow: none !important; }
     }
 
+    /* Responsive Mobile Styles */
     @media (max-width: 900px) {
       .nav-rail { display: none; }
       .mobile-nav-wrap { display: block; }
-      .desktop-status-tag { display: none; }
       .app-main { padding: 12px; }
       .desktop-dashboard-grid { grid-template-columns: 1fr; gap: 14px; }
       .desktop-full-grid { grid-template-columns: 1fr; }
+      .g-appbar { padding: 0 12px; }
+      .g-logo span { font-size: 1rem; }
+      .live-badge { font-size: 0.7rem; padding: 3px 8px; }
     }
   </style>
 </head>
@@ -480,10 +485,8 @@
     </div>
 
     <div class="header-actions">
-      <div class="desktop-status-tag">
-        <span class="live-badge" id="dbStatusBadge"><span class="live-dot"></span> <span id="dbStatusText">Building 3,500+ UN Registry...</span></span>
-        <span>•</span>
-        <span>PWA Ready</span>
+      <div class="status-tag">
+        <span class="live-badge" id="dbStatusBadge"><span class="live-dot"></span> <span id="dbStatusText">3,500+ UN Registry Active (3547)</span></span>
       </div>
       <button id="themeToggleBtn" type="button" class="theme-toggle-btn" title="Toggle Dark/Light Mode">
         <span id="themeIcon">🌙</span>
@@ -952,7 +955,6 @@
       let UN_DATABASE = {};
 
       function buildFullRegistry() {
-        // 1. Check local device cache first
         try {
           const cached = localStorage.getItem("dg_unified_un_registry");
           if (cached) {
@@ -962,7 +964,6 @@
           }
         } catch (e) {}
 
-        // 2. Synthesize complete UN range 0004 through 3550
         const fullDB = {};
         for (let i = 4; i <= 3550; i++) {
           const unStr = String(i).padStart(4, '0');
@@ -1010,7 +1011,6 @@
 
         UN_DATABASE = fullDB;
 
-        // 3. Save to local device storage for future offline launches
         try {
           localStorage.setItem("dg_unified_un_registry", JSON.stringify(fullDB));
         } catch (e) {}
