@@ -481,7 +481,7 @@
 
     <div class="header-actions">
       <div class="desktop-status-tag">
-        <span class="live-badge"><span class="live-dot"></span> NZS 5433 • Part 24B</span>
+        <span class="live-badge" id="dbStatusBadge"><span class="live-dot"></span> <span id="dbStatusText">NZS 5433 • Part 24B</span></span>
         <span>•</span>
         <span>PWA Ready</span>
       </div>
@@ -875,8 +875,8 @@
 
       themeBtn.addEventListener('click', () => setTheme(!document.body.classList.contains('dark-mode')));
 
-      // UN Database with Preloaded IMDG SGG and Stowage Categories
-      const UN_DATABASE = {
+      // Built-in Seed Database
+      let UN_DATABASE = {
         "1001": { name: "ACETYLENE, DISSOLVED", class: "2.1", sub: "", sgg: "None", haz: "2SE", stow: "D", tunnel: "BANNED (Lyttelton Daytime)", spill: "Evacuate 100m. Eliminate ignition sources.", fire: "Water fog spray. Stop gas flow before extinguishing." },
         "1005": { name: "AMMONIA, ANHYDROUS", class: "2.3", sub: "8", sgg: "SGG18 (Alkalis)", haz: "2RE", stow: "D", tunnel: "RESTRICTED (Lyttelton Escort)", spill: "Evacuate 200m downwind. Fine water spray to knock down vapor.", fire: "Fine water spray; do not spray directly into liquid pool." },
         "1006": { name: "ARGON, COMPRESSED", class: "2.2", sub: "", sgg: "None", haz: "2T", stow: "A", tunnel: "Allowed", spill: "Ventilate area. Asphyxiation hazard in enclosed holds.", fire: "Cool cylinders from maximum distance with water spray." },
@@ -940,6 +940,33 @@
         "3266": { name: "CORROSIVE LIQUID, BASIC", class: "8", sub: "", sgg: "SGG18 (Alkalis)", haz: "2X", stow: "B", tunnel: "Allowed", spill: "Corrosive alkali. Contain with chemical pads.", fire: "Fine water spray." },
         "3480": { name: "LITHIUM ION BATTERIES", class: "9", sub: "", sgg: "None", haz: "4W", stow: "A", tunnel: "Allowed", spill: "Thermal runaway hazard. Toxic gas release.", fire: "Flooding quantities of water to cool cell casings." }
       };
+
+      // Asynchronous JSON Loader & Offline Cache Engine
+      async function loadFullDatabase() {
+        try {
+          const cachedDB = localStorage.getItem("dg_cached_un_data");
+          if (cachedDB) {
+            UN_DATABASE = Object.assign(UN_DATABASE, JSON.parse(cachedDB));
+            const count = Object.keys(UN_DATABASE).length;
+            document.getElementById('dbStatusText').innerText = `Full Registry Active (${count} UNs)`;
+          }
+
+          // Fetch fresh or complete un_data.json from GitHub Pages host
+          const resp = await fetch("un_data.json");
+          if (resp.ok) {
+            const externalData = await resp.json();
+            UN_DATABASE = Object.assign(UN_DATABASE, externalData);
+            localStorage.setItem("dg_cached_un_data", JSON.stringify(externalData));
+            const totalCount = Object.keys(UN_DATABASE).length;
+            document.getElementById('dbStatusText').innerText = `Full Registry Active (${totalCount} UNs)`;
+          }
+        } catch (err) {
+          // If offline or un_data.json isn't uploaded yet, built-in database runs seamlessly
+          const activeCount = Object.keys(UN_DATABASE).length;
+          document.getElementById('dbStatusText').innerText = `Registry Active (${activeCount} UNs)`;
+        }
+      }
+      loadFullDatabase();
 
       const ROAD_MATRIX = {
         "1.1": { "1.1":"A", "2.1":"P", "2.2":"P", "2.3":"P", "3":"P", "4.1":"P", "4.2":"P", "4.3":"P", "5.1":"P", "5.2":"P", "6.1":"P", "8":"P", "9":"A" },
@@ -1020,7 +1047,7 @@
           return;
         }
 
-        const matches = Object.keys(UN_DATABASE).filter(k => k.includes(val) || UN_DATABASE[k].name.toLowerCase().includes(val)).slice(0, 8);
+        const matches = Object.keys(UN_DATABASE).filter(k => k.includes(val) || (UN_DATABASE[k].name && UN_DATABASE[k].name.toLowerCase().includes(val))).slice(0, 10);
         if (matches.length > 0) {
           searchHits.innerHTML = matches.map(k => `
             <div class="hit-item" data-un="${k}">
@@ -1043,9 +1070,10 @@
       });
 
       function applyItem(code, item) {
-        document.getElementById('primaryClass').value = item.class;
+        document.getElementById('primaryClass').value = item.class.startsWith("1.") ? item.class.slice(0, 3) : item.class;
         document.getElementById('subRisk').value = item.sub;
         document.getElementById('hazchemCode').value = item.haz || "";
+        if (item.pg) document.getElementById('packingGroup').value = item.pg;
       }
 
       // Camera Barcode Scanner Hook
@@ -1082,7 +1110,6 @@
         const itemData = UN_DATABASE[code] || {};
         const title = itemData.name ? (`UN ${code} - ${itemData.name}`) : (code ? `UN ${code}` : `Class ${pClass}`);
 
-        // Automatically determine SGG and Stowage Category from database or chemistry
         let sgg = itemData.sgg || "None";
         let stow = itemData.stow || (pClass === "2.1" || pClass === "3" ? "B" : "A");
 
