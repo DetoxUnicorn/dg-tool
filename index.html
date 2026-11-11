@@ -139,7 +139,7 @@
     .tag-sep { background: var(--g-yellow-surface); color: var(--g-yellow); }
     .tag-allow { background: var(--g-green-surface); color: var(--g-green); }
 
-    .search-hits { max-height: 220px; overflow-y: auto; background: var(--g-surface); border: 1px solid var(--g-border); border-radius: var(--g-radius-sm); margin-top: -8px; margin-bottom: 14px; display: none; width: 100%; position: absolute; z-index: 150; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .search-hits { max-height: 220px; overflow-y: auto; background: var(--g-surface); border: 1px solid var(--g-border); border-radius: var(--g-radius-sm); margin-top: 4px; margin-bottom: 14px; display: none; width: 100%; position: absolute; z-index: 150; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
     .hit-item { padding: 10px 14px; border-bottom: 1px solid var(--g-border-subtle); font-size: 0.84rem; cursor: pointer; word-break: break-word; transition: background-color 0.1s; }
     .hit-item:active { background-color: var(--g-surface-variant); }
 
@@ -462,7 +462,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       if ('serviceWorker' in navigator) {
-        const swScript = "const CACHE_NAME='dg-pro-v25';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
+        const swScript = "const CACHE_NAME='dg-pro-v26';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
         navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(swScript)).catch(()=>{});
       }
 
@@ -567,7 +567,7 @@
         }
 
         UN_DATABASE = fullDB;
-        try { localStorage.setItem("dg_unified_un_registry_v25", JSON.stringify(fullDB)); } catch (e) {}
+        try { localStorage.setItem("dg_unified_un_registry_v26", JSON.stringify(fullDB)); } catch (e) {}
         activateDatabaseStatus(Object.keys(UN_DATABASE).length);
       }
 
