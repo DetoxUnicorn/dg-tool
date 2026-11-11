@@ -462,7 +462,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       if ('serviceWorker' in navigator) {
-        const swScript = "const CACHE_NAME='dg-pro-v29';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
+        const swScript = "const CACHE_NAME='dg-pro-v30';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
         navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(swScript)).catch(()=>{});
       }
 
@@ -567,7 +567,7 @@
         }
 
         UN_DATABASE = fullDB;
-        try { localStorage.setItem("dg_unified_un_registry_v29", JSON.stringify(fullDB)); } catch (e) {}
+        try { localStorage.setItem("dg_unified_un_registry_v30", JSON.stringify(fullDB)); } catch (e) {}
         activateDatabaseStatus(Object.keys(UN_DATABASE).length);
       }
 
@@ -1114,7 +1114,7 @@
           if(fill) fill.style.backgroundColor = 'var(--g-red)';
           if(pStatusBanner) pStatusBanner.innerHTML = `<div class="g-alert g-alert-error"><div>🚨</div><div><strong>PLACARDS MANDATED:</strong> Display the following diamonds on front, rear, and sides.</div></div>`;
           let html = Array.from(mandatoryClasses).map(c => getPlacardDiamond(c, false)).join('');
-          if(hasMp) html += getPlacordDiamond('', true);
+          if(hasMp) html += getPlacardDiamond('', true);
           if(pBoard) pBoard.innerHTML = html;
         } else {
           if(fill) fill.style.backgroundColor = 'var(--g-green)';
