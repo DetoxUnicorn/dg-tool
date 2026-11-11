@@ -9,6 +9,24 @@
   <meta name="theme-color" content="#ffffff" id="metaThemeColor">
   <title>DG Workspace Pro • NZS 5433 & IMDG Compliance</title>
 
+  <!-- Web App Manifest for PWABuilder / APK Generation -->
+  <link rel="manifest" href="data:application/manifest+json,{
+    %22name%22: %22DG Workspace Pro%22,
+    %22short_name%22: %22DG Pro%22,
+    %22description%22: %22New Zealand Dangerous Goods NZS 5433 & IMDG Compliance Tool%22,
+    %22start_url%22: %22./index.html%22,
+    %22display%22: %22standalone%22,
+    %22background_color%22: %22%23121212%22,
+    %22theme_color%22: %22%231a73e8%22,
+    %22icons%22: [
+      {
+        %22src%22: %22data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23202124'/><text x='50' y='58' font-family='Arial Black' font-weight='900' font-size='38' fill='%23fbbc04' text-anchor='middle'>DG</text></svg>%22,
+        %22sizes%22: %22512x512%22,
+        %22type%22: %22image/svg+xml%22
+      }
+    ]
+  }">
+
   <!-- NZ Dangerous Goods "Bumblebee" Placard Favicon & App Icon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><pattern id='stripes' width='20' height='20' patternTransform='rotate(45 0 0)' patternUnits='userSpaceOnUse'><line x1='0' y1='0' x2='0' y2='20' stroke='%23000000' stroke-width='10'/><line x1='10' y1='0' x2='10' y2='20' stroke='%23fbbc04' stroke-width='10'/></pattern></defs><rect width='100' height='100' rx='18' fill='%23202124'/><path d='M50 10 L90 50 L50 90 L10 50 Z' fill='url(%23stripes)' stroke='%23000000' stroke-width='3'/><rect x='24' y='38' width='52' height='24' rx='4' fill='%23ffffff' stroke='%23000000' stroke-width='2'/><text x='50' y='55' font-family='Arial Black, Impact, sans-serif' font-weight='900' font-size='14' fill='%23000000' text-anchor='middle' letter-spacing='1'>D.G.</text></svg>">
   <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><pattern id='stripes' width='20' height='20' patternTransform='rotate(45 0 0)' patternUnits='userSpaceOnUse'><line x1='0' y1='0' x2='0' y2='20' stroke='%23000000' stroke-width='10'/><line x1='10' y1='0' x2='10' y2='20' stroke='%23fbbc04' stroke-width='10'/></pattern></defs><rect width='100' height='100' rx='18' fill='%23202124'/><path d='M50 10 L90 50 L50 90 L10 50 Z' fill='url(%23stripes)' stroke='%23000000' stroke-width='3'/><rect x='24' y='38' width='52' height='24' rx='4' fill='%23ffffff' stroke='%23000000' stroke-width='2'/><text x='50' y='55' font-family='Arial Black, Impact, sans-serif' font-weight='900' font-size='14' fill='%23000000' text-anchor='middle' letter-spacing='1'>D.G.</text></svg>">
@@ -90,7 +108,6 @@
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; }
 
-    /* Touch & Click Animations for Buttons */
     .g-btn { font-family: 'Google Sans', sans-serif; font-weight: 500; font-size: 0.88rem; height: 44px; padding: 0 20px; border-radius: var(--g-radius-full); border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; user-select: none; transition: transform 0.12s ease, opacity 0.12s ease, background-color 0.2s; }
     .g-btn:active { transform: scale(0.96); opacity: 0.85; }
     .g-btn-primary { background: var(--g-blue); color: #fff; }
@@ -443,7 +460,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       if ('serviceWorker' in navigator) {
-        const swScript = "const CACHE_NAME='dg-pro-v12';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
+        const swScript = "const CACHE_NAME='dg-pro-v13';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
         navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(swScript)).catch(()=>{});
       }
 
@@ -542,7 +559,7 @@
         }
 
         UN_DATABASE = fullDB;
-        try { localStorage.setItem("dg_unified_un_registry_v12", JSON.stringify(fullDB)); } catch (e) {}
+        try { localStorage.setItem("dg_unified_un_registry_v13", JSON.stringify(fullDB)); } catch (e) {}
         activateDatabaseStatus(Object.keys(UN_DATABASE).length);
       }
 
@@ -1111,7 +1128,7 @@
           const slotId = document.getElementById('assignSelect').value;
           const target = document.getElementById(slotId);
           if(target) target.innerHTML = `<b>${manifest[0].label}</b><br><span class="g-chip chip-class" style="margin-top:4px;">Cl ${manifest[0].pClass}</span>`;
-          alert(`Assigned ${manifest[0].label} to ${document.getElementById('assignSelect').options[document.getElementById('assignSelect').selectedIndex].text}`);
+          alert(`Assigned ${manifest[0].label} to ${document.getElementById('assignSelect').options[document.getElementById('assignSelect'].selectedIndex].text}`);
         });
       }
     });
