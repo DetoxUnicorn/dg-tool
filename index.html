@@ -8,6 +8,11 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="theme-color" content="#ffffff" id="metaThemeColor">
   <title>DG Workspace Pro • NZS 5433 & IMDG Compliance</title>
+
+  <!-- NZ Dangerous Goods "Bumblebee" Placard Favicon & App Icon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><pattern id='stripes' width='20' height='20' patternTransform='rotate(45 0 0)' patternUnits='userSpaceOnUse'><line x1='0' y1='0' x2='0' y2='20' stroke='%23000000' stroke-width='10'/><line x1='10' y1='0' x2='10' y2='20' stroke='%23fbbc04' stroke-width='10'/></pattern></defs><rect width='100' height='100' rx='18' fill='%23202124'/><path d='M50 10 L90 50 L50 90 L10 50 Z' fill='url(%23stripes)' stroke='%23000000' stroke-width='3'/><rect x='24' y='38' width='52' height='24' rx='4' fill='%23ffffff' stroke='%23000000' stroke-width='2'/><text x='50' y='55' font-family='Arial Black, Impact, sans-serif' font-weight='900' font-size='14' fill='%23000000' text-anchor='middle' letter-spacing='1'>D.G.</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><pattern id='stripes' width='20' height='20' patternTransform='rotate(45 0 0)' patternUnits='userSpaceOnUse'><line x1='0' y1='0' x2='0' y2='20' stroke='%23000000' stroke-width='10'/><line x1='10' y1='0' x2='10' y2='20' stroke='%23fbbc04' stroke-width='10'/></pattern></defs><rect width='100' height='100' rx='18' fill='%23202124'/><path d='M50 10 L90 50 L50 90 L10 50 Z' fill='url(%23stripes)' stroke='%23000000' stroke-width='3'/><rect x='24' y='38' width='52' height='24' rx='4' fill='%23ffffff' stroke='%23000000' stroke-width='2'/><text x='50' y='55' font-family='Arial Black, Impact, sans-serif' font-weight='900' font-size='14' fill='%23000000' text-anchor='middle' letter-spacing='1'>D.G.</text></svg>">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -445,7 +450,6 @@
       font-size: 0.78rem;
     }
 
-    /* Print Declarations Styling */
     @media print {
       body { background: #fff !important; color: #000 !important; }
       .g-appbar, .nav-rail, .mobile-nav-wrap, .g-btn, .theme-toggle-btn, .header-actions { display: none !important; }
@@ -949,7 +953,7 @@
         "1950": { name: "AEROSOLS", class: "2.1", sub: "", sgg: "None", haz: "2YE", stow: "B", tunnel: "Allowed", spill: "Ventilate area. Exploding can shrapnel risk.", fire: "Water spray from shielded position." },
         "1978": { name: "PROPANE", class: "2.1", sub: "", sgg: "None", haz: "2YE", stow: "E", tunnel: "BANNED (Lyttelton Daytime)", spill: "Vapor cloud explosion risk. Eliminate sparks.", fire: "Stop flow. Water spray to keep tanks cool." },
         "1993": { name: "FLAMMABLE LIQUID, N.O.S.", class: "3", sub: "", sgg: "None", haz: "•3YE", stow: "B", tunnel: "Allowed", spill: "Eliminate ignition sources. Foam blanket.", fire: "Foam, dry powder, fine water spray." },
-        "2014": { name: "HYDROGEN PEROXIDE (20-60%)", class: "5.1", sub: "8", sgg: "SGG16", haz: "2P", stow: "D", tunnel: "Allowed", spill: "Vigorous decomposition. Flush with大量 water.", fire: "Water spray in large quantities." },
+        "2014": { name: "HYDROGEN PEROXIDE (20-60%)", class: "5.1", sub: "8", sgg: "SGG16", haz: "2P", stow: "D", tunnel: "Allowed", spill: "Vigorous decomposition. Flush with large amounts of water.", fire: "Water spray in large quantities." },
         "2031": { name: "NITRIC ACID", class: "8", sub: "5.1", sgg: "SGG1", haz: "2P", stow: "D", tunnel: "RESTRICTED (Lyttelton Escort)", spill: "Deadly brown nitrogen dioxide gas fumes. Evacuate 300m.", fire: "Water fog. Do not use organic absorbents." },
         "2794": { name: "BATTERIES, WET, FILLED WITH ACID", class: "8", sub: "", sgg: "SGG1", haz: "2R", stow: "A", tunnel: "Allowed", spill: "Battery acid spill. Neutralize with baking soda.", fire: "Dry powder or fine water spray." },
         "2795": { name: "BATTERIES, WET, FILLED WITH ALKALI", class: "8", sub: "", sgg: "SGG18", haz: "2R", stow: "A", tunnel: "Allowed", spill: "Corrosive electrolyte liquid. Contain spill.", fire: "Dry powder or water spray." },
