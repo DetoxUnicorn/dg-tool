@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#ffffff" id="metaThemeColor">
   <title>DG Workspace Pro • NZS 5433 & IMDG Compliance</title>
 
-  <!-- Web App Manifest for PWABuilder / APK Generation -->
+  <!-- Web App Manifest for APK Generation -->
   <link rel="manifest" href="data:application/manifest+json,{
     %22name%22: %22DG Workspace Pro%22,
     %22short_name%22: %22DG Pro%22,
@@ -460,7 +460,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       if ('serviceWorker' in navigator) {
-        const swScript = "const CACHE_NAME='dg-pro-v13';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
+        const swScript = "const CACHE_NAME='dg-pro-v14';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
         navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(swScript)).catch(()=>{});
       }
 
@@ -499,7 +499,7 @@
         "1230": { name: "METHANOL", class: "3", sub: "6.1", sgg: "None", haz: "•2WE", stow: "B", pg: "II", tunnel: "Allowed", spill: "Toxic vapor. Breathing apparatus required.", fire: "Alcohol-resistant foam. Invisible flame." },
         "1428": { name: "SODIUM", class: "4.3", sub: "", sgg: "None", stow: "D", haz: "4W", pg: "I", tunnel: "BANNED (Lyttelton Escort Only)", spill: "NEVER USE WATER. Violent hydrogen release.", fire: "Dry soda ash or graphite powder ONLY." },
         "1830": { name: "SULPHURIC ACID (>51%)", class: "8", sub: "", sgg: "SGG1 (Acids)", haz: "2P", stow: "C", pg: "II", tunnel: "Allowed", spill: "VIOLENT SPRAY WITH WATER. Dry earth/lime.", fire: "Dry powder. Avoid direct water." },
-        "1993": { name: "FLAMMABLE LIQUID, N.O.S.", class: "3", sub: "", sgg: "None", stow: "E", haz: "3YE", pg: "III", tunnel: "Allowed", spill: "Absorb with inert material. Eliminate ignition sources.", fire: "Foam, dry chemical, or water fog." },
+        "1993": { name: "FLAMMABLE LIQUID, N.O.S.", class: "3", sub: "", sgg: "None", stow: "A", haz: "3YE", pg: "III", tunnel: "Allowed", spill: "Absorb with inert material. Eliminate ignition sources.", fire: "Foam, dry chemical, or water fog." },
         "2031": { name: "NITRIC ACID, other than red fuming", class: "8", sub: "5.1", sgg: "SGG1 (Acids)", haz: "2P", stow: "D", pg: "II", tunnel: "RESTRICTED (Lyttelton Escort)", spill: "Deadly brown NO2 gas. Evacuate 300m.", fire: "Water fog spray." },
         "3252": { name: "DIFLUOROMETHANE (REFRIGERANT GAS R 32)", class: "2.1", sub: "", sgg: "None", stow: "E", haz: "2YE", pg: "N/A", tunnel: "BANNED (Lyttelton Daytime)", spill: "Flammable gas. Evacuate 100m. Eliminate ignition sources.", fire: "Stop gas flow before extinguishing." },
         "3480": { name: "LITHIUM ION BATTERIES", class: "9", sub: "", sgg: "None", haz: "4W", stow: "A", pg: "II", tunnel: "Allowed", spill: "Thermal runaway hazard. Toxic gas release.", fire: "Flooding quantities of water to cool." }
@@ -531,7 +531,7 @@
             spill = "Flammable gas. Evacuate 100m. Eliminate ignition sources."; fire = "Stop gas flow before extinguishing.";
           } else if (i >= 1090 && i <= 1993) {
             name = `FLAMMABLE LIQUID, N.O.S. (UN ${unStr})`;
-            pClass = "3"; stow = "E"; haz = "•3YE"; pg = "II";
+            pClass = "3"; stow = "A"; haz = "•3YE"; pg = "III";
             spill = "Flammable liquid. Absorb with inert material."; fire = "Foam, dry chemical, water fog.";
           } else if (i >= 1309 && i <= 1387) {
             name = `FLAMMABLE SOLID, ORGANIC, N.O.S. (UN ${unStr})`;
@@ -559,7 +559,7 @@
         }
 
         UN_DATABASE = fullDB;
-        try { localStorage.setItem("dg_unified_un_registry_v13", JSON.stringify(fullDB)); } catch (e) {}
+        try { localStorage.setItem("dg_unified_un_registry_v14", JSON.stringify(fullDB)); } catch (e) {}
         activateDatabaseStatus(Object.keys(UN_DATABASE).length);
       }
 
