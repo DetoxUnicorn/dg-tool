@@ -46,7 +46,8 @@
     /* Top AppBar & Logo */
     .g-appbar { position: sticky; top: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; height: 60px; padding: 0 20px; background: var(--g-surface); border-bottom: 1px solid var(--g-border); }
     .g-logo { display: flex; align-items: center; gap: 12px; font-family: 'Google Sans', sans-serif; font-size: 1.15rem; font-weight: 500; color: var(--g-text-primary); user-select: none; }
-    .g-logo-icon { position: relative; width: 32px; height: 32px; background: linear-gradient(135deg, #4285f4 0%, #34a853 50%, #fbbc05 75%, #ea4335 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 14px; cursor: pointer; flex-shrink: 0; transition: box-shadow 0.3s ease; }
+    .g-logo-icon { position: relative; width: 32px; height: 32px; background: linear-gradient(135deg, #4285f4 0%, #34a853 50%, #fbbc05 75%, #ea4335 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 14px; cursor: pointer; flex-shrink: 0; transition: transform 0.15s ease, box-shadow 0.3s ease; }
+    .g-logo-icon:active { transform: scale(0.92); }
     .g-logo-icon.active-db { box-shadow: 0 0 0 2px #34a853, 0 0 12px rgba(52, 168, 83, 0.7); }
     .g-logo-icon.active-db::after { content: ''; position: absolute; bottom: -2px; right: -2px; width: 9px; height: 9px; background: #22c55e; border: 2px solid var(--g-surface); border-radius: 50%; box-shadow: 0 0 4px #22c55e; }
 
@@ -54,18 +55,21 @@
     .desktop-status-tag { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--g-text-secondary); font-weight: 500; }
     .live-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--g-green-surface); color: var(--g-green); padding: 4px 10px; border-radius: var(--g-radius-full); font-weight: 700; font-size: 0.75rem; white-space: nowrap; }
     .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--g-green); flex-shrink: 0; }
-    .theme-toggle-btn { background: var(--g-surface-variant); border: 1px solid var(--g-border); border-radius: var(--g-radius-full); width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; color: var(--g-text-primary); }
+    .theme-toggle-btn { background: var(--g-surface-variant); border: 1px solid var(--g-border); border-radius: var(--g-radius-full); width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; color: var(--g-text-primary); transition: transform 0.15s ease; }
+    .theme-toggle-btn:active { transform: scale(0.9); }
 
     .app-frame { display: flex; flex: 1; overflow: hidden; width: 100%; }
     .nav-rail { width: 250px; background: var(--g-surface); border-right: 1px solid var(--g-border); padding: 16px 12px; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
-    .nav-item { display: flex; align-items: center; gap: 14px; padding: 10px 16px; border-radius: var(--g-radius-full); font-family: 'Google Sans', sans-serif; font-size: 0.88rem; font-weight: 500; color: var(--g-text-secondary); cursor: pointer; }
+    .nav-item { display: flex; align-items: center; gap: 14px; padding: 10px 16px; border-radius: var(--g-radius-full); font-family: 'Google Sans', sans-serif; font-size: 0.88rem; font-weight: 500; color: var(--g-text-secondary); cursor: pointer; transition: background 0.15s ease, transform 0.1s ease; }
+    .nav-item:active { transform: scale(0.98); }
     .nav-item:hover { background: var(--g-surface-variant); color: var(--g-text-primary); }
     .nav-item.active { background: var(--g-blue-surface); color: var(--g-blue); font-weight: 700; }
 
     .mobile-nav-wrap { display: none; overflow-x: auto; padding: 10px 16px 4px; scrollbar-width: none; background: var(--g-bg); border-bottom: 1px solid var(--g-border); width: 100%; }
     .mobile-nav-wrap::-webkit-scrollbar { display: none; }
     .mobile-pill-bar { display: inline-flex; background: var(--g-surface-variant); border-radius: var(--g-radius-full); padding: 4px; gap: 2px; }
-    .mobile-pill { font-family: 'Google Sans', sans-serif; font-size: 0.78rem; font-weight: 500; padding: 7px 14px; border-radius: var(--g-radius-full); color: var(--g-text-secondary); cursor: pointer; white-space: nowrap; }
+    .mobile-pill { font-family: 'Google Sans', sans-serif; font-size: 0.78rem; font-weight: 500; padding: 7px 14px; border-radius: var(--g-radius-full); color: var(--g-text-secondary); cursor: pointer; white-space: nowrap; transition: transform 0.1s ease; }
+    .mobile-pill:active { transform: scale(0.95); }
     .mobile-pill.active { background: var(--g-surface); color: var(--g-blue); box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
 
     .app-main { flex: 1; padding: 16px; overflow-y: auto; overflow-x: hidden; width: 100%; max-width: 1360px; }
@@ -74,19 +78,23 @@
     .g-card { background: var(--g-surface); border-radius: var(--g-radius-md); padding: 18px; margin-bottom: 20px; border: 1px solid var(--g-border); box-shadow: 0 1px 2px rgba(60,64,67,0.06); overflow-x: hidden; word-break: break-word; }
     .g-card-title { font-family: 'Google Sans', sans-serif; font-size: 1.05rem; font-weight: 500; margin: 0 0 16px 0; display: flex; align-items: center; justify-content: space-between; word-break: break-word; }
 
-    .g-searchbar { display: flex; align-items: center; background: var(--g-search-bg); border-radius: var(--g-radius-full); padding: 4px 16px; margin-bottom: 14px; border: 1px solid transparent; width: 100%; }
+    .g-searchbar { display: flex; align-items: center; background: var(--g-search-bg); border-radius: var(--g-radius-full); padding: 4px 16px; margin-bottom: 14px; border: 1px solid transparent; width: 100%; transition: border-color 0.2s; }
     .g-searchbar:focus-within { background: var(--g-surface); border-color: var(--g-blue); }
     .g-searchbar input { flex: 1; height: 42px; border: none; background: transparent; font-size: 0.95rem; outline: none; color: var(--g-text-primary); width: 100%; }
     .g-searchbar svg { fill: var(--g-text-secondary); margin-right: 10px; flex-shrink: 0; }
     
     .g-input-group { margin-bottom: 14px; width: 100%; }
     .g-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--g-text-secondary); margin-bottom: 6px; display: block; }
-    .g-input, .g-select { width: 100%; height: 46px; padding: 0 14px; font-size: 0.95rem; background: var(--g-surface); border: 1px solid var(--g-border); border-radius: var(--g-radius-sm); color: var(--g-text-primary); outline: none; }
+    .g-input, .g-select { width: 100%; height: 46px; padding: 0 14px; font-size: 0.95rem; background: var(--g-surface); border: 1px solid var(--g-border); border-radius: var(--g-radius-sm); color: var(--g-text-primary); outline: none; transition: border-color 0.2s; }
+    .g-input:focus, .g-select:focus { border-color: var(--g-blue); }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; }
 
-    .g-btn { font-family: 'Google Sans', sans-serif; font-weight: 500; font-size: 0.88rem; height: 44px; padding: 0 20px; border-radius: var(--g-radius-full); border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; user-select: none; }
+    /* Touch & Click Animations for Buttons */
+    .g-btn { font-family: 'Google Sans', sans-serif; font-weight: 500; font-size: 0.88rem; height: 44px; padding: 0 20px; border-radius: var(--g-radius-full); border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; user-select: none; transition: transform 0.12s ease, opacity 0.12s ease, background-color 0.2s; }
+    .g-btn:active { transform: scale(0.96); opacity: 0.85; }
     .g-btn-primary { background: var(--g-blue); color: #fff; }
+    .g-btn-primary:hover { background: var(--g-blue-hover); }
     .g-btn-tonal { background: var(--g-blue-surface); color: var(--g-blue); margin-top: 8px; }
     .g-btn-outlined { background: transparent; border: 1px solid var(--g-border); color: var(--g-text-primary); }
     .g-btn-danger { background: var(--g-red-surface); color: var(--g-red); }
@@ -115,7 +123,8 @@
     .tag-allow { background: var(--g-green-surface); color: var(--g-green); }
 
     .search-hits { max-height: 220px; overflow-y: auto; background: var(--g-surface); border: 1px solid var(--g-border); border-radius: var(--g-radius-sm); margin-top: -8px; margin-bottom: 14px; display: none; width: 100%; }
-    .hit-item { padding: 10px 14px; border-bottom: 1px solid var(--g-border-subtle); font-size: 0.84rem; cursor: pointer; word-break: break-word; }
+    .hit-item { padding: 10px 14px; border-bottom: 1px solid var(--g-border-subtle); font-size: 0.84rem; cursor: pointer; word-break: break-word; transition: background-color 0.1s; }
+    .hit-item:active { background-color: var(--g-surface-variant); }
 
     .manifest-item-box { padding: 12px; background: var(--g-surface-variant); border-radius: 8px; margin-bottom: 8px; border: 1px solid var(--g-border); width: 100%; overflow: hidden; word-break: break-word; }
     .manifest-item-box strong { display: block; font-size: 0.9rem; line-height: 1.3; margin-bottom: 6px; }
@@ -275,9 +284,9 @@
                 <div class="g-input-group">
                   <label class="g-label">Pack Group</label>
                   <select id="packingGroup" class="g-select">
-                    <option value="II">PG II</option>
                     <option value="I">PG I</option>
-                    <option value="III">PG III</option>
+                    <option value="II">PG II</option>
+                    <option value="III" selected>PG III</option>
                     <option value="N/A">N/A</option>
                   </select>
                 </div>
@@ -434,7 +443,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       if ('serviceWorker' in navigator) {
-        const swScript = "const CACHE_NAME='dg-pro-v10';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
+        const swScript = "const CACHE_NAME='dg-pro-v12';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
         navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(swScript)).catch(()=>{});
       }
 
@@ -460,7 +469,7 @@
         themeBtn.addEventListener('click', () => setTheme(!document.body.classList.contains('dark-mode')));
       }
 
-      // Master Curated High-Consequence Freight (Explicitly includes UN 1993 Class 3 & UN 3252 Class 2.1)
+      // Master Curated High-Consequence Freight
       const MASTER_CURATED = {
         "0004": { name: "AMMONIUM PICRATE, dry or wetted <10% water", class: "1.1D", sub: "", sgg: "None", stow: "D", haz: "1E", pg: "N/A", tunnel: "BANNED (Lyttelton Daytime)", spill: "EXPLOSIVE. Evacuate 800m. Avoid friction/heat.", fire: "Evacuate 800m. Do not fight fire." },
         "0027": { name: "BLACK POWDER (GUNPOWDER), granular or meal", class: "1.1D", sub: "", sgg: "None", stow: "D", haz: "1E", pg: "N/A", tunnel: "BANNED (Lyttelton Daytime)", spill: "Blast hazard. Ground equipment.", fire: "Evacuate 800m." },
@@ -533,7 +542,7 @@
         }
 
         UN_DATABASE = fullDB;
-        try { localStorage.setItem("dg_unified_un_registry_v10", JSON.stringify(fullDB)); } catch (e) {}
+        try { localStorage.setItem("dg_unified_un_registry_v12", JSON.stringify(fullDB)); } catch (e) {}
         activateDatabaseStatus(Object.keys(UN_DATABASE).length);
       }
 
@@ -745,13 +754,23 @@
         const code = unInput ? unInput.value.trim().replace(/^UN\s*/i, '') : "";
         const pClassElem = document.getElementById('primaryClass');
         const subElem = document.getElementById('subRisk');
+        const pgElem = document.getElementById('packingGroup');
+        
         const pClass = pClassElem ? pClassElem.value : "3";
         const sub = subElem ? subElem.value : "";
+        const pg = pgElem ? pgElem.value : "III";
         
         const itemData = UN_DATABASE[code] || {};
         const title = itemData.name ? (`UN ${code} - ${itemData.name}`) : (code ? `UN ${code}` : `Class ${pClass}`);
         let sgg = itemData.sgg || "None";
-        let stow = itemData.stow || (pClass === "2.1" || pClass === "3" ? "E" : "A");
+        
+        // Dynamically determine IMDG Stowage Category based on Class 3 Packing Group
+        let stow = itemData.stow || "A";
+        if (pClass === "3") {
+          if (pg === "I") stow = "E";
+          else if (pg === "II") stow = "B";
+          else stow = "A";
+        }
 
         const itemOverview = document.getElementById('itemOverview');
         if(itemOverview) {
@@ -849,14 +868,20 @@
         const code = unInput ? unInput.value.trim().replace(/^UN\s*/i, '') : "";
         const pClass = document.getElementById('primaryClass') ? document.getElementById('primaryClass').value : "3";
         const sub = document.getElementById('subRisk') ? document.getElementById('subRisk').value : "";
-        const pg = document.getElementById('packingGroup') ? document.getElementById('packingGroup').value : "II";
+        const pg = document.getElementById('packingGroup') ? document.getElementById('packingGroup').value : "III";
         const drop = document.getElementById('routeDrop') ? document.getElementById('routeDrop').value : "Final Destination";
         const qty = document.getElementById('pkgQty') ? (parseFloat(document.getElementById('pkgQty').value) || 0) : 0;
         const isLq = document.getElementById('isLq') ? document.getElementById('isLq').value === 'lq' : false;
         const isMp = document.getElementById('isMp') ? document.getElementById('isMp').value === 'yes' : false;
 
         const itemData = UN_DATABASE[code] || {};
-        const stow = itemData.stow || "A";
+        let stow = itemData.stow || "A";
+        if (pClass === "3") {
+          if (pg === "I") stow = "E";
+          else if (pg === "II") stow = "B";
+          else stow = "A";
+        }
+
         const rawName = itemData.name || `Class ${pClass}`;
         const shortName = rawName.length > 28 ? rawName.slice(0, 26) + '...' : rawName;
         const label = code ? `UN ${code} (${shortName})` : `Class ${pClass}`;
