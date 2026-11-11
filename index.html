@@ -543,17 +543,11 @@
       };
 
       let UN_DATABASE = {};
-      function buildFullRegistry() {
-        try {
-          const cached = localStorage.getItem("dg_unified_un_registry");
-          if (cached) {
-            UN_DATABASE = JSON.parse(cached);
-            activateDatabaseStatus(Object.keys(UN_DATABASE).length);
-            return;
-          }
-        } catch (e) {}
 
+      // Seamless JSON Merge with Baseline Fallback
+      async function buildFullRegistry() {
         const fullDB = {};
+
         for (let i = 4; i <= 3550; i++) {
           const unStr = String(i).padStart(4, '0');
           if (MASTER_CURATED[unStr]) { fullDB[unStr] = MASTER_CURATED[unStr]; continue; }
@@ -564,7 +558,20 @@
           else if (i >= 1715 && i <= 1840) { pClass = "8"; sgg = "SGG1 (Acids)"; stow = "B"; haz = "2X"; pg = "II"; spill = "Neutralize cautiously."; fire = "Fine water spray."; }
           fullDB[unStr] = { name: `DG COMMODITY (UN ${unStr})`, class: pClass, sub, sgg, stow, haz, pg, tunnel, spill, fire };
         }
+
+        // Fetch un_data.json and overwrite generic placeholder names
+        try {
+          const res = await fetch('un_data.json?v=' + Date.now());
+          if (res.ok) {
+            const externalData = await res.json();
+            Object.assign(fullDB, externalData);
+          }
+        } catch (e) {
+          console.warn('Could not fetch un_data.json, using baseline', e);
+        }
+
         UN_DATABASE = fullDB;
+
         try { localStorage.setItem("dg_unified_un_registry", JSON.stringify(fullDB)); } catch (e) {}
         activateDatabaseStatus(Object.keys(UN_DATABASE).length);
       }
@@ -724,7 +731,11 @@
         if (UN_DATABASE[val]) { applyItem(val, UN_DATABASE[val]); searchHits.style.display = 'none'; return; }
         const matches = Object.keys(UN_DATABASE).filter(k => k.includes(val) || (UN_DATABASE[k].name && UN_DATABASE[k].name.toLowerCase().includes(val))).slice(0, 8);
         if (matches.length > 0) {
-          searchHits.innerHTML = matches.map(k => `<div class="hit-item" data-un="${k}"><strong>UN ${k}</strong> - ${UN_DATABASE[k].name} (Cl ${UN_DATABASE[k].class})</div>`).join('');
+          searchHits.innerHTML = matches.map(k => `
+            <div class="hit-item" data-un="${k}">
+              <strong>UN ${k}</strong> - ${UN_DATABASE[k].name} (Cl ${UN_DATABASE[k].class})
+            </div>
+          `).join('');
           searchHits.style.display = 'block';
           searchHits.querySelectorAll('.hit-item').forEach(el => {
             el.addEventListener('click', function() {
@@ -1026,8 +1037,8 @@
 
       function generateDGDPreview() {
         if(manifest.length === 0) return;
-        let dgd = "MULTIMODAL DANGEROUS GOODS DECLARATION (NZS 5433 / MNZ)\n";
-        dgd += "========================================================\n";
+        let dgd = "MULTIMODAL DANGEROUS GOODS DECLARATION (NZS 5433 / MARITIME NZ PART 24B)\n";
+        dgd += "========================================================================================\n";
         manifest.forEach((m, idx) => {
           dgd += `${idx+1}. UN ${m.un || '----'} | ${m.label} | Cl ${m.pClass}${m.sub?'('+m.sub+')':''} | PG ${m.pg} | ${m.qty}${m.isLq?'[LQ]':''} ${m.isMp?'| MARINE POLLUTANT':''}\n`;
         });
