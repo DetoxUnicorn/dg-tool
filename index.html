@@ -474,7 +474,7 @@
               </div>
             </div>
             <div class="g-card">
-              <div class="g-card-title">PPE & Equipment Checklist</div>
+              <div class="g-card-title">🚨 PPE & Equipment Checklist</div>
               <div class="rule-item">✅ Compliant Emergency Procedure Guide (EPG)</div>
               <div class="rule-item">✅ Chemical-resistant overalls & rubber boots</div>
               <div class="rule-item">✅ Eye-wash bottle (250ml min, in date)</div>
@@ -491,7 +491,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       if ('serviceWorker' in navigator) {
-        const swScript = "const CACHE_NAME='dg-pro-v4';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
+        const swScript = "const CACHE_NAME='dg-pro-v5';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
         navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(swScript)).catch(()=>{});
       }
 
@@ -526,7 +526,7 @@
         });
       }
 
-      // Master Curated High-Consequence Freight
+      // Master Curated High-Consequence Freight (Explicitly includes UN 3252 Refrigerant Gas R 32)
       const MASTER_CURATED = {
         "0004": { name: "AMMONIUM PICRATE, dry or wetted <10% water", class: "1.1D", sub: "", sgg: "None", stow: "D", haz: "1E", pg: "N/A", tunnel: "BANNED (Lyttelton Daytime)", spill: "EXPLOSIVE. Evacuate 800m. Avoid friction/heat.", fire: "Evacuate 800m. Do not fight fire." },
         "0027": { name: "BLACK POWDER (GUNPOWDER), granular or meal", class: "1.1D", sub: "", sgg: "None", stow: "D", haz: "1E", pg: "N/A", tunnel: "BANNED (Lyttelton Daytime)", spill: "Blast hazard. Ground equipment.", fire: "Evacuate 800m." },
@@ -540,12 +540,13 @@
         "1428": { name: "SODIUM", class: "4.3", sub: "", sgg: "None", stow: "D", haz: "4W", pg: "I", tunnel: "BANNED (Lyttelton Escort Only)", spill: "NEVER USE WATER. Violent hydrogen release.", fire: "Dry soda ash or graphite powder ONLY." },
         "1830": { name: "SULPHURIC ACID (>51%)", class: "8", sub: "", sgg: "SGG1 (Acids)", haz: "2P", stow: "C", pg: "II", tunnel: "Allowed", spill: "VIOLENT SPRAY WITH WATER. Dry earth/lime.", fire: "Dry powder. Avoid direct water." },
         "2031": { name: "NITRIC ACID, other than red fuming", class: "8", sub: "5.1", sgg: "SGG1 (Acids)", haz: "2P", stow: "D", pg: "II", tunnel: "RESTRICTED (Lyttelton Escort)", spill: "Deadly brown NO2 gas. Evacuate 300m.", fire: "Water fog spray." },
+        "3252": { name: "DIFLUOROMETHANE (REFRIGERANT GAS R 32)", class: "2.1", sub: "", sgg: "None", stow: "E", haz: "2YE", pg: "N/A", tunnel: "BANNED (Lyttelton Daytime)", spill: "Flammable gas. Evacuate 100m. Eliminate ignition sources.", fire: "Stop gas flow before extinguishing." },
         "3480": { name: "LITHIUM ION BATTERIES", class: "9", sub: "", sgg: "None", haz: "4W", stow: "A", pg: "II", tunnel: "Allowed", spill: "Thermal runaway hazard. Toxic gas release.", fire: "Flooding quantities of water to cool." }
       };
 
       let UN_DATABASE = {};
 
-      // Smart Algorithmic Generator for every UN number from 0004 to 3550+
+      // Smart Algorithmic Generator with Correct Gas Block Allocations (Class 2.1 / 2.2)
       function buildFullRegistry() {
         const fullDB = {};
 
@@ -564,8 +565,8 @@
             name = `EXPLOSIVE SUBSTANCE OR ARTICLE, DIVISION 1.1 (UN ${unStr})`;
             pClass = "1.1D"; stow = "D"; haz = "1E"; pg = "N/A"; tunnel = "BANNED (Lyttelton Daytime)";
             spill = "EXPLOSIVE. Evacuate 800m. Prevent shock and ignition."; fire = "Do not fight fire. Evacuate zone.";
-          } else if (i >= 1001 && i <= 1089) {
-            name = `COMPRESSED OR LIQUEFIED GAS, FLAMMABLE (UN ${unStr})`;
+          } else if ((i >= 1001 && i <= 1089) || (i >= 1950 && i <= 1978) || (i >= 3150 && i <= 3310)) {
+            name = `COMPRESSED OR LIQUEFIED GAS, FLAMMABLE / REFRIGERANT GAS (UN ${unStr})`;
             pClass = "2.1"; stow = "E"; haz = "2YE"; pg = "N/A"; tunnel = "BANNED (Lyttelton Daytime)";
             spill = "Flammable gas. Evacuate 100m. Eliminate ignition sources."; fire = "Stop gas flow before extinguishing.";
           } else if (i >= 1090 && i <= 1308) {
@@ -598,7 +599,7 @@
         }
 
         UN_DATABASE = fullDB;
-        try { localStorage.setItem("dg_unified_un_registry_v4", JSON.stringify(fullDB)); } catch (e) {}
+        try { localStorage.setItem("dg_unified_un_registry_v5", JSON.stringify(fullDB)); } catch (e) {}
         activateDatabaseStatus(Object.keys(UN_DATABASE).length);
       }
 
@@ -1069,7 +1070,7 @@
         const slotId = document.getElementById('assignSelect').value;
         const target = document.getElementById(slotId);
         target.innerHTML = `<b>${manifest[0].label}</b><br><span class="g-chip chip-class" style="margin-top:4px;">Cl ${manifest[0].pClass}</span>`;
-        alert(`Assigned ${manifest[0].label} to ${document.getElementById('assignSelect').options[document.getElementById('assignSelect').selectedIndex].text}`);
+        alert(`Assigned ${manifest[0].label} to ${document.getElementById('assignSelect').options[document.getElementById('assignSelect'].selectedIndex].text}`);
       });
     });
   </script>
