@@ -6,7 +6,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#ffffff" id="metaThemeColor">
   <title>DG Workspace • NZS 5433 & IMDG Compliance</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,10 +25,13 @@
       --g-purple-surface: #f3e8fd;
       --g-purple: #7627bb;
       --g-surface: #ffffff;
+      --g-surface-variant: #f1f3f4;
       --g-bg: #f8f9fa;
       --g-border: #dadce0;
+      --g-border-subtle: #f1f3f4;
       --g-text-primary: #202124;
       --g-text-secondary: #5f6368;
+      --g-search-bg: #edf2fc;
       --g-radius-sm: 8px;
       --g-radius-md: 16px;
       --g-radius-lg: 24px;
@@ -36,6 +39,32 @@
       --g-shadow-1: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
       --g-shadow-2: 0 2px 6px 2px rgba(60,64,67,0.15);
     }
+
+    /* Google Dark Theme Variables */
+    body.dark-mode {
+      --g-blue: #8ab4f8;
+      --g-blue-hover: #aecbfa;
+      --g-blue-surface: #1e3a5f;
+      --g-red: #f28b82;
+      --g-red-surface: #491f1d;
+      --g-green: #81c995;
+      --g-green-surface: #193822;
+      --g-yellow: #fdd663;
+      --g-yellow-surface: #3f3113;
+      --g-purple-surface: #3b2554;
+      --g-purple: #d7aefb;
+      --g-surface: #1e1e1e;
+      --g-surface-variant: #2d2d2d;
+      --g-bg: #121212;
+      --g-border: #3c4043;
+      --g-border-subtle: #2d2d2d;
+      --g-text-primary: #e8eaed;
+      --g-text-secondary: #9aa0a6;
+      --g-search-bg: #2d2f31;
+      --g-shadow-1: 0 1px 3px 0 rgba(0,0,0,0.6);
+      --g-shadow-2: 0 4px 8px 3px rgba(0,0,0,0.5);
+    }
+
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
       margin: 0;
@@ -46,6 +75,7 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      transition: background-color 0.2s, color 0.2s;
     }
 
     /* Google Top Header */
@@ -66,7 +96,7 @@
       align-items: center;
       gap: 12px;
       font-family: 'Google Sans', sans-serif;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 500;
       color: var(--g-text-primary);
     }
@@ -82,6 +112,11 @@
       font-weight: 700;
       font-size: 15px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
     .desktop-status-tag {
       display: flex;
@@ -107,6 +142,26 @@
       height: 8px;
       border-radius: 50%;
       background: var(--g-green);
+    }
+
+    /* Night Mode Toggle Button */
+    .theme-toggle-btn {
+      background: var(--g-surface-variant);
+      border: 1px solid var(--g-border);
+      border-radius: var(--g-radius-full);
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--g-text-primary);
+      transition: all 0.2s ease;
+      font-size: 1.15rem;
+      padding: 0;
+    }
+    .theme-toggle-btn:hover {
+      background: var(--g-border);
     }
 
     /* App Layout Frame */
@@ -142,7 +197,7 @@
       user-select: none;
     }
     .nav-item:hover {
-      background: #f1f3f4;
+      background: var(--g-surface-variant);
       color: var(--g-text-primary);
     }
     .nav-item.active {
@@ -167,7 +222,7 @@
     .mobile-nav-wrap::-webkit-scrollbar { display: none; }
     .mobile-pill-bar {
       display: inline-flex;
-      background: #e9eef6;
+      background: var(--g-surface-variant);
       border-radius: var(--g-radius-full);
       padding: 4px;
       gap: 2px;
@@ -233,7 +288,7 @@
     .g-searchbar {
       display: flex;
       align-items: center;
-      background: #edf2fc;
+      background: var(--g-search-bg);
       border-radius: var(--g-radius-full);
       padding: 4px 16px;
       margin-bottom: 14px;
@@ -241,7 +296,7 @@
       transition: all 0.2s ease;
     }
     .g-searchbar:focus-within {
-      background: #fff;
+      background: var(--g-surface);
       border-color: var(--g-blue);
       box-shadow: var(--g-shadow-1);
     }
@@ -313,11 +368,11 @@
     .g-btn-primary { background: var(--g-blue); color: #fff; }
     .g-btn-primary:hover { background: var(--g-blue-hover); box-shadow: var(--g-shadow-1); }
     .g-btn-tonal { background: var(--g-blue-surface); color: var(--g-blue); margin-top: 8px; }
-    .g-btn-tonal:hover { background: #d2e3fc; }
+    .g-btn-tonal:hover { opacity: 0.9; }
     .g-btn-outlined { background: transparent; border: 1px solid var(--g-border); color: var(--g-text-primary); }
-    .g-btn-outlined:hover { background: #f1f3f4; }
+    .g-btn-outlined:hover { background: var(--g-surface-variant); }
     .g-btn-danger { background: var(--g-red-surface); color: var(--g-red); }
-    .g-btn-danger:hover { background: #fad2cf; }
+    .g-btn-danger:hover { opacity: 0.9; }
 
     /* Chips */
     .g-chip {
@@ -330,7 +385,7 @@
       margin-right: 4px;
     }
     .chip-class { background: var(--g-red-surface); color: var(--g-red); }
-    .chip-sub { background: var(--g-yellow-surface); color: #b06000; }
+    .chip-sub { background: var(--g-yellow-surface); color: var(--g-yellow); }
     .chip-sgg { background: var(--g-purple-surface); color: var(--g-purple); }
     .chip-haz { background: var(--g-green-surface); color: var(--g-green); }
 
@@ -345,28 +400,28 @@
       gap: 10px;
       align-items: flex-start;
     }
-    .g-alert-error { background: var(--g-red-surface); color: var(--g-red); border: 1px solid #f8b4af; }
-    .g-alert-warn { background: var(--g-yellow-surface); color: #874900; border: 1px solid #fcdb77; }
-    .g-alert-success { background: var(--g-green-surface); color: var(--g-green); border: 1px solid #a8dab5; }
-    .g-alert-blue { background: var(--g-blue-surface); color: var(--g-blue); border: 1px solid #b5d1fa; }
+    .g-alert-error { background: var(--g-red-surface); color: var(--g-red); border: 1px solid var(--g-red); }
+    .g-alert-warn { background: var(--g-yellow-surface); color: var(--g-yellow); border: 1px solid var(--g-yellow); }
+    .g-alert-success { background: var(--g-green-surface); color: var(--g-green); border: 1px solid var(--g-green); }
+    .g-alert-blue { background: var(--g-blue-surface); color: var(--g-blue); border: 1px solid var(--g-blue); }
 
     .rule-item {
       padding: 10px 0;
-      border-bottom: 1px solid #f1f3f4;
+      border-bottom: 1px solid var(--g-border-subtle);
       font-size: 0.84rem;
       line-height: 1.4;
     }
     .rule-item:last-child { border-bottom: none; }
     .tag { font-weight: 700; padding: 2px 7px; border-radius: 4px; font-size: 0.72rem; }
     .tag-prohibit { background: var(--g-red-surface); color: var(--g-red); }
-    .tag-sep { background: var(--g-yellow-surface); color: #874900; }
+    .tag-sep { background: var(--g-yellow-surface); color: var(--g-yellow); }
     .tag-allow { background: var(--g-green-surface); color: var(--g-green); }
 
     /* Search Hits */
     .search-hits {
       max-height: 220px;
       overflow-y: auto;
-      background: #fff;
+      background: var(--g-surface);
       border: 1px solid var(--g-border);
       border-radius: var(--g-radius-sm);
       margin-top: -8px;
@@ -376,15 +431,15 @@
     }
     .hit-item {
       padding: 10px 14px;
-      border-bottom: 1px solid #f1f3f4;
+      border-bottom: 1px solid var(--g-border-subtle);
       font-size: 0.84rem;
       cursor: pointer;
     }
-    .hit-item:hover { background: #f8f9fa; color: var(--g-blue); }
+    .hit-item:hover { background: var(--g-surface-variant); color: var(--g-blue); }
 
     /* Trailer Bay Graphics */
     .trailer-box {
-      background: #f1f3f4;
+      background: var(--g-surface-variant);
       border-radius: 12px;
       padding: 16px;
       border: 1px dashed var(--g-border);
@@ -397,7 +452,7 @@
       margin-top: 10px;
     }
     .trailer-bay {
-      background: #fff;
+      background: var(--g-surface);
       border: 1px solid var(--g-border);
       border-radius: 8px;
       padding: 12px;
@@ -424,12 +479,17 @@
       <div class="g-logo-icon">DG</div>
       <span>Dangerous Goods Workspace</span>
     </div>
-    <div class="desktop-status-tag">
-      <span class="live-badge"><span class="live-dot"></span> NZS 5433:2020 Active</span>
-      <span>•</span>
-      <span>IMDG Code Amdt 41-22 / 42-24</span>
-      <span>•</span>
-      <span>Ro-Ro Maritime Part 24B</span>
+
+    <div class="header-actions">
+      <div class="desktop-status-tag">
+        <span class="live-badge"><span class="live-dot"></span> NZS 5433 Active</span>
+        <span>•</span>
+        <span>IMDG Code 41-22 / 42-24</span>
+      </div>
+      <!-- Theme Switcher -->
+      <button id="themeToggleBtn" type="button" class="theme-toggle-btn" title="Toggle Dark/Light Mode">
+        <span id="themeIcon">🌙</span>
+      </button>
     </div>
   </header>
 
@@ -469,7 +529,7 @@
         <span>Hazchem & PPE</span>
       </div>
 
-      <div style="margin-top:auto; padding:14px 12px; background:#f8f9fa; border-radius:12px; border:1px solid var(--g-border); font-size:0.75rem; color:var(--g-text-secondary); line-height:1.4;">
+      <div style="margin-top:auto; padding:14px 12px; background:var(--g-surface-variant); border-radius:12px; border:1px solid var(--g-border); font-size:0.75rem; color:var(--g-text-secondary); line-height:1.4;">
         <strong style="color:var(--g-text-primary); display:block; margin-bottom:4px;">Desktop Shortcuts</strong>
         • <code style="font-family:'Roboto Mono';">Enter</code>: Evaluate DG<br>
         • <code style="font-family:'Roboto Mono';">Ctrl/Cmd + M</code>: Add to Manifest
@@ -757,6 +817,41 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+      // Theme / Night Mode Controller
+      const themeBtn = document.getElementById('themeToggleBtn');
+      const themeIcon = document.getElementById('themeIcon');
+      const metaTheme = document.getElementById('metaThemeColor');
+
+      function setTheme(isDark) {
+        if (isDark) {
+          document.body.classList.add('dark-mode');
+          themeIcon.innerText = '☀️';
+          metaTheme.setAttribute('content', '#1e1e1e');
+          localStorage.setItem('dg_workspace_theme', 'dark');
+        } else {
+          document.body.classList.remove('dark-mode');
+          themeIcon.innerText = '🌙';
+          metaTheme.setAttribute('content', '#ffffff');
+          localStorage.setItem('dg_workspace_theme', 'light');
+        }
+      }
+
+      // Check Saved Preference or System Preference
+      const savedTheme = localStorage.getItem('dg_workspace_theme');
+      if (savedTheme === 'dark') {
+        setTheme(true);
+      } else if (savedTheme === 'light') {
+        setTheme(false);
+      } else {
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        setTheme(prefersDark);
+      }
+
+      themeBtn.addEventListener('click', () => {
+        const currentlyDark = document.body.classList.contains('dark-mode');
+        setTheme(!currentlyDark);
+      });
+
       const UN_DATABASE = {
         "1001": { name: "ACETYLENE, DISSOLVED", class: "2.1", sub: "", sgg: "None", haz: "2SE" },
         "1005": { name: "AMMONIA, ANHYDROUS", class: "2.3", sub: "8", sgg: "SGG18", haz: "2RE" },
@@ -871,7 +966,7 @@
         return cls && cls.startsWith("1.") ? "1.1" : cls;
       }
 
-      // Unified Navigation Sync (Mobile Pills + Desktop Rail)
+      // Unified Navigation Sync
       const views = [document.getElementById('view1'), document.getElementById('view2'), document.getElementById('view3'), document.getElementById('view4'), document.getElementById('view5')];
       const mTabs = [document.getElementById('mTab1'), document.getElementById('mTab2'), document.getElementById('mTab3'), document.getElementById('mTab4'), document.getElementById('mTab5')];
       const dTabs = [document.getElementById('dTab1'), document.getElementById('dTab2'), document.getElementById('dTab3'), document.getElementById('dTab4'), document.getElementById('dTab5')];
@@ -1074,7 +1169,7 @@
           return;
         }
         list.innerHTML = manifest.map((item, i) => `
-          <div style="padding:12px; background:#f8f9fa; border-radius:8px; margin-bottom:8px; border:1px solid var(--g-border); font-size:0.82rem;">
+          <div style="padding:12px; background:var(--g-surface-variant); border-radius:8px; margin-bottom:8px; border:1px solid var(--g-border); font-size:0.82rem;">
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <strong>${item.label}</strong>
               <button type="button" data-del="${i}" style="background:none; border:none; color:var(--g-red); font-weight:bold; cursor:pointer;">Remove</button>
@@ -1183,7 +1278,7 @@
               <div style="font-size:1.2rem;">${roadBlocked || seaBlocked ? '❌' : '⚠️'}</div>
               <div>${roadBlocked || seaBlocked ? '<strong>COMPLIANCE ALERT:</strong> Segregation collisions detected.' : '<strong>NOTICE:</strong> Separation distance required.'}</div>
             </div>
-            ${banners.map(b => `<div class="rule-item" style="background:#f8f9fa; padding:10px; border-radius:6px; margin-bottom:6px;">${b}</div>`).join('')}
+            ${banners.map(b => `<div class="rule-item" style="background:var(--g-surface-variant); padding:10px; border-radius:6px; margin-bottom:6px;">${b}</div>`).join('')}
           `;
         }
 
