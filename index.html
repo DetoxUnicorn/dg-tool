@@ -461,7 +461,7 @@
         });
       }
 
-      // Master Curated High-Consequence Freight (Including UN 1950 Aerosols)
+      // Master Curated High-Consequence Freight
       const MASTER_CURATED = {
         "0004": { name: "AMMONIUM PICRATE, dry or wetted <10% water", class: "1.1D", sub: "", sgg: "None", stow: "D", haz: "1E", pg: "N/A", tunnel: "BANNED (Lyttelton Daytime)", spill: "EXPLOSIVE. Evacuate 800m. Avoid friction/heat.", fire: "Evacuate 800m. Do not fight fire." },
         "0027": { name: "BLACK POWDER (GUNPOWDER), granular or meal", class: "1.1D", sub: "", sgg: "None", stow: "D", haz: "1E", pg: "N/A", tunnel: "BANNED (Lyttelton Daytime)", spill: "Blast hazard. Ground equipment.", fire: "Evacuate 800m." },
@@ -539,7 +539,7 @@
         }
 
         UN_DATABASE = fullDB;
-        try { localStorage.setItem("dg_unified_un_registry_v36", JSON.stringify(fullDB)); } catch (e) {}
+        try { localStorage.setItem("dg_unified_un_registry_v37", JSON.stringify(fullDB)); } catch (e) {}
         
         const logoIcon = document.getElementById('logoIcon');
         if (logoIcon) {
@@ -684,15 +684,16 @@
           if (UN_DATABASE[val]) { applyItem(val, UN_DATABASE[val]); if(searchHits) searchHits.style.display = 'none'; return; }
           const matches = Object.keys(UN_DATABASE).filter(k => k.includes(val) || (UN_DATABASE[k].name && UN_DATABASE[k].name.toLowerCase().includes(val))).slice(0, 8);
           if (matches.length > 0 && searchHits) {
-            searchHits.innerHTML = matches.map(k => `
-              <div class="hit-item" data-un="${k}">
-                <strong>UN ${k}</strong> - ${UN_DATABASE[k].name} (Cl ${UN_DATABASE[k].class})
-              </div>
-            `).join('');
+            searchHits.innerHTML = matches.map(function(k) {
+              return '<div class="hit-item" data-un="' + k + '"><strong>UN ' + k + '</strong> - ' + UN_DATABASE[k].name + ' (Cl ' + UN_DATABASE[k].class + ')</div>';
+            }).join('');
             searchHits.style.display = 'block';
-            searchHits.querySelectorAll('.hit-item').forEach(el => {
+            searchHits.querySelectorAll('.hit-item').forEach(function(el) {
               el.addEventListener('click', function() {
-                const code = this.getAttribute('data-un'); applyItem(code, UN_DATABASE[code]); unInput.value = code; searchHits.style.display = 'none';
+                const code = this.getAttribute('data-un'); 
+                applyItem(code, UN_DATABASE[code]); 
+                unInput.value = code; 
+                searchHits.style.display = 'none';
                 runEvaluation();
               });
             });
@@ -741,14 +742,13 @@
 
         const itemOverview = document.getElementById('itemOverview');
         if(itemOverview) {
-          itemOverview.innerHTML = `
-            <h2 style="margin:0 0 8px 0; font-size:1.15rem;">${title}</h2>
-            <div>
-              <span class="g-chip chip-class">Class ${pClass}</span>
-              ${sub ? `<span class="g-chip chip-sub">Sub ${sub}</span>` : ''}
-              <span class="g-chip chip-sgg">SGG: ${sgg}</span>
-            </div>
-          `;
+          itemOverview.innerHTML = 
+            '<h2 style="margin:0 0 8px 0; font-size:1.15rem;">' + title + '</h2>' +
+            '<div>' +
+              '<span class="g-chip chip-class">Class ' + pClass + '</span>' +
+              (sub ? '<span class="g-chip chip-sub">Sub ' + sub + '</span>' : '') +
+              '<span class="g-chip chip-sgg">SGG: ' + sgg + '</span>' +
+            '</div>';
         }
         
         let indicatorHTML = "";
@@ -870,31 +870,35 @@
           return; 
         }
         
-        list.innerHTML = manifest.map((item, i) => `
-          <div class="manifest-item-box">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-              <strong style="word-break: break-word; flex:1; padding-right:8px;">${item.label}</strong>
-              <button type="button" onclick="deleteManifestItem(${i})" style="background:none; border:none; color:var(--g-red); font-weight:bold; cursor:pointer; font-size:1rem; padding:0 4px;">X</button>
-            </div>
-            <div style="margin-top:6px; display:flex; flex-wrap:wrap; gap:4px; align-items:center;">
-              <span class="g-chip chip-class">Cl ${item.pClass}</span>
-              ${item.sub ? `<span class="g-chip chip-sub">Sub ${item.sub}</span>` : ''}
-              <span class="g-chip" style="background:var(--g-border); color:var(--g-text-primary);">${item.drop}</span>
-              ${item.isMp ? `<span class="g-chip" style="background:#fff; border:1px solid #000; color:#000;">🐟 Env Haz</span>` : ''}
-              <span style="color:var(--g-text-secondary); font-size:0.75rem;">${item.qty||0} Kg/L ${item.isLq?'[LQ]':''}</span>
-            </div>
-            <label class="seg-checkbox"><input type="checkbox" onchange="toggleSegBin(${i}, this.checked)" ${item.inSegBin ? 'checked' : ''}> Packaged in Segregation Device (Type A/B)</label>
-          </div>
-        `).join('');
+        list.innerHTML = manifest.map(function(item, i) {
+          return '<div class="manifest-item-box">' +
+            '<div style="display:flex; justify-content:space-between; align-items:flex-start;">' +
+              '<strong style="word-break: break-word; flex:1; padding-right:8px;">' + item.label + '</strong>' +
+              '<button type="button" onclick="deleteManifestItem(' + i + ')" style="background:none; border:none; color:var(--g-red); font-weight:bold; cursor:pointer; font-size:1rem; padding:0 4px;">X</button>' +
+            '</div>' +
+            '<div style="margin-top:6px; display:flex; flex-wrap:wrap; gap:4px; align-items:center;">' +
+              '<span class="g-chip chip-class">Cl ' + item.pClass + '</span>' +
+              (item.sub ? '<span class="g-chip chip-sub">Sub ' + item.sub + '</span>' : '') +
+              '<span class="g-chip" style="background:var(--g-border); color:var(--g-text-primary);">' + item.drop + '</span>' +
+              (item.isMp ? '<span class="g-chip" style="background:#fff; border:1px solid #000; color:#000;">🐟 Env Haz</span>' : '') +
+              '<span style="color:var(--g-text-secondary); font-size:0.75rem;">' + (item.qty||0) + ' Kg/L ' + (item.isLq?'[LQ]':'') + '</span>' +
+            '</div>' +
+            '<label class="seg-checkbox"><input type="checkbox" onchange="toggleSegBin(' + i + ', this.checked)" ' + (item.inSegBin ? 'checked' : '') + '> Packaged in Segregation Device (Type A/B)</label>' +
+          '</div>';
+        }).join('');
         generateDGDPreview();
       }
 
       const btnSaveLogbook = document.getElementById('btnSaveLogbook');
       if(btnSaveLogbook) {
-        btnSaveLogbook.addEventListener('click', () => {
+        btnSaveLogbook.addEventListener('click', function() {
           if(manifest.length === 0) return alert("Nothing to save.");
           const name = prompt("Name this load (e.g. Napier Night Run):");
-          if(name) { logbook.unshift({ name: name, date: new Date().toLocaleDateString(), data: JSON.parse(JSON.stringify(manifest)) }); saveLogbook(); alert("Saved to logbook."); }
+          if(name) { 
+            logbook.unshift({ name: name, date: new Date().toLocaleDateString(), data: JSON.parse(JSON.stringify(manifest)) }); 
+            saveLogbook(); 
+            alert("Saved to logbook."); 
+          }
         });
       }
 
@@ -908,20 +912,20 @@
         const ll = document.getElementById('logbookList');
         if(!ll) return;
         if(logbook.length === 0) { ll.innerHTML = "No saved manifests."; return; }
-        ll.innerHTML = logbook.map((l, i) => `
-          <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid var(--g-border-subtle); gap:8px;">
-            <div style="word-break:break-word; flex:1;"><strong>${l.name}</strong> <span style="font-size:0.75rem; color:var(--g-text-secondary);">(${l.date}) - ${l.data.length} items</span></div>
-            <div style="display:flex; gap:4px; flex-shrink:0;">
-              <button class="g-btn g-btn-tonal" style="width:auto; height:28px; padding:0 8px; font-size:0.7rem;" onclick="loadLogbookItem(${i})">Load</button>
-              <button class="g-btn g-btn-danger" style="width:auto; height:28px; padding:0 8px; font-size:0.7rem;" onclick="delLogbookItem(${i})">X</button>
-            </div>
-          </div>
-        `).join('');
+        ll.innerHTML = logbook.map(function(l, i) {
+          return '<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid var(--g-border-subtle); gap:8px;">' +
+            '<div style="word-break:break-word; flex:1;"><strong>' + l.name + '</strong> <span style="font-size:0.75rem; color:var(--g-text-secondary);">(' + l.date + ') - ' + l.data.length + ' items</span></div>' +
+            '<div style="display:flex; gap:4px; flex-shrink:0;">' +
+              '<button class="g-btn g-btn-tonal" style="width:auto; height:28px; padding:0 8px; font-size:0.7rem;" onclick="loadLogbookItem(' + i + ')">Load</button>' +
+              '<button class="g-btn g-btn-danger" style="width:auto; height:28px; padding:0 8px; font-size:0.7rem;" onclick="delLogbookItem(' + i + ')">X</button>' +
+            '</div>' +
+          '</div>';
+        }).join('');
       }
 
       const btnClearManifest = document.getElementById('btnClearManifest');
       if(btnClearManifest) {
-        btnClearManifest.addEventListener('click', () => { 
+        btnClearManifest.addEventListener('click', function() { 
           if(confirm("Clear manifest?")){ 
             manifest=[]; saveManifest(); renderManifest(); 
             const auditOut = document.getElementById('manifestAuditOutput');
@@ -933,7 +937,7 @@
       // Audit Engine
       const btnAuditManifest = document.getElementById('btnAuditManifest');
       if(btnAuditManifest) {
-        btnAuditManifest.addEventListener('click', () => {
+        btnAuditManifest.addEventListener('click', function() {
           if (manifest.length < 2) return alert("Add at least 2 items.");
           const banners = []; let roadBlocked = false; let seaBlocked = false; let freightOnlyItems = [];
 
@@ -972,7 +976,7 @@
 
           if (banners.length === 0) sum += '<div class="g-alert g-alert-success"><div>✅</div><div><strong>LOAD COMPLIANT:</strong> All items compatible for road and container freight.</div></div>';
           else sum += '<div class="g-alert ' + (roadBlocked || seaBlocked ? 'g-alert-error' : 'g-alert-warn') + '"><div>' + (roadBlocked || seaBlocked ? '❌' : '⚠️') + '</div><div><strong>AUDIT WARNINGS:</strong></div></div>' +
-          banners.map(b => `<div class="rule-item">${b}</div>`).join('');
+          banners.map(function(b) { return '<div class="rule-item">' + b + '</div>'; }).join('');
           
           const mBanners = document.getElementById('manifestBanners');
           const mAuditOut = document.getElementById('manifestAuditOutput');
@@ -981,7 +985,7 @@
         });
       }
 
-      // Visual Placard Generator
+      // Visual Placard Generation
       function getPlacardDiamond(clsCode, isMp) {
         if(isMp) return '<div class="dg-diamond dg-mp"><div class="dg-diamond-content"><span class="dg-mp-icon">🐟</span></div></div>';
         if(clsCode.startsWith("1")) return '<div class="dg-diamond dg-c1"><div class="dg-diamond-content"><span class="dg-sym">💥</span><span class="dg-cls">' + clsCode + '</span></div></div>';
@@ -990,8 +994,8 @@
         if(clsCode === "4.1") return '<div class="dg-diamond dg-c4-1"><div class="dg-diamond-content"><span class="dg-sym">🔥</span><span class="dg-cls" style="background:#fff;padding:0 2px;">4</span></div></div>';
         if(clsCode === "4.3") return '<div class="dg-diamond dg-c4-3"><div class="dg-diamond-content"><span class="dg-sym">🔥</span><span class="dg-cls">4</span></div></div>';
         if(clsCode.startsWith("5")) return '<div class="dg-diamond dg-c5"><div class="dg-diamond-content"><span class="dg-sym">⭕</span><span class="dg-cls">' + clsCode + '</span></div></div>';
-        if(clsCode.startsWith("6")) return '<div class="dg-diamond dg-c6"><div class="dg-diamond-content"><span class="dg-sym">💀</span><span class="dg-cls">6</span></div></div>`;
-        if(clsCode === "8") return '<div class="dg-diamond dg-c8"><div class="dg-diamond-content"><span class="dg-sym" style="color:#000;">🧪</span><span class="dg-cls" style="margin-top:10px;">8</span></div></div>`;
+        if(clsCode.startsWith("6")) return '<div class="dg-diamond dg-c6"><div class="dg-diamond-content"><span class="dg-sym">💀</span><span class="dg-cls">6</span></div></div>';
+        if(clsCode === "8") return '<div class="dg-diamond dg-c8"><div class="dg-diamond-content"><span class="dg-sym" style="color:#000;">🧪</span><span class="dg-cls" style="margin-top:10px;">8</span></div></div>';
         if(clsCode === "9") return '<div class="dg-diamond dg-c9"><div class="dg-diamond-content"><span class="dg-cls" style="margin-top:15px; background:#fff; padding:0 4px;">9</span></div></div>';
         return '<div class="dg-diamond dg-c2"><div class="dg-diamond-content"><span class="dg-cls">' + clsCode + '</span></div></div>';
       }
@@ -1024,7 +1028,7 @@
         if (points >= 500) {
           if(fill) fill.style.backgroundColor = 'var(--g-red)';
           if(pStatusBanner) pStatusBanner.innerHTML = '<div class="g-alert g-alert-error"><div>🚨</div><div><strong>PLACARDS MANDATED:</strong> Display placards on vehicle.</div></div>';
-          let html = Array.from(mandatoryClasses).map(c => getPlacardDiamond(c, false)).join('');
+          let html = Array.from(mandatoryClasses).map(function(c) { return getPlacardDiamond(c, false); }).join('');
           if(hasMp) html += getPlacardDiamond('', true);
           if(pBoard) pBoard.innerHTML = html;
         } else {
@@ -1049,12 +1053,12 @@
 
       const btnPrintDGD = document.getElementById('btnPrintDGD');
       if(btnPrintDGD) {
-        btnPrintDGD.addEventListener('click', () => { if(manifest.length>0) window.print(); });
+        btnPrintDGD.addEventListener('click', function() { if(manifest.length>0) window.print(); });
       }
 
       const btnAssignBay = document.getElementById('btnAssignBay');
       if(btnAssignBay) {
-        btnAssignBay.addEventListener('click', () => {
+        btnAssignBay.addEventListener('click', function() {
           if (manifest.length === 0) return alert("Manifest is empty.");
           const slotId = document.getElementById('assignSelect').value;
           const target = document.getElementById(slotId);
