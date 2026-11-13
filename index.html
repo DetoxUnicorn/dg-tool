@@ -5,31 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="theme-color" content="#ffffff" id="metaThemeColor">
+  <meta name="theme-color" content="#1a73e8" id="metaThemeColor">
   <title>DG Workspace Pro • NZS 5433 & IMDG Compliance</title>
-
-  <!-- Cleaned Web App Manifest -->
-  <link rel="manifest" href="data:application/manifest+json;charset=utf-8,{
-    %22name%22: %22DG Workspace Pro%22,
-    %22short_name%22: %22DG Pro%22,
-    %22description%22: %22New Zealand Dangerous Goods NZS 5433 & IMDG Compliance Tool%22,
-    %22start_url%22: %22./index.html%22,
-    %22display%22: %22standalone%22,
-    %22background_color%22: %22%23121212%22,
-    %22theme_color%22: %22%231a73e8%22,
-    %22icons%22: [
-      {
-        %22src%22: %22data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23202124'/%3E%3Ctext x='50' y='58' font-family='Arial Black' font-weight='900' font-size='38' fill='%23fbbc04' text-anchor='middle'%3EDG%3C/text%3E%3C/svg%3E%22,
-        %22sizes%22: %22512x512%22,
-        %22type%22: %22image/svg+xml%22
-      }
-    ]
-  }">
-
-  <!-- NZ Dangerous Goods "Bumblebee" Placard Favicon & App Icon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3Cpattern id='stripes' width='20' height='20' patternTransform='rotate(45 0 0)' patternUnits='userSpaceOnUse'%3E%3Cline x1='0' y1='0' x2='0' y2='20' stroke='%23000000' stroke-width='10'/%3E%3Cline x1='10' y1='0' x2='10' y2='20' stroke='%23fbbc04' stroke-width='10'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100' height='100' rx='18' fill='%23202124'/%3E%3Cpath d='M50 10 L90 50 L50 90 L10 50 Z' fill='url(%23stripes)' stroke='%23000000' stroke-width='3'/%3E%3Crect x='24' y='38' width='52' height='24' rx='4' fill='%23ffffff' stroke='%23000000' stroke-width='2'/%3E%3Ctext x='50' y='55' font-family='Arial Black, Impact, sans-serif' font-weight='900' font-size='14' fill='%23000000' text-anchor='middle' letter-spacing='1'%3ED.G.%3C/text%3E%3C/svg%3E">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3Cpattern id='stripes' width='20' height='20' patternTransform='rotate(45 0 0)' patternUnits='userSpaceOnUse'%3E%3Cline x1='0' y1='0' x2='0' y2='20' stroke='%23000000' stroke-width='10'/%3E%3Cline x1='10' y1='0' x2='10' y2='20' stroke='%23fbbc04' stroke-width='10'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100' height='100' rx='18' fill='%23202124'/%3E%3Cpath d='M50 10 L90 50 L50 90 L10 50 Z' fill='url(%23stripes)' stroke='%23000000' stroke-width='3'/%3E%3Crect x='24' y='38' width='52' height='24' rx='4' fill='%23ffffff' stroke='%23000000' stroke-width='2'/%3E%3Ctext x='50' y='55' font-family='Arial Black, Impact, sans-serif' font-weight='900' font-size='14' fill='%23000000' text-anchor='middle' letter-spacing='1'%3ED.G.%3C/text%3E%3C/svg%3E">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -67,7 +44,6 @@
     .g-logo-icon { position: relative; width: 32px; height: 32px; background: linear-gradient(135deg, #4285f4 0%, #34a853 50%, #fbbc05 75%, #ea4335 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 14px; cursor: pointer; flex-shrink: 0; transition: transform 0.15s ease, box-shadow 0.3s ease; }
     .g-logo-icon:active { transform: scale(0.92); }
     .g-logo-icon.active-db { box-shadow: 0 0 0 2px #34a853, 0 0 12px rgba(52, 168, 83, 0.7); }
-    .g-logo-icon.active-db::after { content: ''; position: absolute; bottom: -2px; right: -2px; width: 9px; height: 9px; background: #22c55e; border: 2px solid var(--g-surface); border-radius: 50%; box-shadow: 0 0 4px #22c55e; }
 
     .header-actions { display: flex; align-items: center; gap: 10px; }
     .desktop-status-tag { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--g-text-secondary); font-weight: 500; }
@@ -461,11 +437,6 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      if ('serviceWorker' in navigator) {
-        const swScript = "const CACHE_NAME='dg-pro-v35';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});";
-        navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(swScript)).catch(function(){});
-      }
-
       // Theme toggle functionality
       const themeBtn = document.getElementById('themeToggleBtn');
       function setTheme(isDark) {
@@ -490,7 +461,7 @@
         });
       }
 
-      // Master Curated High-Consequence Freight
+      // Master Curated High-Consequence Freight (Including UN 1950 Aerosols)
       const MASTER_CURATED = {
         "0004": { name: "AMMONIUM PICRATE, dry or wetted <10% water", class: "1.1D", sub: "", sgg: "None", stow: "D", haz: "1E", pg: "N/A", tunnel: "BANNED (Lyttelton Daytime)", spill: "EXPLOSIVE. Evacuate 800m. Avoid friction/heat.", fire: "Evacuate 800m. Do not fight fire." },
         "0027": { name: "BLACK POWDER (GUNPOWDER), granular or meal", class: "1.1D", sub: "", sgg: "None", stow: "D", haz: "1E", pg: "N/A", tunnel: "BANNED (Lyttelton Daytime)", spill: "Blast hazard. Ground equipment.", fire: "Evacuate 800m." },
@@ -515,7 +486,6 @@
 
       function buildFullRegistry() {
         const fullDB = {};
-
         for (let i = 4; i <= 3550; i++) {
           const unStr = String(i).padStart(4, '0');
           if (MASTER_CURATED[unStr]) {
@@ -569,17 +539,14 @@
         }
 
         UN_DATABASE = fullDB;
-        try { localStorage.setItem("dg_unified_un_registry_v35", JSON.stringify(fullDB)); } catch (e) {}
-        activateDatabaseStatus(Object.keys(UN_DATABASE).length);
-      }
-
-      function activateDatabaseStatus(count) {
+        try { localStorage.setItem("dg_unified_un_registry_v36", JSON.stringify(fullDB)); } catch (e) {}
+        
         const logoIcon = document.getElementById('logoIcon');
         if (logoIcon) {
           logoIcon.classList.add('active-db');
-          logoIcon.addEventListener('click', function() {
-            alert("🟢 System Ready: Complete 3,500+ UN Registry Active (" + count + " commodities verified).");
-          });
+          logoIcon.onclick = function() {
+            alert("🟢 System Ready: Complete 3,500+ UN Registry Active (" + Object.keys(UN_DATABASE).length + " commodities verified).");
+          };
         }
         const textElem = document.getElementById('dbStatusText');
         if (textElem) textElem.innerText = "3,500+ Registry Active";
@@ -634,16 +601,8 @@
         const sA = normalizeClass(subA);
         const cB = normalizeClass(classB);
         const sB = normalizeClass(subB);
-
         const lookup = (c1, c2) => (c1 && c2 && ROAD_MATRIX[c1] && ROAD_MATRIX[c1][c2]) ? ROAD_MATRIX[c1][c2] : "A";
-
-        let candidates = [
-          lookup(cA, cB),
-          lookup(sA, cB),
-          lookup(cA, sB),
-          lookup(sA, sB)
-        ];
-
+        let candidates = [lookup(cA, cB), lookup(sA, cB), lookup(cA, sB), lookup(sA, sB)];
         if (candidates.includes("P")) return "P";
         if (candidates.includes("S")) return "S";
         return "A";
@@ -654,16 +613,8 @@
         const sA = normalizeClass(subA);
         const cB = normalizeClass(classB);
         const sB = normalizeClass(subB);
-
         const lookup = (c1, c2) => (c1 && c2 && IMDG_MATRIX[c1] && IMDG_MATRIX[c1][c2]) ? IMDG_MATRIX[c1][c2] : "X";
-
-        let candidates = [
-          lookup(cA, cB),
-          lookup(sA, cB),
-          lookup(cA, sB),
-          lookup(sA, sB)
-        ];
-
+        let candidates = [lookup(cA, cB), lookup(sA, cB), lookup(cA, sB), lookup(sA, sB)];
         if (candidates.includes("4")) return "4";
         if (candidates.includes("3")) return "3";
         if (candidates.includes("2")) return "2";
@@ -671,7 +622,7 @@
         return "X";
       }
 
-      // Safely load persistent storage
+      // Persistent Storage
       let manifest = [];
       try {
         const saved = localStorage.getItem("nz_dg_manifest");
@@ -696,9 +647,8 @@
         renderLogbook();
       }
 
-      // Navigation Sync (Robust Data Attribute Binding)
+      // Navigation Sync
       const views = [document.getElementById('view1'), document.getElementById('view2'), document.getElementById('view3')];
-      
       function selectTab(index) {
         views.forEach((v, i) => { if(v) v.style.display = i === index ? 'block' : 'none'; });
         document.querySelectorAll('.mobile-pill, .nav-item').forEach(el => {
@@ -762,31 +712,6 @@
         if(pgElem && item.pg) pgElem.value = item.pg;
       }
 
-      // Barcode Scanner
-      let videoStream = null;
-      const btnToggleScan = document.getElementById('btnToggleScan');
-      const btnCloseScan = document.getElementById('btnCloseScan');
-      if(btnToggleScan) {
-        btnToggleScan.addEventListener('click', async () => {
-          const box = document.getElementById('scannerBox');
-          const video = document.getElementById('cameraFeed');
-          try {
-            videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
-            if(video) video.srcObject = videoStream;
-            if(box) box.style.display = 'block';
-          } catch (err) {
-            alert("Camera access unavailable: " + err.message);
-          }
-        });
-      }
-      if(btnCloseScan) {
-        btnCloseScan.addEventListener('click', () => {
-          if (videoStream) videoStream.getTracks().forEach(track => track.stop());
-          const box = document.getElementById('scannerBox');
-          if(box) box.style.display = 'none';
-        });
-      }
-
       // Evaluation Engine Button Hook
       const btnEvaluate = document.getElementById('btnEvaluate');
       if(btnEvaluate) {
@@ -807,7 +732,6 @@
         const title = itemData.name ? ("UN " + code + " - " + itemData.name) : (code ? "UN " + code : "Class " + pClass);
         let sgg = itemData.sgg || "None";
         
-        // Dynamically determine IMDG Stowage Category based on Class 3 Packing Group
         let stow = itemData.stow || "A";
         if (pClass === "3") {
           if (pg === "I") stow = "E";
@@ -828,9 +752,9 @@
         }
         
         let indicatorHTML = "";
-        if (stow === 'D' || stow === 'E') indicatorHTML = `<div class="ferry-indicator-banner ferry-banned"><span style="font-size:1.4rem;">🛑</span><div><strong>FREIGHT ONLY SAILING REQUIRED</strong><div style="font-size:0.75rem; font-weight:400;">IMDG Category ${stow} • Prohibited with passengers</div></div></div>`;
-        else if (stow === 'B' || stow === 'C') indicatorHTML = `<div class="ferry-indicator-banner ferry-weather-deck"><span style="font-size:1.4rem;">⚠️</span><div><strong>WEATHER DECK ONLY (PAX OK)</strong><div style="font-size:0.75rem; font-weight:400;">IMDG Category ${stow} • Natural ventilation required</div></div></div>`;
-        else indicatorHTML = `<div class="ferry-indicator-banner ferry-allowed"><span style="font-size:1.4rem;">🟢</span><div><strong>PASSENGER SAILING PERMITTED</strong><div style="font-size:0.75rem; font-weight:400;">IMDG Category A • Approved deck/holds</div></div></div>`;
+        if (stow === 'D' || stow === 'E') indicatorHTML = '<div class="ferry-indicator-banner ferry-banned"><span style="font-size:1.4rem;">🛑</span><div><strong>FREIGHT ONLY SAILING REQUIRED</strong><div style="font-size:0.75rem; font-weight:400;">IMDG Category ' + stow + ' • Prohibited with passengers</div></div></div>';
+        else if (stow === 'B' || stow === 'C') indicatorHTML = '<div class="ferry-indicator-banner ferry-weather-deck"><span style="font-size:1.4rem;">⚠️</span><div><strong>WEATHER DECK ONLY (PAX OK)</strong><div style="font-size:0.75rem; font-weight:400;">IMDG Category ' + stow + ' • Natural ventilation required</div></div></div>';
+        else indicatorHTML = '<div class="ferry-indicator-banner ferry-allowed"><span style="font-size:1.4rem;">🟢</span><div><strong>PASSENGER SAILING PERMITTED</strong><div style="font-size:0.75rem; font-weight:400;">IMDG Category A • Approved deck/holds</div></div></div>';
         
         const ferryBox = document.getElementById('ferryIndicatorBox');
         if(ferryBox) ferryBox.innerHTML = indicatorHTML;
@@ -839,22 +763,18 @@
         let tunnelColor = tunnelMsg.includes("BANNED") ? "g-alert-error" : (tunnelMsg.includes("RESTRICTED") ? "g-alert-warn" : "g-alert-blue");
         
         const tunnelBox = document.getElementById('tunnelIndicatorBox');
-        if(tunnelBox) tunnelBox.innerHTML = `<div class="g-alert ${tunnelColor}" style="margin-top:10px; margin-bottom:0;"><div>🚇</div><div><strong>Tunnel Bylaw Check:</strong> ${tunnelMsg}</div></div>`;
+        if(tunnelBox) tunnelBox.innerHTML = '<div class="g-alert ' + tunnelColor + '" style="margin-top:10px; margin-bottom:0;"><div>🚇</div><div><strong>Tunnel Bylaw Check:</strong> ' + tunnelMsg + '</div></div>';
 
-        const em = `
-          <div class="rule-item"><strong>Spill:</strong> ${itemData.spill || 'Isolate & Evacuate.'}</div>
-          <div class="rule-item"><strong>Fire:</strong> ${itemData.fire || 'Use foam/dry powder.'}</div>
-          <div class="rule-item" style="margin-top:8px; border-top:1px dashed var(--g-border); padding-top:8px;">
-            <strong>Required PPE:</strong> Chemical-resistant overalls, nitrile gloves, safety boots, and approved respirator/breathing apparatus as specified in EPG.
-          </div>
-        `;
+        const em = '<div class="rule-item"><strong>Spill:</strong> ' + (itemData.spill || 'Isolate & Evacuate.') + '</div>' +
+                   '<div class="rule-item"><strong>Fire:</strong> ' + (itemData.fire || 'Use foam/dry powder.') + '</div>' +
+                   '<div class="rule-item" style="margin-top:8px; border-top:1px dashed var(--g-border); padding-top:8px;"><strong>Required PPE:</strong> Chemical-resistant overalls, nitrile gloves, safety boots, and approved breathing apparatus.</div>';
         const eg1 = document.getElementById('emergencyGuidance');
         if(eg1) eg1.innerHTML = em;
 
         let foodHTML = "";
-        if (pClass === "6.1" || sub === "6.1" || pClass === "2.3") foodHTML = `<div class="g-alert g-alert-error"><div style="font-size:1.2rem;">🛑</div><div><strong>STRICT CO-LOAD PROHIBITION:</strong> Toxic substances (Primary or Sub-Risk) must never share a compartment with food or food packaging.</div></div>`;
-        else if (pClass === "8" || sub === "8") foodHTML = `<div class="g-alert g-alert-warn"><div style="font-size:1.2rem;">⚠️</div><div><strong>CORROSIVE ISOLATION:</strong> Banned directly above/adjacent to food packaging. 1m clearance required.</div></div>`;
-        else foodHTML = `<div class="g-alert g-alert-success"><div style="font-size:1.2rem;">✅</div><div><strong>COMPLIANT:</strong> Food co-loading permitted.</div></div>`;
+        if (pClass === "6.1" || sub === "6.1" || pClass === "2.3") foodHTML = '<div class="g-alert g-alert-error"><div style="font-size:1.2rem;">🛑</div><div><strong>STRICT CO-LOAD PROHIBITION:</strong> Toxic substances must never share a compartment with food.</div></div>';
+        else if (pClass === "8" || sub === "8") foodHTML = '<div class="g-alert g-alert-warn"><div style="font-size:1.2rem;">⚠️</div><div><strong>CORROSIVE ISOLATION:</strong> Banned directly above/adjacent to food packaging. 1m clearance required.</div></div>';
+        else foodHTML = '<div class="g-alert g-alert-success"><div style="font-size:1.2rem;">✅</div><div><strong>COMPLIANT:</strong> Food co-loading permitted.</div></div>';
         
         const foodAudit = document.getElementById('foodAudit');
         if(foodAudit) foodAudit.innerHTML = foodHTML;
@@ -864,12 +784,10 @@
         targets.forEach(tgt => {
           let rule = getRoadSegregation(pClass, sub, tgt, "");
           let note = "";
-          if (sgg.includes("SGG1") && tgt === "8") note = " (PROHIBITED with Alkalis & Cyanides)";
-          if ((pClass === "5.2" || tgt === "5.2") && (pClass === "4.1" || tgt === "4.1")) rule = "P";
-          
+          if (sgg.includes("SGG1") && tgt === "8") note = " (PROHIBITED with Alkalis)";
           let tagClass = rule === 'P' ? 'tag-prohibit' : (rule === 'S' ? 'tag-sep' : 'tag-allow');
           let label = rule === 'P' ? 'PROHIBITED (NZS 5433)' : (rule === 'S' ? '3m SEPARATION' : 'COMPATIBLE');
-          roadHTML += `<div class="rule-item"><div><strong>Against Class ${tgt}</strong>: <span class="tag ${tagClass}">${label}</span></div><div style="font-size:0.75rem; color:var(--g-text-secondary);">${note}</div></div>`;
+          roadHTML += '<div class="rule-item"><div><strong>Against Class ' + tgt + '</strong>: <span class="tag ' + tagClass + '">' + label + '</span></div><div style="font-size:0.75rem; color:var(--g-text-secondary);">' + note + '</div></div>';
         });
         
         const roadAudit = document.getElementById('roadAudit');
@@ -880,17 +798,11 @@
           let codeVal = getMaritimeSegregation(pClass, sub, tgt, "");
           let desc = "Allowed in same container (CTU)";
           let tagClass = "tag-allow";
-          if (codeVal === "1") { desc = "1 - Away from (BANNED IN SAME CONTAINER / MIN 3M VESSEL SPACE)"; tagClass = "tag-sep"; }
-          if (codeVal === "2") { desc = "2 - Separated from (BANNED IN SAME CONTAINER / MIN 6M VESSEL SPACE)"; tagClass = "tag-prohibit"; }
-          if (codeVal === "3") { desc = "3 - Separated by complete hold"; tagClass = "tag-prohibit"; }
-          if (codeVal === "4") { desc = "4 - Separated longitudinally by intervening hold"; tagClass = "tag-prohibit"; }
+          if (codeVal === "1") { desc = "1 - Away from (Min 3m vessel space)"; tagClass = "tag-sep"; }
+          if (codeVal === "2") { desc = "2 - Separated from (Min 6m vessel space)"; tagClass = "tag-prohibit"; }
+          if (codeVal === "3" || codeVal === "4") { desc = codeVal + " - Separated by hold/longitudinally"; tagClass = "tag-prohibit"; }
 
-          seaHTML += `
-            <div class="rule-item">
-              <div><strong>Against Class ${tgt}</strong>: <span class="tag ${tagClass}">${codeVal}</span></div>
-              <div style="font-size:0.75rem; color:var(--g-text-secondary);">${desc}</div>
-            </div>
-          `;
+          seaHTML += '<div class="rule-item"><div><strong>Against Class ' + tgt + '</strong>: <span class="tag ' + tagClass + '">' + codeVal + '</span></div><div style="font-size:0.75rem; color:var(--g-text-secondary);">' + desc + '</div></div>';
         });
         
         const seaAudit = document.getElementById('seaAudit');
@@ -1029,16 +941,11 @@
             if (manifest[i].stow === 'D' || manifest[i].stow === 'E') freightOnlyItems.push(manifest[i].label);
             for (let j = i + 1; j < manifest.length; j++) {
               const a = manifest[i]; const b = manifest[j];
-              
               let roadRule = getRoadSegregation(a.pClass, a.sub, b.pClass, b.sub);
 
               if ((a.sgg.includes("SGG1") && b.sgg.includes("SGG18")) || (a.sgg.includes("SGG18") && b.sgg.includes("SGG1"))) {
                 roadRule = 'P';
-                banners.push("💥 <strong>CHEMICAL REACTION (NZS 5433):</strong> " + a.label + " (" + a.sgg + ") + " + b.label + " (" + b.sgg + ") - Violent Acid/Base reaction.");
-              }
-              if ((a.sgg.includes("SGG6") && b.sgg.includes("SGG1")) || (a.sgg.includes("SGG1") && b.sgg.includes("SGG6"))) {
-                roadRule = 'P';
-                banners.push("☠️ <strong>CYANIDE GAS HAZARD (NZS 5433):</strong> Acid + Cyanide releases lethal HCN gas. Absolute ban.");
+                banners.push("💥 <strong>CHEMICAL REACTION (NZS 5433):</strong> " + a.label + " + " + b.label + " - Violent Acid/Base reaction.");
               }
 
               if (roadRule === 'P') {
@@ -1053,15 +960,15 @@
               }
 
               const imdgCode = getMaritimeSegregation(a.pClass, a.sub, b.pClass, b.sub);
-              if (imdgCode === '1' || imdgCode === '2' || imdgCode === '3' || imdgCode === '4') {
+              if (['1', '2', '3', '4'].includes(imdgCode)) {
                 seaBlocked = true;
-                banners.push("🌊 <strong>IMDG MARITIME VIOLATION:</strong> " + a.label + " & " + b.label + " have Segregation Code <strong>" + imdgCode + "</strong>. BANNED from being packed in the same shipping container / CTU (IMDG 7.3.4.1).");
+                banners.push("🌊 <strong>IMDG MARITIME VIOLATION:</strong> " + a.label + " & " + b.label + " have Segregation Code <strong>" + imdgCode + "</strong>. BANNED from same container (IMDG 7.3.4.1).");
               }
             }
           }
           
           let sum = "";
-          if (freightOnlyItems.length > 0) sum += '<div class="g-alert g-alert-error" style="margin-bottom:12px;"><div style="font-size:1.3rem;">🛑</div><div><strong>MUST BOOK FREIGHT ONLY SAILING:</strong><br>Manifest contains commodities banned from passenger ferries (' + freightOnlyItems.join(', ') + ').</div></div>';
+          if (freightOnlyItems.length > 0) sum += '<div class="g-alert g-alert-error" style="margin-bottom:12px;"><div>🛑</div><div><strong>FREIGHT ONLY SAILING REQUIRED:</strong><br>Manifest contains commodities banned from passenger ferries (' + freightOnlyItems.join(', ') + ').</div></div>';
 
           if (banners.length === 0) sum += '<div class="g-alert g-alert-success"><div>✅</div><div><strong>LOAD COMPLIANT:</strong> All items compatible for road and container freight.</div></div>';
           else sum += '<div class="g-alert ' + (roadBlocked || seaBlocked ? 'g-alert-error' : 'g-alert-warn') + '"><div>' + (roadBlocked || seaBlocked ? '❌' : '⚠️') + '</div><div><strong>AUDIT WARNINGS:</strong></div></div>' +
@@ -1074,18 +981,18 @@
         });
       }
 
-      // Visual Placard Generation
+      // Visual Placard Generator
       function getPlacardDiamond(clsCode, isMp) {
         if(isMp) return '<div class="dg-diamond dg-mp"><div class="dg-diamond-content"><span class="dg-mp-icon">🐟</span></div></div>';
         if(clsCode.startsWith("1")) return '<div class="dg-diamond dg-c1"><div class="dg-diamond-content"><span class="dg-sym">💥</span><span class="dg-cls">' + clsCode + '</span></div></div>';
         if(clsCode.startsWith("3") || clsCode === "2.1") return '<div class="dg-diamond dg-c3"><div class="dg-diamond-content"><span class="dg-sym">🔥</span><span class="dg-cls">' + clsCode + '</span></div></div>';
         if(clsCode === "2.2") return '<div class="dg-diamond dg-c2-2"><div class="dg-diamond-content"><span class="dg-sym">🟩</span><span class="dg-cls">2</span></div></div>';
-        if(clsCode === "4.1") return '<div class="dg-diamond dg-c4-1"><div class="dg-diamond-content"><span class="dg-sym">🔥</span><span class="dg-cls" style="background:#fff;padding:0 2px;">4</span></div></div>`;
-        if(clsCode === "4.3") return '<div class="dg-diamond dg-c4-3"><div class="dg-diamond-content"><span class="dg-sym">🔥</span><span class="dg-cls">4</span></div></div>`;
+        if(clsCode === "4.1") return '<div class="dg-diamond dg-c4-1"><div class="dg-diamond-content"><span class="dg-sym">🔥</span><span class="dg-cls" style="background:#fff;padding:0 2px;">4</span></div></div>';
+        if(clsCode === "4.3") return '<div class="dg-diamond dg-c4-3"><div class="dg-diamond-content"><span class="dg-sym">🔥</span><span class="dg-cls">4</span></div></div>';
         if(clsCode.startsWith("5")) return '<div class="dg-diamond dg-c5"><div class="dg-diamond-content"><span class="dg-sym">⭕</span><span class="dg-cls">' + clsCode + '</span></div></div>';
         if(clsCode.startsWith("6")) return '<div class="dg-diamond dg-c6"><div class="dg-diamond-content"><span class="dg-sym">💀</span><span class="dg-cls">6</span></div></div>`;
         if(clsCode === "8") return '<div class="dg-diamond dg-c8"><div class="dg-diamond-content"><span class="dg-sym" style="color:#000;">🧪</span><span class="dg-cls" style="margin-top:10px;">8</span></div></div>`;
-        if(clsCode === "9") return '<div class="dg-diamond dg-c9"><div class="dg-diamond-content"><span class="dg-cls" style="margin-top:15px; background:#fff; padding:0 4px;">9</span></div></div>`;
+        if(clsCode === "9") return '<div class="dg-diamond dg-c9"><div class="dg-diamond-content"><span class="dg-cls" style="margin-top:15px; background:#fff; padding:0 4px;">9</span></div></div>';
         return '<div class="dg-diamond dg-c2"><div class="dg-diamond-content"><span class="dg-cls">' + clsCode + '</span></div></div>';
       }
 
@@ -1116,7 +1023,7 @@
         
         if (points >= 500) {
           if(fill) fill.style.backgroundColor = 'var(--g-red)';
-          if(pStatusBanner) pStatusBanner.innerHTML = '<div class="g-alert g-alert-error"><div>🚨</div><div><strong>PLACARDS MANDATED:</strong> Display the following diamonds on front, rear, and sides.</div></div>';
+          if(pStatusBanner) pStatusBanner.innerHTML = '<div class="g-alert g-alert-error"><div>🚨</div><div><strong>PLACARDS MANDATED:</strong> Display placards on vehicle.</div></div>';
           let html = Array.from(mandatoryClasses).map(c => getPlacardDiamond(c, false)).join('');
           if(hasMp) html += getPlacardDiamond('', true);
           if(pBoard) pBoard.innerHTML = html;
@@ -1129,10 +1036,9 @@
 
       function generateDGDPreview() {
         if(manifest.length === 0) return;
-        let dgd = "MULTIMODAL DANGEROUS GOODS DECLARATION (NZS 5433 / MARITIME NZ PART 24B)\n";
-        dgd += "========================================================================================\n";
+        let dgd = "MULTIMODAL DANGEROUS GOODS DECLARATION (NZS 5433 / MNZ)\n======================================================\n";
         manifest.forEach((m, idx) => {
-          dgd += (idx+1) + ". UN " + (m.un || '----') + " | " + m.label + " | Cl " + m.pClass + (m.sub?'('+m.sub+')':'') + " | PG " + m.pg + " | " + m.qty + (m.isLq?'[LQ]':'') + (m.isMp?' | MARINE POLLUTANT':'') + "\n";
+          dgd += (idx+1) + ". UN " + (m.un || '----') + " | " + m.label + " | Cl " + m.pClass + " | PG " + m.pg + " | " + m.qty + "Kg/L\n";
         });
         
         const dgdContent = document.getElementById('dgdPrintContent');
@@ -1146,15 +1052,14 @@
         btnPrintDGD.addEventListener('click', () => { if(manifest.length>0) window.print(); });
       }
 
-      // Bay Assignment
       const btnAssignBay = document.getElementById('btnAssignBay');
       if(btnAssignBay) {
         btnAssignBay.addEventListener('click', () => {
-          if (manifest.length === 0) return alert("Manifest is empty. Add items first.");
+          if (manifest.length === 0) return alert("Manifest is empty.");
           const slotId = document.getElementById('assignSelect').value;
           const target = document.getElementById(slotId);
           if(target) target.innerHTML = "<b>" + manifest[0].label + "</b><br><span class=\"g-chip chip-class\" style=\"margin-top:4px;\">Cl " + manifest[0].pClass + "</span>";
-          alert("Assigned " + manifest[0].label + " to " + document.getElementById('assignSelect').options[document.getElementById('assignSelect'].selectedIndex].text);
+          alert("Assigned to bay.");
         });
       }
     });
